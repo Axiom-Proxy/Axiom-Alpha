@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings | Axiom </title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        /* ✨ AXIOM SETTINGS - Tabbed Glassmorphic Design ✨ */
+
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        /* Root Variables - Axiom Theme Palette */
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-accent: #e0e7ff;
+            --color-surface: rgba(255, 255, 255, 0.1);
+            --color-surface-hover: rgba(255, 255, 255, 0.2);
+            --color-text-primary: #ffffff;
+            --color-text-secondary: rgba(255, 255, 255, 0.7);
+            --color-border: rgba(255, 255, 255, 0.2);
+            --color-border-hover: rgba(255, 255, 255, 0.4);
+            --spacing-unit: 12px;
+            --padding-base: calc(var(--spacing-unit) * 1);
+            --margin-base: var(--spacing-unit);
+            --border-radius-base: 16px;
+            --border-radius-small: 12px;
+            --blur-strength: 20px;
+            --box-shadow-normal: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --box-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
+            --transition-duration: 0.3s;
+            --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: var(--color-text-primary);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            padding: var(--padding-base);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Animated Particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Stars Effect */
+        .main {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: 1px;
+            width: 1px;
+            z-index: -50;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 24vw 9vh 1px 0px #fff,12vw -24vh 0px 1px #fff,-45vw -22vh 0px 0px #fff,-37vw -40vh 0px 1px #fff,29vw 19vh 0px 1px #fff,4vw -8vh 0px 1px #fff,-5vw 21vh 1px 1px #fff,-27vw 26vh 1px 1px #fff,-47vw -3vh 1px 1px #fff,-28vw -30vh 0px 1px #fff,-43vw -27vh 0px 1px #fff,4vw 22vh 1px 1px #fff,36vw 23vh 0px 0px #fff,-21vw 24vh 1px 1px #fff,-16vw 2vh 1px 0px #fff,-16vw -6vh 0px 0px #fff,5vw 26vh 0px 0px #fff,-34vw 41vh 0px 0px #fff,1vw 42vh 1px 1px #fff,11vw -13vh 1px 1px #fff,48vw -8vh 1px 0px #fff,22vw -15vh 0px 0px #fff,45vw 49vh 0px 0px #fff,43vw -27vh 1px 1px #fff,20vw -2vh 0px 0px #fff,8vw 22vh 0px 1px #fff,39vw 48vh 1px 1px #fff,-21vw -11vh 0px 1px #fff,-40vw 45vh 0px 1px #fff;
+            animation: zoom 16s alternate infinite;
+        }
+
+        @keyframes zoom {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Main Container */
+        .settings-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: calc(var(--padding-base) * 2);
+            height: calc(100vh - 4 * var(--padding-base));
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .settings-header {
+            text-align: center;
+            margin-bottom: calc(var(--margin-base) * 2);
+        }
+
+        .settings-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--margin-base);
+        }
+
+        .settings-header p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* Main Settings Panel */
+        .settings-panel {
+            background: var(--color-surface);
+            backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--box-shadow-normal);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid var(--color-border);
+            padding: 0 calc(var(--padding-base) * 1.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-button {
+            display: flex;
+            align-items: center;
+            padding: calc(var(--padding-base) * 1.5) calc(var(--padding-base) * 2);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all var(--transition-duration) var(--transition-easing);
+            position: relative;
+            font-family: inherit;
+            border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+            margin: 0 2px;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transform: scaleX(0);
+            transition: transform var(--transition-duration) var(--transition-easing);
+        }
+
+        .tab-button:hover {
+            color: var(--color-text-primary);
+            background: var(--color-surface);
+        }
+
+        .tab-button.active {
+            color: var(--color-text-primary);
+            background: var(--color-surface);
+        }
+
+        .tab-button.active::before {
+            transform: scaleX(1);
+        }
+
+        .tab-button .material-symbols-outlined {
+            margin-right: calc(var(--margin-base) * 0.75);
+            font-size: 1.2rem;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            flex: 1;
+            padding: calc(var(--padding-base) * 2);
+            overflow-y: auto;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .tab-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .tab-content::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 3px;
+        }
+
+        .tab-content::-webkit-scrollbar-thumb:hover {
+            background: var(--color-border-hover);
+        }
+
+        /* Setting Items */
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: calc(var(--padding-base) * 1.5) 0;
+            border-bottom: 1px solid var(--color-border);
+            transition: all var(--transition-duration) var(--transition-easing);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-item.hidden {
+            display: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .setting-info p {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all var(--transition-duration) var(--transition-easing);
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: var(--color-text-secondary);
+            border-radius: 50%;
+            transition: all var(--transition-duration) var(--transition-easing);
+        }
+
+        .toggle-switch.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .toggle-switch.active::before {
+            left: 26px;
+            background: var(--color-text-primary);
+        }
+
+        /* Select Dropdown */
+        .setting-select {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-small);
+            color: var(--color-text-primary);
+            padding: calc(var(--padding-base) * 0.75) var(--padding-base);
+            min-width: 120px;
+            cursor: pointer;
+            transition: all var(--transition-duration) var(--transition-easing);
+            font-family: inherit;
+        }
+
+        .setting-select:hover {
+            border-color: var(--color-border-hover);
+            background: var(--color-surface-hover);
+        }
+
+        .setting-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Search Engine Preview */
+        .search-engine-preview {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            margin-top: var(--margin-base);
+            padding: var(--padding-base);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-small);
+        }
+
+        .search-engine-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .search-engine-info {
+            flex: 1;
+        }
+
+        .search-engine-name {
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        .search-engine-url {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            font-family: monospace;
+        }
+
+        /* Custom Search Engine Input */
+        .custom-engine-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-unit);
+            margin-top: var(--margin-base);
+            padding: var(--padding-base);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-small);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .input-label {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        /* Input Field */
+        .setting-input {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-small);
+            color: var(--color-text-primary);
+            padding: calc(var(--padding-base) * 0.75) var(--padding-base);
+            min-width: 200px;
+            transition: all var(--transition-duration) var(--transition-easing);
+            font-family: inherit;
+        }
+
+        .setting-input:hover {
+            border-color: var(--color-border-hover);
+            background: var(--color-surface-hover);
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        .setting-input::placeholder {
+            color: var(--color-text-secondary);
+        }
+
+        .setting-input.full-width {
+            width: 100%;
+            min-width: unset;
+        }
+
+        /* Button */
+        .setting-button {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-small);
+            color: var(--color-text-primary);
+            padding: calc(var(--padding-base) * 0.75) calc(var(--padding-base) * 1.5);
+            cursor: pointer;
+            transition: all var(--transition-duration) var(--transition-easing);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+        }
+
+        .setting-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .setting-button:hover::before {
+            left: 100%;
+        }
+
+        .setting-button:hover {
+            border-color: var(--color-border-hover);
+            background: var(--color-surface-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .setting-button.primary {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        .setting-button.primary:hover {
+            background: var(--color-secondary);
+            border-color: var(--color-secondary);
+        }
+
+        .setting-button.small {
+            padding: calc(var(--padding-base) * 0.5) var(--padding-base);
+            font-size: 0.85rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: calc(var(--margin-base) * 1.5);
+            margin-top: calc(var(--margin-base) * 2);
+            padding-bottom: var(--padding-base);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .section-header:first-child {
+            margin-top: 0;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: var(--padding-base);
+            border-radius: var(--border-radius-small);
+            margin-bottom: var(--margin-base);
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all var(--transition-duration) var(--transition-easing);
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message.success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .message.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .settings-container {
+                padding: var(--padding-base);
+                height: calc(100vh - 2 * var(--padding-base));
+            }
+            
+            .settings-header h1 {
+                font-size: 2rem;
+            }
+            
+            .tab-nav {
+                flex-wrap: wrap;
+                padding: var(--padding-base);
+            }
+            
+            .tab-button {
+                padding: var(--padding-base) calc(var(--padding-base) * 1.5);
+                font-size: 0.9rem;
+            }
+            
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--margin-base);
+            }
+            
+            .setting-input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="global.js"></script>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
+    </div>
+    <div class="main"></div>
+
+    <div class="settings-container">
+        <!-- Header -->
+        <div class="settings-header">
+            <h1>Settings</h1>
+            <p>Customize your Axiom browser experience</p>
+        </div>
+
+        <!-- Main Settings Panel -->
+        <div class="settings-panel">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-button active" data-tab="general">
+                    <span class="material-symbols-outlined">tune</span>
+                    General
+                </button>
+                <button class="tab-button" data-tab="search">
+                    <span class="material-symbols-outlined">search</span>
+                    Search
+                </button>
+                <button class="tab-button" data-tab="privacy">
+                    <span class="material-symbols-outlined">shield</span>
+                    Privacy
+                </button>
+                <button class="tab-button" data-tab="about">
+                    <span class="material-symbols-outlined">info</span>
+                    About
+                </button>
+            </div>
+
+            <!-- General Tab -->
+            <div class="tab-content active" data-content="general">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Themes</h3>
+                        <p>Choose your preferred theme</p>
+                    </div>
+                    <select class="setting-select" data-setting="theme">
+                        <option value="axiom-dark">Axiom Dark</option>
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="ocean">Ocean Depths</option>
+                        <option value="forest">Forest Night</option>
+                        <option value="sunset">Sunset Dreams</option>
+                        <option value="monochrome">Monochrome</option>
+                        
+                        <option value="graduation">Graduation</option>
+                        <option value="mbdtf">Dark Fantasy</option>
+                        <option value="ye">Ye</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Search Tab -->
+            <div class="tab-content" data-content="search">
+                <div id="search-messages"></div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Default Search Engine</h3>
+                        <p>Choose your preferred search engine for new searches</p>
+                    </div>
+                    <select class="setting-select" data-setting="searchEnginePreference" id="search-engine-select">
+                        <option value="brave">Brave Search</option>
+                        <option value="duckduckgo">DuckDuckGo</option>
+                        <option value="google">Google</option>
+                        <option value="bing">Bing</option>
+                        <option value="startpage">Startpage</option>
+                        <option value="yandex">Yandex</option>
+                        <option value="searx">SearX</option>
+                        <option value="custom">Custom Engine...</option>
+                    </select>
+                </div>
+
+                <!-- Search Engine Preview -->
+                <div class="search-engine-preview" id="engine-preview">
+                    <div class="search-engine-icon" id="preview-icon">B</div>
+                    <div class="search-engine-info">
+                        <div class="search-engine-name" id="preview-name">Brave Search</div>
+                        <div class="search-engine-url" id="preview-url">https://search.brave.com/search?q=</div>
+                    </div>
+                </div>
+
+                <!-- Custom Search Engine Inputs -->
+                <div class="custom-engine-inputs" id="custom-engine-inputs" style="display: none;">
+                    <div class="input-group">
+                        <label class="input-label">Engine Name</label>
+                        <input type="text" class="setting-input full-width" id="custom-engine-name" placeholder="My Custom Search Engine">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Search URL (use %s for search term)</label>
+                        <input type="text" class="setting-input full-width" id="custom-engine-url" placeholder="https://example.com/search?q=%s">
+                    </div>
+                    <div style="display: flex; gap: var(--spacing-unit);">
+                        <button class="setting-button primary small" onclick="saveCustomEngine()">Save Custom Engine</button>
+                        <button class="setting-button small" onclick="cancelCustomEngine()">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="section-header">Search Suggestions</div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Enable Search Suggestions</h3>
+                        <p>Show search suggestions as you type</p>
+                    </div>
+                    <div class="toggle-switch active" data-setting="searchSuggestions" onclick="toggleSetting(this)"></div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Private Search Mode</h3>
+                        <p>Use search engines that don't track your queries</p>
+                    </div>
+                    <div class="toggle-switch" data-setting="privateSearch" onclick="toggleSetting(this)"></div>
+                </div>
+            </div>
+
+            <!-- Privacy Tab -->
+            <div class="tab-content" data-content="privacy">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Clear Browsing Data</h3>
+                        <p>Remove history, cookies, and cached files</p>
+                    </div>
+                    <button class="setting-button" onclick="clearBrowsingData()">Clear Data</button>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div class="tab-content" data-content="about">
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Version</h3>
+                        <p>Axiom v0.0.1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search Engine Configuration
+        const SEARCH_ENGINES = {
+            brave: {
+                name: "Brave Search",
+                url: "https://search.brave.com/search?q=",
+                color: "#fb542b",
+                icon: "B"
+            },
+            duckduckgo: {
+                name: "DuckDuckGo", 
+                url: "https://duckduckgo.com/?q=",
+                color: "#de5833",
+                icon: "D"
+            },
+            google: {
+                name: "Google",
+                url: "https://www.google.com/search?q=",
+                color: "#4285f4",
+                icon: "G"
+            },
+            bing: {
+                name: "Bing",
+                url: "https://www.bing.com/search?q=",
+                color: "#008ad7",
+                icon: "B"
+            },
+            startpage: {
+                name: "Startpage",
+                url: "https://www.startpage.com/sp/search?q=",
+                color: "#1a73e8",
+                icon: "S"
+            },
+            yandex: {
+                name: "Yandex",
+                url: "https://yandex.com/search/?text=",
+                color: "#fc3f1d",
+                icon: "Y"
+            },
+            searx: {
+                name: "SearX",
+                url: "https://searx.org/?q=",
+                color: "#3050ff",
+                icon: "X"
+            }
+        };
+
+        let currentSearchEngine = localStorage.getItem("searchEnginePreference") || "brave";
+
+        // Helper function to safely get localStorage boolean values
+        function getStorageBool(key, defaultValue = false) {
+            const value = localStorage.getItem(key);
+            if (value === null) return defaultValue;
+            return value === 'true' || value === '1';
+        }
+
+        // Helper function to set localStorage boolean values
+        function setStorageBool(key, value) {
+            localStorage.setItem(key, value ? 'true' : 'false');
+        }
+
+        // Show message function
+        function showMessage(text, type = 'success') {
+            const messagesContainer = document.getElementById('search-messages');
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            
+            messagesContainer.appendChild(message);
+            
+            // Trigger animation
+            setTimeout(() => {
+                message.classList.add('show');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                message.classList.remove('show');
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Update search engine preview
+        function updateSearchEnginePreview(engineKey) {
+            const engine = SEARCH_ENGINES[engineKey];
+            if (!engine) return;
+
+            const icon = document.getElementById('preview-icon');
+            const name = document.getElementById('preview-name');
+            const url = document.getElementById('preview-url');
+
+            if (icon && name && url) {
+                icon.textContent = engine.icon;
+                icon.style.backgroundColor = engine.color;
+                name.textContent = engine.name;
+                url.textContent = engine.url;
+            }
+        }
+
+        // Handle search engine selection change
+        function handleSearchEngineChange() {
+            const select = document.getElementById('search-engine-select');
+            const customInputs = document.getElementById('custom-engine-inputs');
+            const selectedEngine = select.value;
+
+            if (selectedEngine === 'custom') {
+                customInputs.style.display = 'block';
+                // Load existing custom engine if available
+                const customEngine = JSON.parse(localStorage.getItem('customSearchEngine') || '{}');
+                if (customEngine.name && customEngine.url) {
+                    document.getElementById('custom-engine-name').value = customEngine.name;
+                    document.getElementById('custom-engine-url').value = customEngine.url;
+                }
+            } else {
+                customInputs.style.display = 'none';
+                currentSearchEngine = selectedEngine;
+                localStorage.setItem('searchEnginePreference', selectedEngine);
+                updateSearchEnginePreview(selectedEngine);
+                
+                // Trigger storage event for other windows/tabs
+                window.dispatchEvent(new StorageEvent('storage', {
+                    key: 'searchEnginePreference',
+                    newValue: selectedEngine,
+                    oldValue: localStorage.getItem('searchEnginePreference')
+                }));
+                
+                showMessage(`Search engine changed to ${SEARCH_ENGINES[selectedEngine].name}`);
+            }
+        }
+
+        // Save custom search engine
+        function saveCustomEngine() {
+            const name = document.getElementById('custom-engine-name').value.trim();
+            const url = document.getElementById('custom-engine-url').value.trim();
+
+            if (!name || !url) {
+                showMessage('Please fill in both name and URL fields', 'error');
+                return;
+            }
+
+            if (!url.includes('%s')) {
+                showMessage('URL must contain %s placeholder for search terms', 'error');
+                return;
+            }
+
+            try {
+                new URL(url.replace('%s', 'test'));
+            } catch (e) {
+                showMessage('Please enter a valid URL', 'error');
+                return;
+            }
+
+            // Save custom engine
+            const customEngine = { name, url };
+            localStorage.setItem('customSearchEngine', JSON.stringify(customEngine));
+            localStorage.setItem('searchEnginePreference', 'custom');
+            
+            // Update preview
+            const icon = document.getElementById('preview-icon');
+            const nameEl = document.getElementById('preview-name');
+            const urlEl = document.getElementById('preview-url');
+            
+            if (icon && nameEl && urlEl) {
+                icon.textContent = name.charAt(0).toUpperCase();
+                icon.style.backgroundColor = '#667eea';
+                nameEl.textContent = name;
+                urlEl.textContent = url;
+            }
+
+            // Hide custom inputs
+            document.getElementById('custom-engine-inputs').style.display = 'none';
+            
+            // Trigger storage event
+            window.dispatchEvent(new StorageEvent('storage', {
+                key: 'searchEnginePreference',
+                newValue: 'custom',
+                oldValue: localStorage.getItem('searchEnginePreference')
+            }));
+            
+            showMessage(`Custom search engine "${name}" saved successfully`);
+        }
+
+        // Cancel custom engine setup
+        function cancelCustomEngine() {
+            const select = document.getElementById('search-engine-select');
+            const customInputs = document.getElementById('custom-engine-inputs');
+            
+            // Reset to previous selection
+            select.value = currentSearchEngine;
+            customInputs.style.display = 'none';
+            
+            // Clear inputs
+            document.getElementById('custom-engine-name').value = '';
+            document.getElementById('custom-engine-url').value = '';
+        }
+
+        // Clear browsing data
+        function clearBrowsingData() {
+            if (confirm('Are you sure you want to clear all browsing data? This action cannot be undone.')) {
+                // Clear relevant localStorage items (keep settings)
+                const settingsToKeep = ['searchEnginePreference', 'customSearchEngine', 'theme', 'searchSuggestions', 'privateSearch'];
+                const allKeys = Object.keys(localStorage);
+                
+                allKeys.forEach(key => {
+                    if (!settingsToKeep.includes(key)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                showMessage('Browsing data cleared successfully');
+            }
+        }
+
+        // Initialize settings on page load
+        function initializeSettings() {
+            // Load toggle settings
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                const setting = toggle.getAttribute('data-setting');
+                if (setting) {
+                    const isActive = getStorageBool(setting, toggle.classList.contains('active'));
+                    if (isActive) {
+                        toggle.classList.add('active');
+                    } else {
+                        toggle.classList.remove('active');
+                    }
+                }
+            });
+            
+            // Load input settings
+            document.querySelectorAll('.setting-input').forEach(input => {
+                const setting = input.getAttribute('data-setting');
+                if (setting) {
+                    const savedValue = localStorage.getItem(setting);
+                    if (savedValue) {
+                        input.value = savedValue;
+                    }
+                }
+            });
+            
+            // Load select settings
+            document.querySelectorAll('.setting-select').forEach(select => {
+                const setting = select.getAttribute('data-setting');
+                if (setting) {
+                    const savedValue = localStorage.getItem(setting);
+                    if (savedValue) {
+                        select.value = savedValue;
+                    }
+                }
+            });
+
+            // Initialize search engine
+            const searchEngineSelect = document.getElementById('search-engine-select');
+            if (searchEngineSelect) {
+                const savedEngine = localStorage.getItem('searchEnginePreference') || 'brave';
+                searchEngineSelect.value = savedEngine;
+                
+                if (savedEngine === 'custom') {
+                    const customEngine = JSON.parse(localStorage.getItem('customSearchEngine') || '{}');
+                    if (customEngine.name && customEngine.url) {
+                        const icon = document.getElementById('preview-icon');
+                        const name = document.getElementById('preview-name');
+                        const url = document.getElementById('preview-url');
+                        
+                        if (icon && name && url) {
+                            icon.textContent = customEngine.name.charAt(0).toUpperCase();
+                            icon.style.backgroundColor = '#667eea';
+                            name.textContent = customEngine.name;
+                            url.textContent = customEngine.url;
+                        }
+                    }
+                } else {
+                    updateSearchEnginePreview(savedEngine);
+                }
+            }
+        }
+
+        // Fixed general toggle function
+        function toggleSetting(element) {
+            const isActive = !element.classList.contains('active');
+            const setting = element.getAttribute('data-setting');
+            
+            if (isActive) {
+                element.classList.add('active');
+            } else {
+                element.classList.remove('active');
+            }
+            
+            if (setting) {
+                setStorageBool(setting, isActive);
+                
+                // Apply setting-specific logic
+                switch(setting) {
+                    case 'searchSuggestions':
+                        showMessage(`Search suggestions ${isActive ? 'enabled' : 'disabled'}`);
+                        break;
+                    case 'privateSearch':
+                        showMessage(`Private search mode ${isActive ? 'enabled' : 'disabled'}`);
+                        break;
+                }
+            }
+        }
+
+        // Theme switching function
+        function switchTheme(themeKey) {
+            localStorage.setItem('theme', themeKey);
+            if (window.themeManager && typeof window.themeManager.applyTheme === 'function') {
+                window.themeManager.applyTheme(themeKey);
+            }
+            showMessage(`Theme changed to ${themeKey}`);
+        }
+
+        // Create dynamic particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            
+            const bgAnimation = document.querySelector('.bg-animation');
+            if (bgAnimation) {
+                bgAnimation.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 6000);
+            }
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
+            const selectedContent = document.querySelector(`[data-content="${tabName}"]`);
+            
+            if (selectedTab && selectedContent) {
+                selectedTab.classList.add('active');
+                selectedContent.classList.add('active');
+            }
+        }
+
+        // Event listeners setup
+        function setupEventListeners() {
+            // Tab button click handlers
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    if (tabName) {
+                        switchTab(tabName);
+                    }
+                });
+            });
+
+            // Search engine selection handler
+            const searchEngineSelect = document.getElementById('search-engine-select');
+            if (searchEngineSelect) {
+                searchEngineSelect.addEventListener('change', handleSearchEngineChange);
+            }
+
+            // Theme selection change handler
+            const themeSelect = document.querySelector('[data-setting="theme"]');
+            if (themeSelect) {
+                themeSelect.addEventListener('change', function() {
+                    const selectedTheme = this.value;
+                    switchTheme(selectedTheme);
+                });
+            }
+            
+            // Save input changes with debouncing
+            document.querySelectorAll('.setting-input').forEach(input => {
+                let timeout;
+                input.addEventListener('input', function() {
+                    const setting = this.getAttribute('data-setting');
+                    if (setting) {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => {
+                            localStorage.setItem(setting, this.value);
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Save select changes immediately
+            document.querySelectorAll('.setting-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const setting = this.getAttribute('data-setting');
+                    if (setting && setting !== 'searchEnginePreference') {
+                        localStorage.setItem(setting, this.value);
+                        
+                        if (setting === 'theme') {
+                            switchTheme(this.value);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSettings();
+            setupEventListeners();
+            
+            // Apply current theme if available
+            const currentTheme = localStorage.getItem('theme') || 'axiom-dark';
+            const themeSelect = document.querySelector('[data-setting="theme"]');
+            if (themeSelect) {
+                themeSelect.value = currentTheme;
+                switchTheme(currentTheme);
+            }
+        });
+
+        // Error handling for missing global.js
+        window.addEventListener('error', function(e) {
+            if (e.filename && e.filename.includes('global.js')) {
+                console.warn('global.js not found - some theme features may not work');
+            }
+        });
+    </script>
+
+</body>
+</html>
