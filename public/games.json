@@ -1,4 +1,12 @@
 [
+    {
+      "name": "Our Discord",
+      "link": "https://discord.gg/NJWVpKWA9V",
+      "image": "/assets/media/icons/discord.jpg",
+      "categories": [
+        "all"
+      ]
+    },
   {
     "name": "Fancade",
     "link": "https://play.fancade.com",

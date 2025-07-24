@@ -1,9 +1,8 @@
 {
   "dependencies": {
     "@fastify/static": "^7.0.4",
-    "@mercuryworkshop/bare-mux": "latest",
-    "@mercuryworkshop/epoxy-transport": "latest",
-    "@titaniumnetwork-dev/ultraviolet": "npm:@titaniumnetwork-dev/ultraviolet",
+    		"@mercuryworkshop/bare-mux": "^2.1.6",
+		"@mercuryworkshop/epoxy-transport": "^2.1.25",
     "@tomphttp/bare-server-node": "^2.0.2",
     "express": "^4.18.1",
     "fastify": "^4.28.1",
@@ -12,10 +11,11 @@
     "path": "^0.12.7",
     "serve-static": "^1.15.0",
     "wisp-server-node": "latest"
-  },
-  "name": "glitch",
+	},
+  "name": "axiom",
   "description": "A private proxy that only you know that happens in.",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node ."
   },

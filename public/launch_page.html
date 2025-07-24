@@ -3,26 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Glitch</title>
-   <script>
-      document.addEventListener("DOMContentLoaded",async function(){
-        await navigator.serviceWorker.register('sw.js');
-      })
+  <title>Axiom New Tab</title>
 
-    </script>
   <meta name="googlebot" content="index, follow, snippet">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="scripts/css/global.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@250" rel="stylesheet">
+    		<script src="baremux/index.js" defer></script>
+		<script src="epoxy/index.js" defer></script>
+
   <script src="uv/uv.bundle.js" defer></script>
   <script src="uv/uv.config.js" defer></script>
 <script>
         await navigator.serviceWorker.register('sw.js');
-     
     </script>
   <style>
-/* ✨ ULTRA MODERN GLITCH PROXY INTERFACE ✨ */
 
 :root {
   /* Modern Color Palette */
@@ -107,7 +103,6 @@ body::before {
 #searchbar {
   background: var(--glass-background);
   backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--glass-border);
   width: 100%;
   height: var(--toolbar-height);
   position: fixed;
@@ -257,8 +252,8 @@ body::before {
   transform: translateY(-50%) scale(0.9);
 }
 
-/* Bridge Selector - Made Smaller */
-.bridge-selector {
+/* Shared Selector Styles */
+.selector-base {
   background: var(--glass-background);
   border: 1px solid var(--glass-border);
   border-radius: var(--border-radius);
@@ -273,7 +268,7 @@ body::before {
   overflow: hidden;
 }
 
-.bridge-selector::before {
+.selector-base::before {
   content: '';
   position: absolute;
   top: 0;
@@ -284,24 +279,24 @@ body::before {
   transition: left var(--transition-slow);
 }
 
-.bridge-selector:hover::before {
+.selector-base:hover::before {
   left: 100%;
 }
 
-.bridge-selector:hover {
+.selector-base:hover {
   background: var(--color-surface-hover);
   border-color: var(--color-primary);
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
-.bridge-icon {
+.selector-icon {
   font-size: 16px;
   color: var(--color-text-muted);
   transition: color var(--transition-fast);
 }
 
-.bridge-selector:hover .bridge-icon {
+.selector-base:hover .selector-icon {
   color: var(--color-primary);
 }
 
@@ -312,7 +307,7 @@ body::before {
   gap: var(--spacing-xs);
 }
 
-#bridge-select {
+.custom-select select {
   background: transparent;
   border: none;
   color: var(--color-text-primary);
@@ -327,7 +322,7 @@ body::before {
   -moz-appearance: none;
 }
 
-#bridge-select option {
+.custom-select select option {
   background: #1e293b;
   color: var(--color-text-primary);
   padding: var(--spacing-sm);
@@ -341,7 +336,33 @@ body::before {
   pointer-events: none;
 }
 
-/* Bridge Selector Active State */
+
+.proxy-selector.active {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+}
+
+.proxy-selector.active .proxy-icon,
+.proxy-selector.active .select-arrow {
+  color: var(--color-accent);
+}
+
+.proxy-selector.active::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--color-accent), transparent, var(--color-accent));
+  border-radius: var(--border-radius);
+  z-index: -1;
+  opacity: 0.3;
+  animation: activeGlow 2s ease-in-out infinite alternate;
+}
+
+
+
 .bridge-selector.active {
   border-color: var(--color-success);
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
@@ -358,6 +379,7 @@ body::before {
   top: -2px;
   left: -2px;
   right: -2px;
+  height: 100%;
   bottom: -2px;
   background: linear-gradient(45deg, var(--color-success), transparent, var(--color-success));
   border-radius: var(--border-radius);
@@ -380,6 +402,7 @@ body::before {
   width: 100%;
   height: calc(100vh - var(--toolbar-height));
   position: fixed;
+  border: none;
   top: var(--toolbar-height);
   left: 0;
   box-sizing: border-box;
@@ -476,7 +499,8 @@ body::before {
 }
 
 @media (max-width: 640px) {
-  .bridge-selector {
+  .bridge-selector,
+  .proxy-selector {
     display: none;
   }
   
@@ -559,6 +583,8 @@ body::before {
       <span onclick="goBack()" class="material-symbols-outlined action-btn nav" title="Go Back">arrow_back</span>
       <span onclick="goForward()" class="material-symbols-outlined action-btn nav" title="Go Forward">arrow_forward</span>
       <span id="refresh" onclick="location.reload()" class="material-symbols-outlined action-btn refresh" title="Refresh Page">refresh</span>
+      <span onclick="bookmark()" class="material-symbols-outlined action-btn nav" title="Bookmark">bookmark</span>
+      
     </div>
     
     <div class="search-container">
@@ -572,8 +598,19 @@ body::before {
       <span onclick="handle_fullscreen()" class="material-symbols-outlined action-btn fullscreen" title="Fullscreen Mode">fullscreen</span>
       <span onclick="openSettings()" class="material-symbols-outlined action-btn settings" title="Settings">settings</span>
 
-      <div class="bridge-selector" title="Select proxy bridge">
-        <span class="material-symbols-outlined bridge-icon">vpn_key</span>
+      <div class="proxy-selector selector-base" title="Select proxy service">
+        <span class="material-symbols-outlined selector-icon proxy-icon">security</span>
+        <div class="custom-select"> <!--nuh uh-->
+          <select id="proxy-select" onchange="handleProxyChange()" >
+            <option value="ultraviolet">Ultraviolet</option>
+            <option value="astral">Astral (INDEV)</option>
+          </select>
+          <span class="material-symbols-outlined select-arrow">keyboard_arrow_down</span>
+        </div>
+      </div>
+
+      <div class="bridge-selector selector-base" title="Select proxy bridge">
+        <span class="material-symbols-outlined selector-icon bridge-icon">vpn_key</span>
         <div class="custom-select">
           <select id="bridge-select" onchange="handleBridgeChange()">
             <option value="None">Direct</option>
@@ -592,7 +629,7 @@ body::before {
       <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
       <input id="uv-address" type="hidden">
     </form>
-    <iframe id="uv-frame"><script>document.addEventListener("DOMContentLoaded", async () => {
+    <iframe id="uv-frame" style="border: none; background-color: transparent;"><script>document.addEventListener("DOMContentLoaded", async () => {
     
       try {
         await navigator.serviceWorker.register('sw.js');
@@ -606,6 +643,28 @@ body::before {
   </div>
 
   <script>
+
+    function bookmark() {
+      url = document.getElementById("uv-address").value;
+      tab_name = document.title.split("|")[0];
+      if (localStorage.getItem("bookmarks")) {
+        ls = localStorage.getItem("bookmarks") + ";" + tab_name + "," + url;
+      } else {
+        ls = tab_name + "," + url;
+      }
+      localStorage.setItem("bookmarks", ls);
+    }
+
+    current_url = "dummy shit lolll"
+
+    setInterval(() => {
+      if (document.getElementById("uv-address").value != current_url) {
+        current_url = document.getElementById("uv-address").value;
+        localStorage.setItem("history", localStorage.getItem("history") + "," + current_url);    
+      }
+    }, 500);
+
+
 
 // Enhanced Search Engine Management
 const SEARCH_ENGINES = {
@@ -649,7 +708,43 @@ const SEARCH_ENGINES = {
 let currentSearchEngine = localStorage.getItem("searchEnginePreference") || "brave";
 let search_engine = SEARCH_ENGINES[currentSearchEngine]?.url || SEARCH_ENGINES.brave.url;
 const proxy_bridge = localStorage.getItem("proxy") || "None";
+let proxy_choice = localStorage.getItem("proxy_choice") || null;
 let suggestions = [];
+
+// Initialize BareMux for UV
+let connection = null;
+
+async function initializeConnection() {
+  try {
+    console.log("Initializing BareMux connection...");
+    
+    // Check if BareMux is available
+    if (typeof BareMux === 'undefined') {
+      throw new Error("BareMux is not available. Make sure baremux/index.js is loaded.");
+    }
+    
+    connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+    console.log("BareMux connection initialized successfully");
+    return connection;
+  } catch (err) {
+    console.error("Failed to initialize BareMux connection:", err);
+    throw err;
+  }
+}
+
+async function registerSW() {
+  try {
+    await navigator.serviceWorker.register('sw.js');
+    console.log("Service worker registered successfully");
+  } catch (err) {
+    console.error("Failed to register service worker:", err);
+    throw err;
+  }
+}
+
+function search(input, searchEngine) {
+  return buildSearchUrl(input, searchEngine, []);
+}
 
 // Initialize search engine and update UI
 function initializeSearchEngine() {
@@ -686,6 +781,11 @@ window.addEventListener('storage', function(e) {
     initializeSearchEngine();
     console.log(`Search engine changed to: ${SEARCH_ENGINES[currentSearchEngine]?.name}`);
   }
+  if (e.key === 'proxy_choice' && e.newValue !== proxy_choice) {
+    proxy_choice = e.newValue;
+    initializeProxySelector();
+    console.log(`Proxy choice changed to: ${proxy_choice || 'ultraviolet'}`);
+  }
 });
 
 // Function to open settings page
@@ -694,6 +794,96 @@ function openSettings() {
   window.open('settings.html', '_blank');
   // Or navigate in the current frame:
   // navigateToPage('settings.html');
+}
+
+// Proxy choice management functions
+function initializeProxySelector() {
+  const proxySelect = document.getElementById("proxy-select");
+  const proxySelector = document.querySelector(".proxy-selector");
+  
+  if (proxySelect && proxySelector) {
+    proxySelect.value = proxy_choice || "ultraviolet";
+    updateProxyStatus();
+  }
+}
+
+function updateProxyStatus() {
+  const proxySelect = document.getElementById("proxy-select");
+  const proxySelector = document.querySelector(".proxy-selector");
+  const selectedProxy = proxySelect.value;
+  
+  // Add or remove active class based on proxy selection
+  if (selectedProxy && selectedProxy !== "" && selectedProxy !== "ultraviolet") {
+    proxySelector.classList.add("active");
+  } else {
+    proxySelector.classList.remove("active");
+  }
+}
+
+async function handleProxyChange() {
+  const proxySelect = document.getElementById("proxy-select");
+  const proxySelector = document.querySelector(".proxy-selector");
+  const selectedProxy = proxySelect.value;
+  
+  // Save to localStorage
+  proxy_choice = selectedProxy || "ultraviolet";
+  localStorage.setItem("proxy_choice", proxy_choice);
+  
+  // Update visual status
+  updateProxyStatus();
+  
+  // Show brief feedback flash
+  proxySelector.style.transform = "scale(1.05)";
+  setTimeout(() => {
+    proxySelector.style.transform = "";
+  }, 200);
+
+  // Reload the frame with the new proxy
+  await reloadFrameWithProxy();
+}
+
+async function reloadFrameWithProxy() {
+  const address = document.getElementById("uv-address");
+  const currentUrl = address.value;
+  
+  if (currentUrl) {
+    let url = buildSearchUrl(currentUrl, search_engine, []);
+    url = applyBridge(url);
+    
+    console.log("Reloading with new proxy:", url);
+    console.log("Selected proxy:", proxy_choice);
+    
+    const frame = document.getElementById("uv-frame");
+    
+    try {
+      // Apply the selected proxy choice
+      if (proxy_choice === "astral") {
+        const base64Url = (url);
+        frame.src = `/astral/${base64Url}`;
+      } else {
+        // Default to ultraviolet with BareMux
+        if (!connection) {
+          await initializeConnection();
+        }
+        
+        // Set up BareMux transport for UV
+        let wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+        
+        if (connection && (await connection.getTransport()) !== "/epoxy/index.mjs") {
+          await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+        }
+        
+        frame.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
+      }
+    } catch (err) {
+      console.error("Error loading frame with proxy:", err);
+      alert(`Error loading with ${proxy_choice} proxy: ${err.message}`);
+      
+      // Fallback to basic ultraviolet
+      console.log("Falling back to basic Ultraviolet proxy");
+      frame.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
+    }
+  }
 }
 
 // Set initial bridge selection
@@ -720,7 +910,7 @@ function updateBridgeStatus() {
   }
 }
 
-function handleBridgeChange() {
+async function handleBridgeChange() {
   const bridgeSelect = document.getElementById("bridge-select");
   const bridgeSelector = document.querySelector(".bridge-selector");
   const selectedBridge = bridgeSelect.value;
@@ -738,29 +928,54 @@ function handleBridgeChange() {
   }, 200);
 
   // Reload the frame with the new bridge
-  reloadFrameWithBridge();
+  await reloadFrameWithBridge();
 }
 
-function reloadFrameWithBridge() {
+async function reloadFrameWithBridge() {
   const address = document.getElementById("uv-address");
   const currentUrl = address.value;
   
   if (currentUrl) {
-    // Get domains and rebuild URL with new bridge
-    fetchGlitchDomains().then(domains => {
-      let url = buildSearchUrl(currentUrl, search_engine, domains);
-      url = applyBridge(url);
+    let url = buildSearchUrl(currentUrl, search_engine, []);
+    url = applyBridge(url);
+    
+    console.log("Reloading with new bridge:", url);
+    
+    const frame = document.getElementById("uv-frame");
+    
+    try {
+      // Apply the selected proxy choice
+      if (proxy_choice === "astral") {
+        const base64Url = (url);
+        frame.src = `/astral/${base64Url}`;
+      } else {
+        // Default to ultraviolet with BareMux
+        if (!connection) {
+          await initializeConnection();
+        }
+        
+        // Set up BareMux transport for UV
+        let wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+        
+        if (connection && (await connection.getTransport()) !== "/epoxy/index.mjs") {
+          await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+        }
+        
+        frame.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
+      }
+    } catch (err) {
+      console.error("Error loading frame with bridge:", err);
+      alert(`Error loading with ${proxy_choice} proxy: ${err.message}`);
       
-      console.log("Reloading with new bridge:", url);
-      
-      const frame = document.getElementById("uv-frame");
+      // Fallback to basic ultraviolet
+      console.log("Falling back to basic Ultraviolet proxy");
       frame.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
-    });
+    }
   }
 }    
 
 // Initialize everything on page load
-function initializePage() {
+async function initializePage() {
   // Load search engine preference
   const savedEngine = localStorage.getItem("searchEnginePreference");
   if (savedEngine && SEARCH_ENGINES[savedEngine]) {
@@ -768,12 +983,20 @@ function initializePage() {
     search_engine = SEARCH_ENGINES[currentSearchEngine].url;
   }
   
+  // Load proxy choice preference
+  proxy_choice = localStorage.getItem("proxy_choice") || "ultraviolet";
+  
+  // Initialize BareMux connection
+  try {
+    await initializeConnection();
+  } catch (err) {
+    console.warn("Failed to initialize BareMux connection:", err);
+  }
+  
   initializeSearchEngine();
+  initializeProxySelector();
   initializeBridgeSelector();
 }
-
-// Initialize on page load
-initializePage();
 
 // Navigation functions
 function goBack() {
@@ -827,7 +1050,21 @@ function goForward() {
 
     function updateDocumentTitle() {
       const frame = document.getElementById("uv-frame");
-      const frameTitle = frame.contentDocument ? frame.contentDocument.title : '';
+      let frameTitle = '';
+      
+      try {
+        if (proxy_choice === "astral") {
+          // For Astral proxy, try to get title differently or use a default approach
+          frameTitle = frame.contentDocument ? frame.contentDocument.title : '';
+        } else {
+          // For Ultraviolet proxy
+          frameTitle = frame.contentDocument ? frame.contentDocument.title : '';
+        }
+      } catch (e) {
+        // Handle cross-origin issues
+        console.log("Cannot access frame title:", e);
+      }
+      
       if (document.title !== frameTitle && frameTitle) {
         document.title = frameTitle + "|G|" + document.getElementById('search').value;
       }
@@ -838,8 +1075,15 @@ function goForward() {
         if (!typing) {
           try {
             const frame = document.getElementById("uv-frame");
-          
-            const decodedUrl = __uv$config.decodeUrl(frame.contentWindow.location.href.split("/assets-images/")[1]);
+            let decodedUrl = '';
+            
+            if (proxy_choice === "astral") {
+              // For Astral proxy, we might not be able to decode the URL the same way
+              decodedUrl = document.getElementById("search").value; // Keep current value
+            } else {
+              // For Ultraviolet proxy
+              decodedUrl = __uv$config.decodeUrl(frame.contentWindow.location.href.split("/assets-images/")[1]);
+            }
            
             if (decodedUrl && decodedUrl !== document.getElementById("search").value) {
               document.getElementById("search").value = decodedUrl;
@@ -884,26 +1128,39 @@ function goForward() {
     }
 
     function buildSearchUrl(input, searchEngine, domains) {
-      let url;
-      try {
-        if (!input.startsWith("http://") && !input.startsWith("https://") && input.includes(".")) {
-          input = "https://" + input;
-        }
-        url = new URL(input).toString();
-      } catch (err) {
-        return `${searchEngine}${encodeURIComponent(input)}`;
-      }
-
-
-      for (const domain of domains) {
-        if (url.includes(domain.split("|")[0])) {
-          url = domain.split("|")[1];
-          break;
-        }
-      }
-
-      return url;
+  // First, check if it's a search query or URL
+  let url;
+  
+  // Clean the input - remove extra whitespace
+  input = input.trim();
+  
+  try {
+    // Check if it looks like a URL (has dots and no spaces)
+    if (!input.startsWith("http://") && !input.startsWith("https://") && input.includes(".") && !input.includes(" ")) {
+      // Add protocol but don't create URL object yet
+      input = "https://" + input;
     }
+    
+    // Now try to create URL object to validate
+    const testUrl = new URL(input);
+    
+    // If successful, use the original input (with protocol added if needed)
+    url = input;
+    
+  } catch (err) {
+    // Not a valid URL, treat as search query
+    return `${searchEngine}${encodeURIComponent(input)}`;
+  }
+
+  // Check for domain replacements
+  for (const domain of domains) {
+    if (url.includes(domain.split("|")[0])) {
+      url = domain.split("|")[1];
+      break;
+    }
+  }
+  return url;
+}
 
     function applyBridge(url) {
       const currentBridge = localStorage.getItem("proxy") || "None";
@@ -955,46 +1212,68 @@ function goForward() {
     }
 
     document.addEventListener("DOMContentLoaded", async () => {
-      // Initialize search engine and bridge selector
-      initializePage();
+      // Initialize search engine, proxy choice, and bridge selector
+      await initializePage();
       
       const address = document.getElementById("uv-address");
       address.value = getURLParameter("url");
       
-      const domains = await fetchGlitchDomains();
+      const domains = []
 
       let url = buildSearchUrl(address.value, search_engine, domains);
       
-      // Apply bridge after building the URL but before UV encoding
+      // Apply bridge after building the URL but before proxy encoding
       url = applyBridge(url);
       
       console.log("Final URL:", url)
+      console.log("Using proxy:", proxy_choice || "ultraviolet")
       
       const frame = document.getElementById("uv-frame");
-      frame.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
-      frame.style.display = "block";
-
+      
       try {
-        await navigator.serviceWorker.register('sw.js');
-        console.log("Registered!")
+        // Register service worker first
+        await registerSW();
+        
+        // Apply the selected proxy choice
+        if (proxy_choice === "astral") {
+          const base64Url = (url);
+          frame.src = `/astral/${base64Url}`;
+          console.log("Using Astral proxy with base64 URL:", base64Url);
+        } else {
+          // Default to ultraviolet with BareMux
+          if (!connection) {
+            await initializeConnection();
+          }
+          
+          // Set up BareMux transport for UV
+          let wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
+          
+          if (connection && (await connection.getTransport()) !== "/epoxy/index.mjs") {
+            await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+          }
+          
+          frame.src = (`${__uv$config.prefix}${__uv$config.encodeUrl(url)}`);
+          console.log((`${__uv$config.prefix}${__uv$config.encodeUrl(url)}`))
+          console.log("Using Ultraviolet proxy with BareMux");
+        }
       } catch (err) {
-        console.warn("Failed to register service worker:", err);
+        console.error("Error during initial proxy setup:", err);
+        console.log("Falling back to basic Ultraviolet proxy");
+        
+        // Fallback to basic ultraviolet
+        frame.src = (`${__uv$config.prefix}${__uv$config.encodeUrl(url)}`);
       }
       
-      // Update bridge status after initialization
-      setTimeout(updateBridgeStatus, 100);
+      frame.style.display = "block";
+      
+      // Update proxy and bridge status after initialization
+      setTimeout(() => {
+        updateProxyStatus();
+        updateBridgeStatus();
+      }, 100);
     });
 
-    async function fetchGlitchDomains() {
-      try {
-        const response = await fetch("https://raw.githubusercontent.com/Glitch-Network/glitch_net_domains/main/db.txt");
-        const data = await response.text();
-        return data.split("\n").map(line => line.trim()).filter(Boolean);
-      } catch (error) {
-        console.log("Glitch domains unavailable.");
-        return [];
-      }
-    }
+
   </script>
   <script src="global.js"></script>
 </body>

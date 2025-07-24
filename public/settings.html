@@ -563,6 +563,7 @@
                 min-width: 100%;
             }
         }
+
     </style>
 </head>
 
@@ -631,6 +632,25 @@
                         <option value="ye">Ye</option>
                     </select>
                 </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Panic Image</h3>
+                        <p>Choose a image to display when "-" is pressed</p>
+                    </div>
+                <input type="file" id="panic-image-input" accept="image/*">
+                </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Proxies</h3>
+                        <p>Choose your preferred proxy</p>
+                    </div>
+                    <select class="setting-select" data-setting="proxy" style="display: none;"> <!-- im too lazy to figure out why proxy_choice here and on launch_page.html arn't the same -->
+                        <option value="ultraviolet">Ultraviolet</option>
+                        <!-- i'm sure nothing will go wrong with embedding astral into a iframe, i say as astral proceeds to fucking kill itself due to being embedded in an iframe -->
+                        <option value="astral">Astral (INDEV)</option>
+                    </select>
+                </div>
+
             </div>
 
             <!-- Search Tab -->
@@ -707,6 +727,13 @@
                     </div>
                     <button class="setting-button" onclick="clearBrowsingData()">Clear Data</button>
                 </div>
+                                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Tab Saving</h3>
+                        <p>Toggle Axioms ability to save your tabs for later</p>
+                    </div>
+                    <button class="setting-button" onclick="toggleSavingTabs()">Toggle</button>
+                </div>
             </div>
 
             <!-- About Tab -->
@@ -768,6 +795,38 @@
             }
         };
 
+        function toggleSavingTabs(){
+            if (getStorageBool("saveTabs")) {
+                setStorageBool("saveTabs", false);
+                showMessage('Tabs will no longer be saved', 'success');
+            } else {
+                setStorageBool("saveTabs", true);
+                showMessage('Tabs will now be saved', 'success');
+            }
+        }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const panicImageInput = document.getElementById('panic-image-input');
+    
+    if (panicImageInput) {
+        panicImageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Store the complete data URL
+                    localStorage.setItem('panic_image', e.target.result);
+                    console.log('Panic image saved successfully');
+                    
+                    // Optional: Show success message
+                    showMessage('Panic image uploaded successfully', 'success');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+});
+
         let currentSearchEngine = localStorage.getItem("searchEnginePreference") || "brave";
 
         // Helper function to safely get localStorage boolean values
@@ -805,6 +864,21 @@
                     }
                 }, 300);
             }, 3000);
+        }
+
+        
+        // Monitor changes to the proxy selector
+        const proxySelect = document.getElementById('proxy-select');
+        if (proxySelect) {
+            proxySelect.addEventListener('change', function() {
+                localStorage.setItem('proxy_choice', this.value);
+            });
+        }
+
+        // load it
+        const proxyChoice = localStorage.getItem('proxy_choice');
+        if (proxyChoice) {
+            proxySelect.value = proxyChoice;
         }
 
         // Update search engine preview
@@ -1150,6 +1224,117 @@
             }
         });
     </script>
+    <script>
+        const defaultThemes = [
+        'axiom-dark', 'cyberpunk', 'ocean', 'forest', 
+        'sunset', 'monochrome', 'graduation', 'mbdtf', 'ye', "pipkin","baka"
+    ];
+function loadCustomThemes() {
+    const themeSelect = document.querySelector('select[data-setting="theme"]');
+    
+    if (!themeSelect || !window.themeManager) {
+        console.warn('Theme selector or theme manager not found');
+        return;
+    }
 
+    const allThemes = window.themeManager.getAvailableThemes();
+    const currentThemes = Array.from(themeSelect.options).map(option => option.value);
+    
+
+
+    defaultThemes.forEach(themeKey => {
+        if (!currentThemes.includes(themeKey)) {
+            // avoid adding pipkin or baka
+            if (themeKey === "pipkin" || themeKey === "baka") {
+                return;
+            }
+            const themeData = window.themeManager.getThemeData(themeKey);
+            if (themeData) {
+                const option = document.createElement('option');
+                option.value = themeKey;
+                option.textContent = themeData.name;
+                themeSelect.appendChild(option);
+            }
+        }
+    });
+
+    allThemes.forEach(themeKey => {
+        if (currentThemes.includes(themeKey)) {
+            return;
+        }
+
+                    // avoid adding pipkin or baka
+            if (themeKey === "pipkin" || themeKey === "baka") {
+                return;
+            }
+
+        const themeData = window.themeManager.getThemeData(themeKey);
+        if (themeData) {
+            const option = document.createElement('option');
+            option.value = themeKey;
+            option.textContent = themeData.name;
+            
+            if (!defaultThemes.includes(themeKey)) {
+                option.textContent += ' (Custom)';
+                option.style.fontStyle = 'italic';
+            }
+            
+            themeSelect.appendChild(option);
+        }
+    });
+
+    const currentTheme = window.themeManager.getCurrentTheme();
+    if (currentTheme) {
+        themeSelect.value = currentTheme;
+    }
+
+    console.log(`Loaded ${allThemes.length} themes into selector`);
+}
+
+function refreshThemeSelector() {
+    const themeSelect = document.querySelector('select[data-setting="theme"]');
+    if (!themeSelect) return;
+
+    const currentSelection = themeSelect.value;
+    
+    Array.from(themeSelect.options).forEach(option => {
+        if (!defaultThemes.includes(option.value)) {
+            option.remove();
+        }
+    });
+    
+    loadCustomThemes();
+    
+    if (Array.from(themeSelect.options).some(option => option.value === currentSelection)) {
+        themeSelect.value = currentSelection;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.themeManager) {
+        loadCustomThemes();
+    } else {
+        setTimeout(loadCustomThemes, 100);
+    }
+});
+
+document.addEventListener('themeChanged', (event) => {
+    const themeSelect = document.querySelector('select[data-setting="theme"]');
+    if (themeSelect && event.detail.theme) {
+        themeSelect.value = event.detail.theme;
+    }
+});
+
+document.addEventListener('themeAdded', () => {
+    refreshThemeSelector();
+});
+
+document.addEventListener('themeRemoved', () => {
+    refreshThemeSelector();
+});
+
+window.loadCustomThemes = loadCustomThemes;
+window.refreshThemeSelector = refreshThemeSelector;
+    </script>
 </body>
 </html>
