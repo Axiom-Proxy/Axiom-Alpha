@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Axiom Player Mobile</title>
+  <title>Axiom Player</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@250" rel="stylesheet">
   <style>
 /* ✨ MOBILE-OPTIMIZED YOUTUBE PLAYER ✨ */
@@ -662,6 +662,11 @@ html, body {
       const videoDetails = document.getElementById('videoDetails');
       const videoDescription = document.getElementById('videoDescription');
       
+      const history = localStorage.getItem('yt_history') || '';
+      localStorage.setItem('yt_history', 
+        history ? history + ',' + JSON.stringify(snippet) : JSON.stringify(snippet)
+      );
+
       const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
       
       videoPlayer.innerHTML = `
@@ -713,6 +718,25 @@ html, body {
         document.getElementById('searchInput').focus();
       }
     });
+
+    if (localStorage.getItem('yt_history')) {
+      const historyString = localStorage.getItem('yt_history');
+      const snippets = historyString.split('},{').map((item, index, array) => {
+        if (index === 0) item += '}';
+        if (index === array.length - 1) item = '{' + item;
+        if (index > 0 && index < array.length - 1) item = '{' + item + '}';
+        try {
+          return JSON.parse(item);
+        } catch (error) {
+          console.error('Error parsing YouTube snippet:', error, item);
+          return null;
+        }
+      }).filter(snippet => snippet != null && snippet.id);
+
+      snippets.forEach(snippet => {
+        displaySearchResults([snippet], snippet.title);
+      });
+    }
   </script>
   <script src="../theme.js"></script>
 </body>
