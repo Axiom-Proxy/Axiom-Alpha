@@ -1,11 +1,13 @@
 
-
-scripts = ["theme.js"]
-
+scripts = ["theme.js"]; 
 
 for (let i = 0; i < scripts.length; i++) {
     let script = document.createElement('script');
     script.src = scripts[i];
+    if (scripts[i] == "/assets/js/akita.js") {
+        // load ASAP
+        script.defer = true;
+    }
     document.body.appendChild(script);
     console.log("Loaded " + scripts[i]);
 }
@@ -13,6 +15,7 @@ for (let i = 0; i < scripts.length; i++) {
 console.log("Global scripts loaded.");
 
 currentTheme = localStorage.getItem("theme")
+
 setInterval(function(){
     // reload if theme cheanged
     if (currentTheme != localStorage.getItem("theme")) {

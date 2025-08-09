@@ -388,7 +388,7 @@ class ThemeManager {
   // Get theme from localStorage or default
   getStoredTheme() {
     const stored = localStorage.getItem('axiom_theme');
-    return stored && this.themes[stored] ? stored : 'axiom-dark';
+    return stored && this.themes[stored] ? stored : 'monochrone';
   }
 
   // Save theme to localStorage

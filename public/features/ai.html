@@ -39,6 +39,10 @@
   --user-message-border: rgba(99, 102, 241, 0.4);
   --ai-message-bg: rgba(16, 185, 129, 0.2);
   --ai-message-border: rgba(16, 185, 129, 0.4);
+  --context-message-bg: rgba(245, 158, 11, 0.2);
+  --context-message-border: rgba(245, 158, 11, 0.4);
+  --thinking-message-bg: rgba(139, 92, 246, 0.15);
+  --thinking-message-border: rgba(139, 92, 246, 0.3);
   
   /* Spacing & Dimensions */
   --header-height: 60px;
@@ -156,9 +160,25 @@ body::before {
   color: var(--color-warning);
 }
 
-.action-btn.settings:hover {
+.action-btn.context:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.action-btn.deepthink:hover {
   border-color: var(--color-secondary);
   color: var(--color-secondary);
+}
+
+.action-btn.active {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: white;
+}
+
+.action-btn.context.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 /* Chat Container */
@@ -246,6 +266,24 @@ body::before {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Context Status */
+.context-status {
+  background: var(--context-message-bg);
+  border: 1px solid var(--context-message-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  font-size: 14px;
+  color: var(--color-warning);
+  display: none;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.context-status.active {
+  display: flex;
+}
+
 /* Message Bubbles */
 .message {
   display: flex;
@@ -274,6 +312,11 @@ body::before {
   align-self: flex-start;
 }
 
+.message.thinking {
+  align-self: flex-start;
+  max-width: 90%;
+}
+
 .message-avatar {
   width: 40px;
   height: 40px;
@@ -298,6 +341,12 @@ body::before {
   color: var(--color-success);
 }
 
+.message.thinking .message-avatar {
+  background: var(--thinking-message-bg);
+  border: 1px solid var(--thinking-message-border);
+  color: var(--color-secondary);
+}
+
 .message-bubble {
   background: var(--glass-background);
   backdrop-filter: var(--glass-blur);
@@ -320,6 +369,32 @@ body::before {
   background: var(--ai-message-bg);
   border: 1px solid var(--ai-message-border);
   border-radius: var(--border-radius-lg) var(--border-radius-lg) var(--border-radius-lg) var(--spacing-xs);
+}
+
+.message.thinking .message-bubble {
+  background: var(--thinking-message-bg);
+  border: 1px solid var(--thinking-message-border);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) var(--border-radius-lg) var(--spacing-xs);
+}
+
+.thinking-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-secondary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.thinking-content {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  border-left: 3px solid var(--color-secondary);
+  padding-left: var(--spacing-md);
+  margin-left: var(--spacing-sm);
 }
 
 .message-time {
@@ -365,6 +440,48 @@ body::before {
 }
 
 @keyframes typingDot {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Thinking Indicator */
+.thinking-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  color: var(--color-secondary);
+  font-style: italic;
+}
+
+.thinking-dots {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.thinking-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  animation: thinkingDot 1.5s ease-in-out infinite;
+}
+
+.thinking-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinking-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes thinkingDot {
   0%, 60%, 100% {
     opacity: 0.3;
     transform: scale(0.8);
@@ -496,6 +613,11 @@ body::before {
   50% { opacity: 0.6; }
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .header {
@@ -579,44 +701,40 @@ body::before {
     </div>
     
     <div class="header-actions">
+      <button class="action-btn context" id="contextBtn" onclick="toggleContextMode()" title="Toggle Context Mode">
+        <span class="material-symbols-outlined">description</span>
+      </button>
+      <button class="action-btn deepthink" id="deepthinkBtn" onclick="toggleDeepThink()" title="Toggle Deep Thinking Mode">
+        <span class="material-symbols-outlined">psychology</span>
+      </button>
       <button class="action-btn clear" onclick="clearChat()" title="Clear Chat">
         <span class="material-symbols-outlined">delete_sweep</span>
       </button>
-
     </div>
   </header>
 
   <div class="chat-container">
+    <div class="context-status" id="contextStatus">
+      <span class="material-symbols-outlined">info</span>
+      <span id="contextInfo">No webpage context loaded</span>
+    </div>
+
     <div class="chat-messages" id="chatMessages">
       <div class="welcome-message" id="welcomeMessage">
         <div class="material-symbols-outlined ai-icon">auto_awesome</div>
         <div class="welcome-title">Welcome to Axiom AI</div>
         <div class="welcome-subtitle">
-          Your (not very) intelligent conversation partner powered by advanced AI ( Actually Indians ).
+          Your intelligent conversation partner powered by advanced AI. I can help with questions, analysis, and even work with webpage content.
         </div>
-        <div class="suggested-prompts">
-          <div class="prompt-suggestion" onclick="sendSuggestedPrompt('Explain quantum computing in simple terms')">
-            Explain quantum computing
-          </div>
-          <div class="prompt-suggestion" onclick="sendSuggestedPrompt('Write a creative story about time travel')">
-            Write a creative story
-          </div>
-          <div class="prompt-suggestion" onclick="sendSuggestedPrompt('Help me plan a healthy meal prep routine')">
-            Plan meal prep routine
-          </div>
-          <div class="prompt-suggestion" onclick="sendSuggestedPrompt('What are the latest trends in web development?')">
-            Web development trends
-          </div>
-        </div>
+
       </div>
     </div>
 
     <div class="input-section">
       <div class="input-container">
-
         <textarea 
           id="messageInput" 
-          placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+          placeholder="Type your message here... "
           rows="1"
         ></textarea>
         <button class="send-btn" id="sendBtn" onclick="sendMessage()">
@@ -627,9 +745,11 @@ body::before {
   </div>
 
   <script>
-    const API_BASE_URL = 'https://text.pollinations.ai';
+    const API_BASE_URL = 'https://charbot.ape3d.com?prompt=';
     let chatHistory = [];
     let isTyping = false;
+    let contextMode = false;
+    let deepthink = false;
 
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
@@ -658,45 +778,394 @@ body::before {
       // Initial button state
       sendBtn.disabled = true;
       
-      // Load chat history from localStorage
-      loadChatHistory();
+      // Check for webpage context on load
+      checkWebpageContext();
     });
-function sendSuggestedPrompt(prompt) {
-  document.getElementById('messageInput').value = prompt;
-  sendMessage();
-}
 
-let deepthink = false;
-async function sendMessage() {
-  const messageInput = document.getElementById('messageInput');
-  let message = messageInput.value.trim();
-  if (!message || isTyping) return;
-  
-  const deepthink_prompt = `\n<system>Special instructions:For this response, you should provide self-monologue reasoning encapsulated within <think></think> XML tags, prefixed to your response, in this you will reason out a solution to the prompt.</system>`;
- 
-  if (deepthink) {
-    message = message + deepthink_prompt;
-  }
-  
-  // Clear input and hide welcome message
-  messageInput.value = '';
-  messageInput.style.height = 'auto';
-  document.getElementById('sendBtn').disabled = true;
-  hideWelcomeMessage();
-  
-  // Add user message
-  addMessage(message.replace(deepthink_prompt, ""), 'user');
-  
-  // Show typing indicator
-  showTypingIndicator();
+    function sendSuggestedPrompt(prompt) {
+      document.getElementById('messageInput').value = prompt;
+      sendMessage();
+    }
 
-  const time = new Date().getTime();
-  
-  try {
-    // Call API
-    let response;
-    try {
-      response = await fetch(`${API_BASE_URL}/${encodeURIComponent(message)}`, {
+    function toggleContextMode() {
+      contextMode = !contextMode;
+      const contextBtn = document.getElementById('contextBtn');
+      
+      if (contextMode) {
+        contextBtn.classList.add('active');
+        contextBtn.title = 'Context Mode: ON - Click to disable';
+      } else {
+        contextBtn.classList.remove('active');
+        contextBtn.title = 'Context Mode: OFF - Click to enable';
+      }
+      
+      checkWebpageContext();
+    }
+
+    function toggleDeepThink() {
+      deepthink = !deepthink;
+      const deepthinkBtn = document.getElementById('deepthinkBtn');
+      
+      if (deepthink) {
+        deepthinkBtn.classList.add('active');
+        deepthinkBtn.title = 'Deep Thinking Mode: ON - Click to disable';
+      } else {
+        deepthinkBtn.classList.remove('active');
+        deepthinkBtn.title = 'Deep Thinking Mode: OFF - Click to enable';
+      }
+    }
+
+    function checkWebpageContext() {
+      const contextStatus = document.getElementById('contextStatus');
+      const contextInfo = document.getElementById('contextInfo');
+      const webpageData = sessionStorage.getItem("HTML4AI");
+      
+      if (webpageData && contextMode) {
+        const processedData = processWebpageData(webpageData);
+        const contextLength = processedData.content.length;
+        const processingMode = deepthink ? 'full chunked processing' : 'limited to 500 chars';
+        contextStatus.classList.add('active');
+        contextInfo.textContent = `Webpage context loaded: ${processedData.title || 'Unknown page'} (${processedData.wordCount} words, ${processingMode})`;
+      }
+    }
+
+    function processWebpageData(htmlData) {
+      // Create a temporary DOM element to parse HTML
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlData;
+      
+      // Extract meaningful content
+      const title = tempDiv.querySelector('title')?.textContent || 
+                   tempDiv.querySelector('h1')?.textContent || 
+                   'Unknown Page';
+      
+      // Remove script and style elements
+      const scripts = tempDiv.querySelectorAll('script, style, noscript');
+      scripts.forEach(element => element.remove());
+      
+      // Extract text content from various elements
+      const contentSelectors = [
+        'article', 'main', '.content', '#content',
+        'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'li', 'td', 'blockquote', '.text'
+      ];
+      
+      let extractedText = '';
+      let allText = tempDiv.textContent || tempDiv.innerText || '';
+      
+      // Clean up the text
+      allText = allText
+        .replace(/\s+/g, ' ') // Replace multiple whitespace with single space
+        .replace(/\n\s*\n/g, '\n') // Remove empty lines
+        .trim();
+      
+      // Try to extract more structured content
+      contentSelectors.forEach(selector => {
+        const elements = tempDiv.querySelectorAll(selector);
+        elements.forEach(element => {
+          const text = element.textContent?.trim();
+          if (text && text.length > 20 && !extractedText.includes(text.substring(0, 50))) {
+            extractedText += text + '\n\n';
+          }
+        });
+      });
+      
+      // If structured extraction didn't work well, use the clean text
+      if (extractedText.length < allText.length * 0.3) {
+        extractedText = allText;
+      }
+      
+      // Clean up final text
+      extractedText = extractedText.trim();
+      
+      const wordCount = extractedText.split(/\s+/).length;
+      
+      return {
+        title: title.substring(0, 100),
+        content: extractedText,
+        wordCount: wordCount,
+        summary: extractedText
+      };
+    }
+
+    function chunkText(text, chunkSize = 500) {
+      const chunks = [];
+      for (let i = 0; i < text.length; i += chunkSize) {
+        // Try to break at word boundaries to avoid cutting words
+        let chunk = text.substring(i, i + chunkSize);
+        if (i + chunkSize < text.length && chunk[chunk.length - 1] !== ' ') {
+          const lastSpaceIndex = chunk.lastIndexOf(' ');
+          if (lastSpaceIndex > chunkSize * 0.7) { // Only break at space if it's not too far back
+            chunk = chunk.substring(0, lastSpaceIndex);
+          }
+        }
+        chunks.push(chunk.trim());
+      }
+      return chunks;
+    }
+
+    async function summarizeChunk(chunk, chunkIndex, totalChunks, title) {
+      const prompt = `Please summarize the following content chunk from a webpage titled "${title}". This is chunk ${chunkIndex + 1} of ${totalChunks}. Extract the key information and main points:
+
+Content:
+${chunk}
+
+Please provide a concise summary highlighting the most important information:`;
+
+      try {
+        const response = await fetch(`${API_BASE_URL}${encodeURIComponent(prompt)}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/plain'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return await response.text();
+      } catch (error) {
+        console.error(`Error summarizing chunk ${chunkIndex + 1}:`, error);
+        return `[Error summarizing chunk ${chunkIndex + 1}]`;
+      }
+    }
+
+    function updateThinkingIndicator(message) {
+      const thinkingIndicator = document.getElementById('thinkingIndicator');
+      if (thinkingIndicator) {
+        const messageSpan = thinkingIndicator.querySelector('.thinking-indicator span');
+        if (messageSpan) {
+          messageSpan.textContent = message;
+        }
+      }
+    }
+
+    async function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      let message = messageInput.value.trim();
+      if (!message || isTyping) return;
+
+      // Clear input and hide welcome message
+      messageInput.value = '';
+      messageInput.style.height = 'auto';
+      document.getElementById('sendBtn').disabled = true;
+      hideWelcomeMessage();
+      
+      // Add user message
+      addMessage(message, 'user');
+      
+      // Process webpage context if available and context mode is enabled
+      let processedMessage = message;
+      if (contextMode && sessionStorage.getItem("HTML4AI")) {
+        const webpageData = processWebpageData(sessionStorage.getItem("HTML4AI"));
+        
+        const contextPrompt = `
+<webpage_context>
+Page Title: ${webpageData.title}
+Content Summary: ${webpageData.summary}
+
+Relevant Content:
+${webpageData.content}
+</webpage_context>
+
+User Question: ${message}
+
+Instructions: You have access to the above webpage content. Please answer the user's question using this context when relevant. If the question is not related to the webpage content, feel free to answer normally. When using information from the webpage, please indicate that you're referencing the provided page content.`;
+
+        processedMessage = contextPrompt;
+      }
+
+      try {
+        if (deepthink) {
+          await performDeepThinking(processedMessage, message);
+        } else {
+          await performRegularResponse(processedMessage);
+        }
+      } catch (error) {
+        console.error('API Error:', error);
+        hideTypingIndicator();
+        hideThinkingIndicator();
+        addMessage(
+          "I apologize, but I'm having trouble connecting to my AI service right now. Please try again in a moment.", 
+          'ai', 
+          true
+        );
+      }
+
+      messageInput.focus();
+    }
+
+    async function performDeepThinking(processedMessage, originalMessage) {
+      // Step 1: Show thinking indicator and perform chain-of-thought reasoning
+      showThinkingIndicator();
+      
+      let webpageContext = '';
+      let contextSummary = '';
+      
+      // Handle webpage context if available
+      if (contextMode && sessionStorage.getItem("HTML4AI")) {
+        const webpageData = processWebpageData(sessionStorage.getItem("HTML4AI"));
+        
+        // For deep thinking, process full content through chunking and summarization
+        if (webpageData.content.length > 500) {
+          // Show progress in thinking indicator
+          updateThinkingIndicator('AI is processing webpage content');
+          
+          const chunks = chunkText(webpageData.content, 500);
+          const summaries = [];
+          
+          // Process each chunk
+          for (let i = 0; i < chunks.length; i++) {
+            updateThinkingIndicator(`AI is processing chunk ${i + 1} of ${chunks.length}`);
+            const summary = await summarizeChunk(chunks[i], i, chunks.length, webpageData.title);
+            summaries.push(`Chunk ${i + 1} Summary: ${summary}`);
+          }
+          
+          // Combine all summaries
+          contextSummary = summaries.join('\n\n');
+          webpageContext = `
+<webpage_context>
+Page Title: ${webpageData.title}
+Full Content Summary (${chunks.length} chunks processed):
+
+${contextSummary}
+</webpage_context>`;
+        } else {
+          // Use content directly if it's under 500 characters
+          webpageContext = `
+<webpage_context>
+Page Title: ${webpageData.title}
+Content: ${webpageData.content}
+</webpage_context>`;
+        }
+        
+        updateThinkingIndicator('AI is thinking deeply about your question');
+      }
+      
+      // Construct thinking prompt based on whether context mode is enabled
+      let thinkingPrompt;
+      if (contextMode && sessionStorage.getItem("HTML4AI")) {
+        thinkingPrompt = `I have access to webpage content and need to think step by step about how to answer this question. Let me analyze the available information and plan my response.
+
+${webpageContext}
+
+Question: ${originalMessage}
+
+Please think step by step:
+1. What is the user asking for?
+2. What information from the webpage is relevant to this question?
+3. What additional knowledge do I need to provide?
+4. How should I structure my response?
+5. What key points should I emphasize?
+
+Only return the reasoning - nothing else.
+
+Please provide your detailed chain of thought reasoning:`;
+      } else {
+        thinkingPrompt = `Please think step by step about how to answer this question. Break down your reasoning process, consider different angles, and plan your response. Be thorough in your analysis.
+
+Question: ${originalMessage}
+
+Only return the reasoning - nothing else.
+
+Please provide your chain of thought reasoning:`;
+      }
+
+      try {
+        const thinkingResponse = await fetch(`${API_BASE_URL}${encodeURIComponent(thinkingPrompt)}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/plain'
+          }
+        });
+        
+        if (!thinkingResponse.ok) {
+          throw new Error(`HTTP error! status: ${thinkingResponse.status}`);
+        }
+        
+        const thinkingText = await thinkingResponse.text();
+        
+        // Hide thinking indicator and show the thinking process
+        hideThinkingIndicator();
+        addThinkingMessage(thinkingText);
+        
+        // Step 2: Show typing indicator and get the final response
+        showTypingIndicator();
+        
+        // Construct final prompt based on context availability
+        let finalPrompt;
+        if (contextMode && sessionStorage.getItem("HTML4AI")) {
+          finalPrompt = `Based on the following reasoning and analysis, please provide a clear, concise, and helpful final answer to the user's question using the webpage context when relevant.
+
+${webpageContext}
+
+Previous reasoning:
+${thinkingText}
+
+Original question: ${originalMessage}
+
+Instructions: Please provide your final response incorporating relevant information from the webpage context. When using information from the webpage, please indicate that you're referencing the provided page content.
+
+Please provide your final response:`;
+        } else {
+          finalPrompt = `Based on the following reasoning and analysis, please provide a clear, concise, and helpful final answer to the user's question.
+
+Previous reasoning:
+${thinkingText}
+
+Original question: ${originalMessage}
+
+Please provide your final response:`;
+        }
+
+        const finalResponse = await fetch(`${API_BASE_URL}${encodeURIComponent(finalPrompt)}`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'text/plain'
+          }
+        });
+        
+        if (!finalResponse.ok) {
+          throw new Error(`HTTP error! status: ${finalResponse.status}`);
+        }
+        
+        const finalText = await finalResponse.text();
+        
+        hideTypingIndicator();
+        addMessage(finalText, 'ai');
+        
+      } catch (error) {
+        throw error; // Re-throw to be handled by the calling function
+      }
+    }
+
+    async function performRegularResponse(processedMessage) {
+      showTypingIndicator();
+      
+      // For regular responses (no deep thinking), limit context to 500 chars
+      if (contextMode && sessionStorage.getItem("HTML4AI")) {
+        const webpageData = processWebpageData(sessionStorage.getItem("HTML4AI"));
+        
+        // Limit content to 500 characters for regular responses
+        const limitedContent = webpageData.content.length > 500 
+          ? webpageData.content.substring(0, 500) + '...[content truncated]'
+          : webpageData.content;
+        
+        const contextPrompt = `
+<webpage_context>
+Page Title: ${webpageData.title}
+Content (limited): ${limitedContent}
+</webpage_context>
+
+User Question: ${processedMessage.split('User Question: ')[1] || processedMessage}
+
+Instructions: You have access to the above webpage content (limited to 500 characters). Please answer the user's question using this context when relevant. If the question is not related to the webpage content, feel free to answer normally. When using information from the webpage, please indicate that you're referencing the provided page content.`;
+
+        processedMessage = contextPrompt;
+      }
+      
+      const response = await fetch(`${API_BASE_URL}${encodeURIComponent(processedMessage)}`, {
         method: 'GET',
         headers: {
           'Accept': 'text/plain'
@@ -706,58 +1175,13 @@ async function sendMessage() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (error) {
-      // Use a fallback API (from AmberAI)
-      console.log('Primary API failed, using fallback API');
-      response = await fetch(`https://charbot.ape3d.com/${encodeURIComponent(message)}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'text/plain'
-        }
-      });
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    }
-    
-    let aiResponse = await response.text();
-
-    if (deepthink) {
-      const time2 = new Date().getTime();
-      const thinking_time = (time2 - time) / 1000;
+      const aiResponse = await response.text();
       
-      // Better parsing of think tags
-      const thinkMatch = aiResponse.match(/<think>([\s\S]*?)<\/think>/i);
-      if (thinkMatch) {
-        aiResponse = `Thought for ${thinking_time} seconds\n<think>${thinkMatch[1]}</think>\n` + 
-                     aiResponse.replace(/<think>[\s\S]*?<\/think>/i, '');
-      }
+      hideTypingIndicator();
+      addMessage(aiResponse, 'ai');
     }
-    
-    addMessage(aiResponse, 'ai');
-    
-    // Hide typing indicator
-    hideTypingIndicator();
-    
-  } catch (error) {
-    console.error('API Error:', error);
-    hideTypingIndicator();
-    addMessage(
-      "I apologize, but I'm having trouble connecting to my AI service right now. Please try again in a moment.", 
-      'ai', 
-      true
-    );
-  }
-  
-  // Save chat history
-  // saveChatHistory();
-}
 
-function sendMessage_deepthink() {
-  deepthink = !deepthink;
-  console.log('Deepthink mode:', deepthink);
-}
     function addMessage(content, sender, isError = false) {
       const chatMessages = document.getElementById('chatMessages');
       const messageDiv = document.createElement('div');
@@ -791,8 +1215,44 @@ function sendMessage_deepthink() {
       });
     }
 
+    function addThinkingMessage(content) {
+      const chatMessages = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message thinking';
+      
+      const now = new Date();
+      const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      messageDiv.innerHTML = `
+        <div class="message-avatar">
+          <span class="material-symbols-outlined">psychology</span>
+        </div>
+        <div class="message-bubble">
+          <div class="thinking-header">
+            <span class="material-symbols-outlined">lightbulb</span>
+            <span>Chain of Thought</span>
+          </div>
+          <div class="thinking-content">
+            ${formatMessage(content)}
+          </div>
+          <div class="message-time">${timeString}</div>
+        </div>
+      `;
+      
+      chatMessages.appendChild(messageDiv);
+      scrollToBottom();
+      
+      // Add to chat history
+      chatHistory.push({
+        content: content,
+        sender: 'thinking',
+        timestamp: now.toISOString(),
+        isError: false
+      });
+    }
+
     function formatMessage(content) {
-      // Basic text formatting
+      // Basic text formatting with better handling of code blocks
       return content
         .replace(/\n/g, '<br>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -809,10 +1269,10 @@ function sendMessage_deepthink() {
       
       typingDiv.innerHTML = `
         <div class="message-avatar">
-          <span class="material-symbols-outlined">psychology</span>
+          <span class="material-symbols-outlined">auto_awesome</span>
         </div>
         <div class="typing-indicator">
-          <span>AI is thinking</span>
+          <span>AI is responding</span>
           <div class="typing-dots">
             <div class="typing-dot"></div>
             <div class="typing-dot"></div>
@@ -830,6 +1290,37 @@ function sendMessage_deepthink() {
       const typingIndicator = document.getElementById('typingIndicator');
       if (typingIndicator) {
         typingIndicator.remove();
+      }
+    }
+
+    function showThinkingIndicator() {
+      const chatMessages = document.getElementById('chatMessages');
+      const thinkingDiv = document.createElement('div');
+      thinkingDiv.id = 'thinkingIndicator';
+      thinkingDiv.className = 'message thinking';
+      
+      thinkingDiv.innerHTML = `
+        <div class="message-avatar">
+          <span class="material-symbols-outlined">psychology</span>
+        </div>
+        <div class="thinking-indicator">
+          <span>AI is thinking deeply</span>
+          <div class="thinking-dots">
+            <div class="thinking-dot"></div>
+            <div class="thinking-dot"></div>
+            <div class="thinking-dot"></div>
+          </div>
+        </div>
+      `;
+      
+      chatMessages.appendChild(thinkingDiv);
+      scrollToBottom();
+    }
+
+    function hideThinkingIndicator() {
+      const thinkingIndicator = document.getElementById('thinkingIndicator');
+      if (thinkingIndicator) {
+        thinkingIndicator.remove();
       }
     }
 
@@ -853,31 +1344,15 @@ function sendMessage_deepthink() {
             <div class="material-symbols-outlined ai-icon">auto_awesome</div>
             <div class="welcome-title">Welcome to Axiom AI</div>
             <div class="welcome-subtitle">
-              Your intelligent conversation partner powered by AI (Actually Indians). 
-              Ask me anything, and I'll provide thoughtful, detailed responses.
+              Your intelligent conversation partner powered by advanced AI. I can help with questions, analysis, and even work with webpage content.
             </div>
-            <div class="suggested-prompts">
-              <div class="prompt-suggestion" onclick="sendSuggestedPrompt('Explain quantum computing in simple terms')">
-                Explain quantum computing
-              </div>
-              <div class="prompt-suggestion" onclick="sendSuggestedPrompt('Write a creative story about time travel')">
-                Write a creative story
-              </div>
-              <div class="prompt-suggestion" onclick="sendSuggestedPrompt('Help me plan a healthy meal prep routine')">
-                Plan meal prep routine
-              </div>
-              <div class="prompt-suggestion" onclick="sendSuggestedPrompt('What are the latest trends in web development?')">
-                Web development trends
-              </div>
-            </div>
+
           </div>
         `;
         
         chatHistory = [];
-        saveChatHistory();
       }
     }
-
 
     // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
@@ -891,16 +1366,24 @@ function sendMessage_deepthink() {
         e.preventDefault();
         clearChat();
       }
+      
+      // Ctrl/Cmd + / to toggle context mode
+      if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+        e.preventDefault();
+        toggleContextMode();
+      }
+
+      // Ctrl/Cmd + T to toggle deep thinking mode
+      if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+        e.preventDefault();
+        toggleDeepThink();
+      }
     });
 
     // Handle window focus for better UX
     window.addEventListener('focus', function() {
       document.getElementById('messageInput').focus();
-    });
-
-    // Auto-focus input on load
-    window.addEventListener('load', function() {
-     // document.getElementById('messageInput').focus();
+      checkWebpageContext();
     });
 
     // Handle paste events for better UX
@@ -925,134 +1408,12 @@ function sendMessage_deepthink() {
       scrollToBottom();
     });
 
-    // Add smooth scroll behavior for better UX
-    function smoothScrollToBottom() {
-      const chatMessages = document.getElementById('chatMessages');
-      chatMessages.scrollTo({
-        top: chatMessages.scrollHeight,
-        behavior: 'smooth'
-      });
-    }
-
-    // Enhanced error handling for network issues
-    function handleNetworkError(error) {
-      console.error('Network error:', error);
-      hideTypingIndicator();
-      
-      let errorMessage = "I'm having trouble connecting right now. ";
-      
-      if (!navigator.onLine) {
-        errorMessage += "Please check your internet connection and try again.";
-      } else if (error.message.includes('429')) {
-        errorMessage += "I'm receiving too many requests. Please wait a moment before trying again.";
-      } else if (error.message.includes('500')) {
-        errorMessage += "There's a temporary issue with my AI service. Please try again in a few minutes.";
-      } else {
-        errorMessage += "Please try again in a moment.";
+    // Storage event listener for cross-tab webpage context updates
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'HTML4AI') {
+        checkWebpageContext();
       }
-      
-      addMessage(errorMessage, 'ai', true);
-      saveChatHistory();
-    }
-
-    // Add loading states for better perceived performance
-    function setInputLoading(loading) {
-      const messageInput = document.getElementById('messageInput');
-      const sendBtn = document.getElementById('sendBtn');
-      
-      if (loading) {
-        messageInput.disabled = true;
-        messageInput.placeholder = "AI is responding...";
-        sendBtn.disabled = true;
-        sendBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; border: 2px solid transparent; border-top: 2px solid white; border-radius: 50%; animation: spin 1s linear infinite;"></div>';
-      } else {
-        messageInput.disabled = false;
-        messageInput.placeholder = "Type your message here... (Press Enter to send, Shift+Enter for new line)";
-        sendBtn.disabled = !messageInput.value.trim();
-        sendBtn.innerHTML = '<span class="material-symbols-outlined">send</span>';
-      }
-    }
-
-    // Update sendMessage function with better loading states
-    async function sendMessageEnhanced() {
-      const messageInput = document.getElementById('messageInput');
-      const message = messageInput.value.trim();
-      
-      if (!message || isTyping) return;
-      
-      // Set loading state
-      setInputLoading(true);
-      
-      // Clear input and hide welcome message
-      messageInput.value = '';
-      messageInput.style.height = 'auto';
-      hideWelcomeMessage();
-      
-      // Add user message
-      addMessage(message, 'user');
-      
-      // Show typing indicator
-      showTypingIndicator();
-      
-      try {
-        // Add timeout for better UX
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-        
-        const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(message)}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'text/plain'
-          },
-          signal: controller.signal
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const aiResponse = await response.text();
-        
-        // Hide typing indicator and add AI message
-        hideTypingIndicator();
-        setInputLoading(false);
-        addMessage(aiResponse, 'ai');
-        
-      } catch (error) {
-        setInputLoading(false);
-        
-        if (error.name === 'AbortError') {
-          hideTypingIndicator();
-          addMessage(
-            "The request timed out. Please try asking your question again with a shorter message.", 
-            'ai', 
-            true
-          );
-        } else {
-          handleNetworkError(error);
-        }
-      }
-      
-      // Save chat history and focus input
-      saveChatHistory();
-      messageInput.focus();
-    }
-
-    // Replace the original sendMessage with enhanced version
-    window.sendMessage = sendMessageEnhanced;
-
-    // Add CSS animation for spinner
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `;
-    document.head.appendChild(style);
+    });
   </script>
-  <script src="../theme.js"></script>
 </body>
 </html>

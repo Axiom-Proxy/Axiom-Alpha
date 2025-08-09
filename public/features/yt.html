@@ -562,7 +562,7 @@ html, body {
   </main>
 
   <script>
-    const API_KEY = 'AIzaSyBAnLAEwYssI3Oe3uaYfdEOPpzs-TVqHoM';
+    const API_KEY = ['AIzaSyBAnLAEwYssI3Oe3uaYfdEOPpzs-TVqHoM', 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY', 'AIzaSyCGz_8bE32q4NAkjdAXjpAiigBS6z9ZASU', 'AIzaSyAoFblDoXcc9f96-JUgCOshYFBJAwoEU24', 'AIzaSyAG3GyDRMSgc__9YKM37DNDzi0og_Koz1Q'];
     const API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
     
     let currentVideoId = null;
@@ -593,9 +593,17 @@ html, body {
       `;
       resultsHeader.textContent = `Searching...`;
 
+      work = false
+      for (key in API_KEY) {
+
+        if (work) {
+          break;
+        }
+
+
       try {
         const response = await fetch(
-          `${API_BASE_URL}/search?part=snippet&type=video&q=${encodeURIComponent(query)}&key=${API_KEY}&videoCategoryId=10&maxResults=25`
+          `${API_BASE_URL}/search?part=snippet&type=video&q=${encodeURIComponent(query)}&key=${API_KEY[key]}&videoCategoryId=10&maxResults=25`
         );
         
         if (!response.ok) {
@@ -606,15 +614,11 @@ html, body {
         searchResults = data.items || [];
         
         displaySearchResults(searchResults, query);
+        work = true
         
       } catch (error) {
-        console.error('Search error:', error);
-        resultsContainer.innerHTML = `
-          <div class="error-message">
-            Failed to search videos. Please try again.
-          </div>
-        `;
-        resultsHeader.textContent = 'Search failed';
+ 
+      }
       }
     }
 

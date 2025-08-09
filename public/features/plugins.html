@@ -8,38 +8,33 @@
   <style>
 
 :root {
-  /* Modern Color Palette */
+
   --color-primary: #6366f1;
   --color-secondary: #8b5cf6;
   --color-accent: #06b6d4;
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
-  
-  /* Background & Surfaces */
+
   --color-background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   --color-surface: rgba(255, 255, 255, 0.08);
   --color-surface-hover: rgba(255, 255, 255, 0.12);
   --color-surface-active: rgba(255, 255, 255, 0.16);
-  
-  /* Text Colors */
+
   --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
   --color-text-muted: #94a3b8;
-  
-  /* Glassmorphism Effects */
+
   --glass-background: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   --glass-blur: blur(16px);
-  
-  /* Plugin Status Colors */
+
   --plugin-active-bg: rgba(16, 185, 129, 0.2);
   --plugin-active-border: rgba(16, 185, 129, 0.4);
   --plugin-inactive-bg: rgba(148, 163, 184, 0.2);
   --plugin-inactive-border: rgba(148, 163, 184, 0.4);
-  
-  /* Spacing & Dimensions */
+
   --header-height: 70px;
   --border-radius: 12px;
   --border-radius-lg: 16px;
@@ -50,8 +45,7 @@
   --spacing-lg: 16px;
   --spacing-xl: 24px;
   --spacing-2xl: 32px;
-  
-  /* Transitions */
+
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,7 +65,6 @@ body {
   position: relative;
 }
 
-/* Animated Background */
 body::before {
   content: '';
   position: fixed;
@@ -92,7 +85,6 @@ body::before {
   50% { opacity: 0.7; }
 }
 
-/* Header */
 .header {
   background: var(--glass-background);
   backdrop-filter: var(--glass-blur);
@@ -183,7 +175,6 @@ body::before {
   color: var(--color-danger);
 }
 
-/* Main Content */
 .main-content {
   margin-top: var(--header-height);
   padding: var(--spacing-2xl);
@@ -199,7 +190,6 @@ body::before {
   margin-top: var(--spacing-xl);
 }
 
-/* Plugin Card */
 .plugin-card {
   background: var(--glass-background);
   backdrop-filter: var(--glass-blur);
@@ -378,7 +368,6 @@ body::before {
   border-radius: 4px;
 }
 
-/* Loading States */
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -409,7 +398,6 @@ body::before {
   text-align: center;
 }
 
-/* Error States */
 .error-container {
   display: flex;
   flex-direction: column;
@@ -437,10 +425,10 @@ body::before {
 }
 
 .retry-btn {
-  background: var(--color-danger);
   border: none;
   border-radius: var(--border-radius);
   color: white;
+  background: var(--color-accent);
   cursor: pointer;
   padding: var(--spacing-md) var(--spacing-xl);
   font-size: 14px;
@@ -452,12 +440,10 @@ body::before {
 }
 
 .retry-btn:hover {
-  background: #dc2626;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
-/* Empty State */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -487,7 +473,6 @@ body::before {
   line-height: 1.6;
 }
 
-/* Toast Notifications */
 .toast {
   position: fixed;
   top: 90px;
@@ -529,7 +514,6 @@ body::before {
   color: var(--color-warning);
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -548,12 +532,11 @@ body::before {
   background: var(--color-primary);
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
   .plugins-grid {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   }
-  
+
   .main-content {
     padding: var(--spacing-xl);
   }
@@ -569,34 +552,34 @@ body::before {
     padding-top: var(--spacing-md);
     padding-bottom: var(--spacing-md);
   }
-  
+
   .header-stats {
     order: 2;
   }
-  
+
   .header-actions {
     order: 3;
   }
-  
+
   .logo {
     font-size: 24px;
     order: 1;
   }
-  
+
   .main-content {
     margin-top: 120px;
     padding: var(--spacing-lg);
   }
-  
+
   .plugins-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
-  
+
   .plugin-card {
     padding: var(--spacing-lg);
   }
-  
+
   .toast {
     right: var(--spacing-md);
     left: var(--spacing-md);
@@ -608,24 +591,23 @@ body::before {
   .plugin-actions {
     flex-direction: column;
   }
-  
+
   .plugin-header {
     flex-direction: column;
     gap: var(--spacing-sm);
   }
-  
+
   .plugin-status {
     align-self: flex-start;
     margin-left: 0;
   }
-  
+
   .header-stats {
     flex-wrap: wrap;
     justify-content: center;
   }
 }
 
-/* Focus States for Accessibility */
 .action-btn:focus,
 .plugin-btn:focus,
 .retry-btn:focus {
@@ -633,7 +615,6 @@ body::before {
   outline-offset: 2px;
 }
 
-/* Animation for active plugins */
 @keyframes activeGlow {
   0%, 100% { box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2); }
   50% { box-shadow: 0 8px 32px rgba(16, 185, 129, 0.4); }
@@ -648,9 +629,9 @@ body::before {
   <header class="header">
     <div class="logo">
       <span class="material-symbols-outlined">extension</span>
-      <span>Plugins</span>
+      <span>Plugins (Highly Experimental - Unstable)</span>
     </div>
-    
+
     <div class="header-stats">
       <div class="stat-item">
         <span class="material-symbols-outlined">inventory_2</span>
@@ -665,7 +646,7 @@ body::before {
         <span>Available: <span class="stat-number" id="availablePlugins">0</span></span>
       </div>
     </div>
-    
+
     <div class="header-actions">
       <button class="action-btn refresh" onclick="refreshPlugins()" title="Refresh Plugins">
         <span class="material-symbols-outlined">refresh</span>
@@ -686,22 +667,20 @@ body::before {
   </main>
 
   <script>
-    // Configuration
+
     const PLUGINS_API_URL = 'https://raw.githubusercontent.com/Axiom-Proxy/Axiom-Plugins-Directory/refs/heads/main/plugins.json';
+    const API_BACKUP = "/assets/js/fallback-pluginlist.json"
     const PLUGINS_BASE_URL = 'https://raw.githubusercontent.com/Axiom-Proxy/Axiom-Plugins-Directory/refs/heads/main/';
     const STORAGE_KEY = 'axiom_plugins';
-    
-    // State
+
     let allPlugins = [];
     let activePlugins = [];
-    
-    // Initialize
+
     document.addEventListener('DOMContentLoaded', function() {
       loadActivePlugins();
       fetchPlugins();
     });
 
-    // Load active plugins from storage
     function loadActivePlugins() {
       try {
         const stored = localStorage.getItem(STORAGE_KEY);
@@ -713,7 +692,6 @@ body::before {
       }
     }
 
-    // Save active plugins to storage
     function saveActivePlugins() {
       try {
         const pluginUrls = activePlugins.join(',');
@@ -726,36 +704,34 @@ body::before {
       }
     }
 
-    // Fetch plugins from API
     async function fetchPlugins() {
       const container = document.getElementById('pluginsContainer');
-      
+
       try {
         showLoading();
-        
-        const response = await fetch(PLUGINS_API_URL);
-        
+        let response = await fetch(PLUGINS_API_URL);
+         
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const plugins = await response.json();
-        
+
         if (!Array.isArray(plugins)) {
           throw new Error('Invalid plugins data format');
         }
-        
+
         allPlugins = plugins;
         renderPlugins(plugins);
         updateStats();
-        
+
       } catch (error) {
         console.error('Failed to fetch plugins:', error);
         showError(error.message);
       }
     }
 
-    // Show loading state
     function showLoading() {
       const container = document.getElementById('pluginsContainer');
       container.innerHTML = `
@@ -766,7 +742,6 @@ body::before {
       `;
     }
 
-    // Show error state
     function showError(message) {
       const container = document.getElementById('pluginsContainer');
       container.innerHTML = `
@@ -785,10 +760,9 @@ body::before {
       `;
     }
 
-    // Render plugins grid
     function renderPlugins(plugins) {
       const container = document.getElementById('pluginsContainer');
-      
+
       if (plugins.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
@@ -804,14 +778,14 @@ body::before {
 
       const pluginsGrid = document.createElement('div');
       pluginsGrid.className = 'plugins-grid';
-      
+
       plugins.forEach((plugin, index) => {
         const pluginUrl = PLUGINS_BASE_URL + plugin.src;
         const isActive = activePlugins.includes(pluginUrl);
-        
+
         const pluginCard = document.createElement('div');
         pluginCard.className = `plugin-card ${isActive ? 'active' : ''}`;
-        
+
         pluginCard.innerHTML = `
           <div class="plugin-header">
             <div class="plugin-info">
@@ -823,7 +797,7 @@ body::before {
               ${isActive ? 'Active' : 'Inactive'}
             </div>
           </div>
-          
+
           <div class="plugin-actions">
             ${isActive ? 
               `<button class="plugin-btn danger" onclick="removePlugin('${pluginUrl}', ${index})">
@@ -840,35 +814,32 @@ body::before {
               View Source
             </button>
           </div>
-          
+
           <div class="plugin-meta">
             <span class="material-symbols-outlined">code</span>
             <span class="plugin-src">${escapeHtml(plugin.src)}</span>
           </div>
         `;
-        
+
         pluginsGrid.appendChild(pluginCard);
       });
-      
+
       container.innerHTML = '';
       container.appendChild(pluginsGrid);
     }
 
-    // Add plugin
     function addPlugin(pluginUrl, index) {
       if (activePlugins.includes(pluginUrl)) {
         showToast('Plugin is already installed', 'warning');
         return;
       }
-      
+
       activePlugins.push(pluginUrl);
       saveActivePlugins();
-      
-      // Update the specific plugin card
+
       const pluginCard = document.querySelectorAll('.plugin-card')[index];
       pluginCard.classList.remove('active');
-      
-      // Update the plugin actions
+
       const actionsContainer = pluginCard.querySelector('.plugin-actions');
       actionsContainer.innerHTML = `
         <button class="plugin-btn primary" onclick="addPlugin('${pluginUrl}', ${index})">
@@ -880,73 +851,66 @@ body::before {
           View Source
         </button>
       `;
-      
-      // Update status indicator
+
       const statusIndicator = pluginCard.querySelector('.plugin-status');
       statusIndicator.className = 'plugin-status inactive';
       statusIndicator.innerHTML = `
         <span class="material-symbols-outlined">radio_button_unchecked</span>
         Inactive
       `;
-      
+
       updateStats();
       showToast(`Plugin "${allPlugins[index].name}" removed successfully`, 'success');
     }
 
-    // View plugin source
     function viewPluginSource(pluginUrl) {
-      // Open plugin source in a new tab
+
       window.open(pluginUrl, '_blank');
       showToast('Opening plugin source in new tab', 'success');
     }
 
-    // Update statistics
     function updateStats() {
       const totalElement = document.getElementById('totalPlugins');
       const activeElement = document.getElementById('activePlugins');
       const availableElement = document.getElementById('availablePlugins');
-      
+
       const total = allPlugins.length;
       const active = activePlugins.length;
       const available = total - active;
-      
+
       totalElement.textContent = total;
       activeElement.textContent = active;
       availableElement.textContent = available;
-      
-      // Animate the numbers
+
       animateNumber(totalElement, total);
       animateNumber(activeElement, active);
       animateNumber(availableElement, available);
     }
 
-    // Animate number changes
     function animateNumber(element, targetValue) {
       element.style.transform = 'scale(1.2)';
       element.style.color = 'var(--color-primary)';
-      
+
       setTimeout(() => {
         element.style.transform = 'scale(1)';
         element.style.color = '';
       }, 200);
     }
 
-    // Refresh plugins
     async function refreshPlugins() {
       const refreshBtn = document.querySelector('.action-btn.refresh');
       const originalContent = refreshBtn.innerHTML;
-      
-      // Show loading state
+
       refreshBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; border: 2px solid transparent; border-top: 2px solid currentColor; border-radius: 50%; animation: spin 1s linear infinite;"></div>';
       refreshBtn.disabled = true;
-      
+
       try {
         await fetchPlugins();
         showToast('Plugins refreshed successfully', 'success');
       } catch (error) {
         showToast('Failed to refresh plugins', 'error');
       } finally {
-        // Restore button
+
         setTimeout(() => {
           refreshBtn.innerHTML = originalContent;
           refreshBtn.disabled = false;
@@ -954,89 +918,79 @@ body::before {
       }
     }
 
-    // Clear all plugins
     function clearAllPlugins() {
       if (activePlugins.length === 0) {
         showToast('No plugins to clear', 'warning');
         return;
       }
-      
+
       if (confirm(`Are you sure you want to remove all ${activePlugins.length} active plugins?`)) {
         const clearedCount = activePlugins.length;
         activePlugins = [];
         saveActivePlugins();
-        
-        // Re-render plugins to update UI
+
         renderPlugins(allPlugins);
         updateStats();
-        
+
         showToast(`Cleared ${clearedCount} plugins successfully`, 'success');
       }
     }
 
-    // Show toast notification
     function showToast(message, type = 'success') {
-      // Remove existing toasts
+
       const existingToasts = document.querySelectorAll('.toast');
       existingToasts.forEach(toast => toast.remove());
-      
+
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
-      
+
       const icon = type === 'success' ? 'check_circle' : 
                    type === 'error' ? 'error' : 
                    type === 'warning' ? 'warning' : 'info';
-      
+
       toast.innerHTML = `
         <span class="material-symbols-outlined">${icon}</span>
         <span>${message}</span>
       `;
-      
+
       document.body.appendChild(toast);
-      
-      // Trigger animation
+
       setTimeout(() => toast.classList.add('show'), 10);
-      
-      // Auto-remove after 4 seconds
+
       setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
       }, 4000);
     }
 
-    // Escape HTML to prevent XSS
     function escapeHtml(text) {
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
     }
 
-    // Handle keyboard shortcuts
     document.addEventListener('keydown', function(e) {
-      // R key to refresh
+
       if (e.key === 'r' || e.key === 'R') {
         if (!e.ctrlKey && !e.metaKey && document.activeElement === document.body) {
           e.preventDefault();
           refreshPlugins();
         }
       }
-      
-      // Escape to clear focus
+
       if (e.key === 'Escape') {
         document.activeElement.blur();
       }
-      
-      // Ctrl/Cmd + K to clear all plugins
+
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         clearAllPlugins();
       }
     });
 
-    // Handle window visibility changes for auto-refresh
     document.addEventListener('visibilitychange', function() {
       if (!document.hidden && allPlugins.length === 0) {
-        // Auto-refresh if plugins failed to load and window becomes visible
+
         setTimeout(() => {
           if (allPlugins.length === 0) {
             fetchPlugins();
@@ -1045,7 +999,6 @@ body::before {
       }
     });
 
-    // Handle network status changes
     window.addEventListener('online', function() {
       if (allPlugins.length === 0) {
         showToast('Connection restored. Refreshing plugins...', 'success');
@@ -1057,7 +1010,6 @@ body::before {
       showToast('Connection lost. Some features may not work.', 'warning');
     });
 
-    // Intersection Observer for plugin card animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -1072,20 +1024,17 @@ body::before {
       });
     }, observerOptions);
 
-    // Observe plugin cards when they're created
     function observePluginCards() {
       const pluginCards = document.querySelectorAll('.plugin-card');
       pluginCards.forEach(card => observer.observe(card));
     }
 
-    // Call observePluginCards after rendering
     const originalRenderPlugins = renderPlugins;
     renderPlugins = function(plugins) {
       originalRenderPlugins(plugins);
       setTimeout(observePluginCards, 100);
     };
 
-    // Add CSS for card animations
     const style = document.createElement('style');
     style.textContent = `
       .plugin-card {
@@ -1093,12 +1042,12 @@ body::before {
         transform: translateY(30px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
       }
-      
+
       .plugin-card.animate-in {
         opacity: 1;
         transform: translateY(0);
       }
-      
+
       @keyframes slideInUp {
         from {
           opacity: 0;
@@ -1112,42 +1061,38 @@ body::before {
     `;
     document.head.appendChild(style);
 
-    // Performance monitoring
     let performanceMetrics = {
       pluginsLoaded: 0,
       loadTime: 0,
       errors: 0
     };
 
-    // Monitor plugin loading performance
     function trackPerformance(metric, value) {
       performanceMetrics[metric] = value;
       console.log('Performance metrics:', performanceMetrics);
     }
 
-    // Enhanced error handling with retry logic
     async function fetchPluginsWithRetry(maxRetries = 3) {
       let retries = 0;
-      
+
       while (retries < maxRetries) {
         try {
           const startTime = performance.now();
           await fetchPlugins();
           const loadTime = performance.now() - startTime;
-          
+
           trackPerformance('pluginsLoaded', allPlugins.length);
           trackPerformance('loadTime', Math.round(loadTime));
           return;
-          
+
         } catch (error) {
           retries++;
           trackPerformance('errors', performanceMetrics.errors + 1);
-          
+
           if (retries >= maxRetries) {
             throw error;
           }
-          
-          // Exponential backoff
+
           const delay = Math.pow(2, retries) * 1000;
           showToast(`Retry ${retries}/${maxRetries} in ${delay/1000}s...`, 'warning');
           await new Promise(resolve => setTimeout(resolve, delay));
@@ -1155,7 +1100,6 @@ body::before {
       }
     }
 
-    // Replace the initial fetchPlugins call with retry version
     document.addEventListener('DOMContentLoaded', function() {
       loadActivePlugins();
       fetchPluginsWithRetry().catch(error => {
@@ -1163,14 +1107,12 @@ body::before {
       });
     });
 
-    // Service worker registration for offline support (if available)
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(error => {
         console.log('Service worker registration failed:', error);
       });
     }
 
-    // Add search functionality (bonus feature)
     function addSearchFunctionality() {
       const header = document.querySelector('.header');
       const searchContainer = document.createElement('div');
@@ -1185,7 +1127,7 @@ body::before {
         padding: var(--spacing-sm) var(--spacing-md);
         min-width: 250px;
       `;
-      
+
       searchContainer.innerHTML = `
         <span class="material-symbols-outlined" style="color: var(--color-text-muted); font-size: 18px;">search</span>
         <input 
@@ -1202,16 +1144,14 @@ body::before {
           "
         >
       `;
-      
-      // Insert search between stats and actions
+
       const headerStats = document.querySelector('.header-stats');
       header.insertBefore(searchContainer, headerStats.nextSibling);
-      
-      // Add search functionality
+
       const searchInput = document.getElementById('pluginSearch');
       searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
-        
+
         if (query === '') {
           renderPlugins(allPlugins);
         } else {
@@ -1222,27 +1162,24 @@ body::before {
           );
           renderPlugins(filteredPlugins);
         }
-        
+
         updateStats();
       });
     }
 
-// Remove plugin
 function removePlugin(pluginUrl, index) {
   const pluginIndex = activePlugins.indexOf(pluginUrl);
   if (pluginIndex === -1) {
     showToast('Plugin is not currently installed', 'warning');
     return;
   }
-  
+
   activePlugins.splice(pluginIndex, 1);
   saveActivePlugins();
-  
-  // Update the specific plugin card
+
   const pluginCard = document.querySelectorAll('.plugin-card')[index];
   pluginCard.classList.remove('active');
-  
-  // Update the plugin actions
+
   const actionsContainer = pluginCard.querySelector('.plugin-actions');
   actionsContainer.innerHTML = `
     <button class="plugin-btn primary" onclick="addPlugin('${pluginUrl}', ${index})">
@@ -1254,20 +1191,18 @@ function removePlugin(pluginUrl, index) {
       View Source
     </button>
   `;
-  
-  // Update status indicator
+
   const statusIndicator = pluginCard.querySelector('.plugin-status');
   statusIndicator.className = 'plugin-status inactive';
   statusIndicator.innerHTML = `
     <span class="material-symbols-outlined">radio_button_unchecked</span>
     Inactive
   `;
-  
+
   updateStats();
   showToast(`Plugin "${allPlugins[index].name}" removed successfully`, 'success');
 }
 
-    // Add search functionality after plugins are loaded
     setTimeout(addSearchFunctionality, 1000);
 
   </script>

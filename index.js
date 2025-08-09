@@ -11,111 +11,6 @@ const { createBareServer } = require('@tomphttp/bare-server-node');
    const proxyServer = httpProxy.createProxyServer();
    
    console.log("Fetching proxies...");
-
-   fastify.get("/isvercel", (req, reply) => {
-       // eh probably LOL
-       reply.status(200).send("true");
-   });
-   fastify.get('/region', async (req, reply) => {
-     const primaryUrl = 'https://ipapi.co/json/';
-     const backupUrl = 'http://ip-api.com/json/';
- 
-     async function fetchPrimaryAPI() {
-         try {
-             const response = await fetch(primaryUrl);
-             if (!response.ok) {
-                 throw new Error('Failed to fetch region data from primary API');
-             }
-             const data = await response.json();
-             return {
-                 region: data.region,
-                 country: data.country,
-                 city: data.city,
-                 full_name: data.country_name
-             };
-         } catch (error) {
-             console.error('Error fetching from primary API:', error);
-             return null;
-         }
-     }
- 
-     async function fetchBackupAPI() {
-         try {
-             const response = await fetch(backupUrl);
-             if (!response.ok) {
-                 throw new Error('Failed to fetch region data from backup API');
-             }
-             const data = await response.json();
-             return {
-                 region: data.regionName,
-                 country: data.countryCode,
-                 city: data.city,
-                 full_name: data.country
-             };
-         } catch (error) {
-             console.error('Error fetching from backup API:', error);
-             return null;
-         }
-     }
- 
-     try {
-         let primaryData = await fetchPrimaryAPI();
- 
-         if (!primaryData) {
-             primaryData = await fetchBackupAPI();
-         }
- 
-         if (!primaryData) {
-             throw new Error('Both primary and backup APIs failed.');
-         }
- 
-         reply.status(200).send(primaryData);
-     } catch (error) {
-         console.error('Error in /region endpoint:', error);
-         reply.status(500).send({ error: 'Failed to fetch the region data' });
-     }
- });
- 
-   async function getProxies(url) {
-       try {
-           const response = await fetch(url);
-           if (!response.ok) {
-               console.error(`Error fetching proxies: HTTP status ${response.status}`);
-               return [];
-           }
-           const data = await response.json();
-           if (data.data && Array.isArray(data.data)) {
-               return data.data.map(proxy => ({
-                   proxy: `${proxy.ip}:${proxy.port}`,
-                   country: proxy.country
-               }));
-           } else {
-               console.error('Unexpected JSON structure from proxy list API:', data);
-               return [];
-           }
-       } catch (error) {
-           console.error('Error fetching proxies:', error);
-           return [];
-       }
-   }
-   
-   const url = 'https://proxylist.geonode.com/api/proxy-list?speed=fast&limit=500&page=1&sort_by=lastChecked&sort_type=desc';
-   
-   let proxies = [];
-   
-   getProxies(url).then(fetchedProxies => {
-       proxies = fetchedProxies;
-       console.log(`Initial proxy fetch complete. Fetched ${proxies.length} proxies.`);
-   });
- 
-   // Refresh proxies every hour (3600000 milliseconds)
-   setInterval(async () => {
-       console.log("Refreshing proxies...");
-       const fetchedProxies = await getProxies(url);
-       proxies = fetchedProxies;
-       console.log(`Proxy refresh complete. Fetched ${proxies.length} proxies.`);
-   }, 3600000);
- 
    
    fastify.register(fastifyStatic, {
        root: join(__dirname, 'public'),
@@ -127,44 +22,36 @@ const { createBareServer } = require('@tomphttp/bare-server-node');
            }
        }
    });
+
+   let active_users = 0
+   let message = ""
+
+   fastify.get('/any-message/*', async (req, reply) => {
+       message = req.params['*'].replace("+"," ");
+
+       // to use visit / 
+
+       // im *sure* nobody will abuse this!!!!!!!!!!!!!!!!!!!!!!!!!!!
+       const hasHtml = /<[^>]*>/g.test(message);
+       if (hasHtml) {
+           reply.status(400).send('trying to html inject in the big 25 :withered_rose:');
+           return;
+       }
+       reply.send('ok')
+   })
+
+   fastify.get('/message/', async (req, reply) => {
+       reply.send(message)
+   })
+
+   fastify.get("/register-active/", async (req, reply) => {
+       active_users += 1
+       setTimeout(() => {
+           active_users -= 1
+       }, 30 * 60 * 1000) // 30 minutes 
+       reply.send(active_users)
+   })
  
-   
-   fastify.get("/gdomain/", async (req, reply) => {
-       try {
-           const response = await fetch("https://raw.githubusercontent.com/Glitch-Network/glitch_net_domains/main/db.txt");
-           const data = await response.text();
-           reply.status(200).send(data);
-       } catch (error) {
-           reply.status(500).send({ error: "Failed to fetch the data" });
-       }
-   });
-   
-   fastify.get('/vpn/*', (req, reply) => {
-       const countryCode = req.headers['glitch-vpn-country-code'];
-       if (!countryCode) {
-           reply.status(400).send('glitch-vpn-country-code header is missing');
-           return;
-       }
-   
-       const filteredProxies = proxies.filter(proxy => proxy.country === countryCode.toUpperCase());
-   
-       if (filteredProxies.length === 0) {
-           reply.status(404).send('No proxies found for the specified country code');
-           return;
-       }
-   
-       const randomProxy = filteredProxies[Math.floor(Math.random() * filteredProxies.length)].proxy;
-   
-       delete req.headers['glitch-vpn-country-code'];
-   
-       proxyServer.web(req.raw, reply.raw, { target: `http://${randomProxy}` }, (err) => {
-           if (err) {
-               console.error(`Proxy error for target ${randomProxy}:`, err);
-               reply.status(500).send('Proxy error');
-           }
-       });
-   });
-   
    fastify.get('/search_complete/*', async (req, reply) => {
        const query = req.params['*']; // Get the search query from the URL path
        if (!query) {
@@ -191,10 +78,6 @@ const { createBareServer } = require('@tomphttp/bare-server-node');
    
    server.on('request', (req, res) => {
        if (bare.shouldRoute(req)) {
-           // decrypt the body
-   
-           
-   
            bare.routeRequest(req, res);
            return;
        }

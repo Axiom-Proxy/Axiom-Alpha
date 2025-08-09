@@ -5,20 +5,14 @@
     <title>Axiom</title>
     <!-- jQuery -->
     <link rel="icon" href="assets/favicon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="scripts/js/global.js"></script>
     <style>
-        /* ✨ AXIOM GLASSMORPHIC BROWSER - Compact Layout with Sidebar Apps ✨ */
-
-        /* Import Fonts */
         @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-        /* -------------------------------------------------- */
-        /* ✨ Root Variables - Axiom Theme Palette ✨ */
-        /* -------------------------------------------------- */
         :root {
-            /* Axiom Color Palette */
+
             --color-primary: #667eea;
             --color-secondary: #764ba2;
             --color-accent: #e0e7ff;
@@ -33,7 +27,6 @@
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             --glass-blur: blur(20px);
 
-            /* Spacing & Layout */
             --spacing-unit: 5px;
             --padding-base: calc(var(--spacing-unit) * 1);
             --margin-base: var(--spacing-unit);
@@ -41,11 +34,10 @@
             --border-radius-small: 18px;
             --toolbar-height: 65px;
             --sidebar-width: 65px;
-            --app-sidebar-width: 400px; /* Width for app sidebar - increased from 320px */
+            --app-sidebar-width: 400px;
             --square-space: 65px;
             --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-            /* Effects */
             --blur-strength: 20px;
             --box-shadow-normal: 0 8px 32px rgba(0, 0, 0, 0.2);
             --box-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
@@ -53,9 +45,6 @@
             --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Base Styles ✨ */
-        /* -------------------------------------------------- */
         * {
             margin: 0;
             padding: 0;
@@ -63,7 +52,6 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: var(--color-text-primary);
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             overflow: hidden;
@@ -71,7 +59,6 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
@@ -79,7 +66,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
@@ -87,7 +74,6 @@
             animation: backgroundShift 20s ease-in-out infinite;
         }
 
-        /* Grey tint overlay that persists even when background is changed via JS */
         body::after {
             content: '';
             position: fixed;
@@ -100,22 +86,23 @@
         }
 
         @keyframes backgroundShift {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Main Container ✨ */
-        /* -------------------------------------------------- */
         .main-container {
             display: flex;
             height: 100vh;
             position: relative;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Control Sidebar ✨ */
-        /* -------------------------------------------------- */
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
@@ -125,7 +112,7 @@
             transition: transform var(--transition-normal);
             position: relative;
             z-index: 20;
-            
+
             border: none;
         }
 
@@ -134,7 +121,6 @@
             border: none;
         }
 
-        /* Square space at the top */
         .sidebar-square-space {
             width: 100%;
             height: var(--square-space);
@@ -218,9 +204,6 @@
             color: var(--color-text-primary);
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ App Sidebar ✨ */
-        /* -------------------------------------------------- */
         .app-sidebar {
             width: 0;
             height: 100vh;
@@ -241,7 +224,6 @@
         .app-sidebar.right {
             order: 2;
             border-right: none;
-            border-left: 1px solid var(--glass-border);
         }
 
         .app-sidebar-header {
@@ -281,7 +263,6 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Hide inactive app frames but keep them loaded - more specific selectors */
         .app-sidebar .app-sidebar-content .app-frame {
             position: absolute;
             top: 0;
@@ -308,13 +289,10 @@
             display: block;
             opacity: 1;
             visibility: visible;
-            border-radius: 0; /* Remove any border radius */
+            border-radius: 0;
             pointer-events: auto;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Content Area ✨ */
-        /* -------------------------------------------------- */
         .content-area {
             flex: 1;
             display: flex;
@@ -322,9 +300,6 @@
             overflow: hidden;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Tabs Container ✨ */
-        /* -------------------------------------------------- */
         #tabs {
             display: flex;
             height: var(--toolbar-height);
@@ -343,9 +318,6 @@
             scrollbar-width: none;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Tab Styling ✨ */
-        /* -------------------------------------------------- */
         .tab {
             display: flex;
             align-items: center;
@@ -361,7 +333,7 @@
             border-radius: var(--border-radius-small);
             white-space: nowrap;
             max-width: 230px;
-            border-left:2px solid #4b4b4b;
+            border-left: 2px solid #4b4b4b;
             border: 1px solid transparent;
         }
 
@@ -377,7 +349,6 @@
             border: 1px solid var(--color-border);
         }
 
-        /* Tab Text */
         .tab p {
             margin: 0;
             padding: 0;
@@ -387,7 +358,6 @@
             font-size: 13px;
         }
 
-        /* Tab favicon */
         .tab img {
             width: 14px;
             height: 14px;
@@ -395,7 +365,6 @@
             margin-right: 6px;
         }
 
-        /* Tab Close Button */
         .tab p.close {
             margin-left: 6px;
             font-weight: bold;
@@ -418,9 +387,6 @@
             color: #ef4444;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Create Tab Button ✨ */
-        /* -------------------------------------------------- */
         #create_tab {
             display: flex;
             align-items: center;
@@ -447,9 +413,6 @@
             font-size: 18px;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Frames Container ✨ */
-        /* -------------------------------------------------- */
         #frames {
             flex: 1;
             position: relative;
@@ -457,16 +420,12 @@
             overflow: hidden;
             border-top-left-radius: 16px;
         }
-        
-        /* When sidebar is on the right */
+
         .main-container:has(.sidebar.right) #frames {
             border-top-left-radius: 0;
             border-top-right-radius: 16px;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Main Tab Iframe Styling - Highly Specific ✨ */
-        /* -------------------------------------------------- */
         .content-area #frames iframe {
             display: none !important;
             width: 100% !important;
@@ -487,8 +446,7 @@
             max-width: 100% !important;
             max-height: 100% !important;
         }
-        
-        /* When sidebar is on the right */
+
         .main-container:has(.sidebar.right) .content-area #frames iframe {
             border-top-left-radius: 0;
             border-top-right-radius: 26px;
@@ -509,9 +467,6 @@
             opacity: 1 !important;
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Loading Animation ✨ */
-        /* -------------------------------------------------- */
         .loading {
             position: absolute;
             top: 50%;
@@ -534,13 +489,15 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Animated Background Particles ✨ */
-        /* -------------------------------------------------- */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -561,13 +518,17 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Stars Background ✨ */
-        /* -------------------------------------------------- */
         .main {
             position: fixed;
             top: 50%;
@@ -577,28 +538,40 @@
             z-index: -50;
             background-color: #fff;
             border-radius: 50%;
-            box-shadow: -42vw -4vh 0px 0px #fff,25vw -41vh 0px 0px #fff,-20vw 49vh 0px 1px #fff,5vw 40vh 1px 1px #fff,29vw 19vh 1px 0px #fff,-44vw -13vh 0px 0px #fff,46vw 41vh 0px 1px #fff,-3vw -45vh 0px 1px #fff,47vw 35vh 1px 0px #fff,12vw -8vh 1px 0px #fff,-34vw 48vh 1px 1px #fff,32vw 26vh 1px 1px #fff,32vw -41vh 1px 1px #fff,0vw 37vh 1px 1px #fff,34vw -26vh 1px 0px #fff,-14vw -49vh 1px 0px #fff,-12vw 45vh 0px 1px #fff,-44vw -33vh 0px 1px #fff,-13vw 41vh 0px 0px #fff,-36vw -11vh 0px 1px #fff,-23vw -24vh 1px 0px #fff,-38vw -27vh 0px 1px #fff,16vw -19vh 0px 0px #fff,28vw 33vh 1px 0px #fff,-49vw -4vh 0px 0px #fff,16vw 32vh 0px 1px #fff,36vw -18vh 1px 0px #fff,-25vw -30vh 1px 0px #fff,-23vw 24vh 0px 1px #fff,-2vw -35vh 1px 1px #fff,-25vw 9vh 0px 0px #fff,-15vw -34vh 0px 0px #fff,-8vw -19vh 1px 0px #fff,-20vw -20vh 1px 1px #fff,42vw 50vh 0px 1px #fff,-32vw 10vh 1px 0px #fff,-23vw -17vh 0px 0px #fff,44vw 15vh 1px 0px #fff,-40vw 33vh 1px 1px #fff,-43vw 8vh 0px 0px #fff,-48vw -15vh 1px 1px #fff,-24vw 17vh 0px 0px #fff,-31vw 50vh 1px 0px #fff,36vw -38vh 0px 1px #fff,-7vw 48vh 0px 0px #fff,15vw -32vh 0px 0px #fff,29vw -41vh 0px 0px #fff,2vw 37vh 1px 0px #fff,7vw -40vh 1px 1px #fff,15vw 18vh 0px 0px #fff,25vw -13vh 1px 1px #fff,-46vw -12vh 1px 1px #fff,-18vw 22vh 0px 0px #fff,23vw -9vh 1px 0px #fff,50vw 12vh 0px 1px #fff,45vw 2vh 0px 0px #fff,14vw -48vh 1px 0px #fff,23vw 43vh 0px 1px #fff,-40vw 16vh 1px 1px #fff,20vw -31vh 0px 1px #fff,-17vw 44vh 1px 1px #fff,18vw -45vh 0px 0px #fff,33vw -6vh 0px 0px #fff,0vw 7vh 0px 1px #fff,-10vw -18vh 0px 1px #fff,-19vw 5vh 1px 0px #fff,1vw 42vh 0px 0px #fff,22vw 48vh 0px 1px #fff,39vw -8vh 1px 1px #fff,-6vw -42vh 1px 0px #fff,-47vw 34vh 0px 0px #fff,-46vw 19vh 0px 1px #fff,-12vw -32vh 0px 0px #fff,-45vw -38vh 0px 1px #fff,-28vw 18vh 1px 0px #fff,-38vw -46vh 1px 1px #fff,49vw -6vh 1px 1px #fff,-28vw 18vh 1px 1px #fff,10vw -24vh 0px 1px #fff,-5vw -11vh 1px 1px #fff,33vw -8vh 1px 0px #fff,-16vw 17vh 0px 0px #fff,18vw 27vh 0px 1px #fff,-8vw -10vh 1px 1px #fff;
-            animation: zoom 16s alternate infinite; 
+            box-shadow: -42vw -4vh 0px 0px #fff, 25vw -41vh 0px 0px #fff, -20vw 49vh 0px 1px #fff, 5vw 40vh 1px 1px #fff, 29vw 19vh 1px 0px #fff, -44vw -13vh 0px 0px #fff, 46vw 41vh 0px 1px #fff, -3vw -45vh 0px 1px #fff, 47vw 35vh 1px 0px #fff, 12vw -8vh 1px 0px #fff, -34vw 48vh 1px 1px #fff, 32vw 26vh 1px 1px #fff, 32vw -41vh 1px 1px #fff, 0vw 37vh 1px 1px #fff, 34vw -26vh 1px 0px #fff, -14vw -49vh 1px 0px #fff, -12vw 45vh 0px 1px #fff, -44vw -33vh 0px 1px #fff, -13vw 41vh 0px 0px #fff, -36vw -11vh 0px 1px #fff, -23vw -24vh 1px 0px #fff, -38vw -27vh 0px 1px #fff, 16vw -19vh 0px 0px #fff, 28vw 33vh 1px 0px #fff, -49vw -4vh 0px 0px #fff, 16vw 32vh 0px 1px #fff, 36vw -18vh 1px 0px #fff, -25vw -30vh 1px 0px #fff, -23vw 24vh 0px 1px #fff, -2vw -35vh 1px 1px #fff, -25vw 9vh 0px 0px #fff, -15vw -34vh 0px 0px #fff, -8vw -19vh 1px 0px #fff, -20vw -20vh 1px 1px #fff, 42vw 50vh 0px 1px #fff, -32vw 10vh 1px 0px #fff, -23vw -17vh 0px 0px #fff, 44vw 15vh 1px 0px #fff, -40vw 33vh 1px 1px #fff, -43vw 8vh 0px 0px #fff, -48vw -15vh 1px 1px #fff, -24vw 17vh 0px 0px #fff, -31vw 50vh 1px 0px #fff, 36vw -38vh 0px 1px #fff, -7vw 48vh 0px 0px #fff, 15vw -32vh 0px 0px #fff, 29vw -41vh 0px 0px #fff, 2vw 37vh 1px 0px #fff, 7vw -40vh 1px 1px #fff, 15vw 18vh 0px 0px #fff, 25vw -13vh 1px 1px #fff, -46vw -12vh 1px 1px #fff, -18vw 22vh 0px 0px #fff, 23vw -9vh 1px 0px #fff, 50vw 12vh 0px 1px #fff, 45vw 2vh 0px 0px #fff, 14vw -48vh 1px 0px #fff, 23vw 43vh 0px 1px #fff, -40vw 16vh 1px 1px #fff, 20vw -31vh 0px 1px #fff, -17vw 44vh 1px 1px #fff, 18vw -45vh 0px 0px #fff, 33vw -6vh 0px 0px #fff, 0vw 7vh 0px 1px #fff, -10vw -18vh 0px 1px #fff, -19vw 5vh 1px 0px #fff, 1vw 42vh 0px 0px #fff, 22vw 48vh 0px 1px #fff, 39vw -8vh 1px 1px #fff, -6vw -42vh 1px 0px #fff, -47vw 34vh 0px 0px #fff, -46vw 19vh 0px 1px #fff, -12vw -32vh 0px 0px #fff, -45vw -38vh 0px 1px #fff, -28vw 18vh 1px 0px #fff, -38vw -46vh 1px 1px #fff, 49vw -6vh 1px 1px #fff, -28vw 18vh 1px 1px #fff, 10vw -24vh 0px 1px #fff, -5vw -11vh 1px 1px #fff, 33vw -8vh 1px 0px #fff, -16vw 17vh 0px 0px #fff, 18vw 27vh 0px 1px #fff, -8vw -10vh 1px 1px #fff;
+            animation: zoom 16s alternate infinite;
         }
 
         @keyframes zoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.5); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.5);
+            }
         }
 
         @keyframes fade {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         @keyframes fadein {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
-        /* -------------------------------------------------- */
-        /* ✨ Miniplayer Window ✨ */
-        /* -------------------------------------------------- */
         .miniplayer {
             position: fixed;
             width: 320px;
@@ -619,7 +592,6 @@
             display: flex;
         }
 
-        /* Corner positions */
         .miniplayer.top-left {
             top: 20px;
             left: 20px;
@@ -696,7 +668,6 @@
             background: #000;
         }
 
-        /* Position indicator */
         .miniplayer-position {
             position: absolute;
             bottom: 8px;
@@ -712,14 +683,14 @@
         .miniplayer:hover .miniplayer-position {
             opacity: 1;
         }
-        /* -------------------------------------------------- */
+
         @media (max-width: 768px) {
             .sidebar {
                 position: absolute;
                 transform: translateX(-100%);
                 width: 240px;
             }
-            
+
             .sidebar.open {
                 transform: translateX(0);
             }
@@ -745,16 +716,26 @@
                 z-index: 25;
             }
         }
-    </style>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-278K4F012J');
-    </script>
+
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -771,8 +752,6 @@
         <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
     </div>
 
-    <!-- Stars Background -->
-    <div class="main"></div>
 
     <div class="main-container">
         <!-- Control Sidebar -->
@@ -780,7 +759,7 @@
             <div class="sidebar-square-space">
                 <img src="assets/trans-logo.png">
             </div>
-            
+
             <div class="sidebar-content">
                 <div class="sidebar-item" onclick="toggleSidebarPosition()">
                     <span class="material-symbols-outlined">swap_horiz</span>
@@ -791,20 +770,24 @@
                 <div class="sidebar-item" onclick="createTab('Games', 'apps.html')">
                     <span class="material-symbols-outlined">stadia_controller</span>
                 </div>
-                <div class="sidebar-item" onclick="toggleAppSidebar('youtube', 'features/yt.html', 'Axiom Player')" data-app="youtube">
+                <div class="sidebar-item" onclick="toggleAppSidebar('youtube', 'features/yt.html', 'Axiom Player')"
+                    data-app="youtube">
                     <span class="material-symbols-outlined">play_circle</span>
                 </div>
-                <div class="sidebar-item" onclick="toggleAppSidebar('ai', 'features/ai.html', 'Axiom AI')" data-app="ai">
+                <div class="sidebar-item" onclick="toggleAppSidebar('ai', 'features/ai.html', 'Axiom AI')"
+                    data-app="ai">
                     <span class="material-symbols-outlined">auto_awesome</span>
                 </div>
-                <div class="sidebar-item" onclick="toggleAppSidebar('bookmarks', 'bookmarks.html', 'Bookmarks')" data-app="bookmarks">
+                <div class="sidebar-item" onclick="toggleAppSidebar('bookmarks', 'bookmarks.html', 'Bookmarks')"
+                    data-app="bookmarks">
                     <span class="material-symbols-outlined">bookmark</span>
+                </div>
+                                <div class="sidebar-item" onclick="createTab('Plugins', '/features/plugins.html')"
+                    data-app="plugin" style="display: none;"> <!-- not yet i guess -->
+                    <span class="material-symbols-outlined">extension</span>
                 </div>
                 <div id="plugin-area">
 
-                </div>
-                <div class="sidebar-item" onclick="toggleAppSidebar('history', 'history.html', 'History')" data-app="history">
-                    <span class="material-symbols-outlined">history</span>
                 </div>
                 <div class="sidebar-item" onclick="createTab('Settings', 'settings.html')">
                     <span class="material-symbols-outlined">settings</span>
@@ -863,10 +846,9 @@
     <script>
         let initialized = 0;
         let currentApp = null;
-        
-        // Load sidebar position from in-memory storage instead of localStorage
+
         let sidebarPosition = 'left';
-        
+
         function loadSidebarPosition() {
             if (sidebarPosition === 'right') {
                 document.getElementById('sidebar').classList.add('right');
@@ -874,38 +856,34 @@
             }
         }
 
-        // Toggle sidebar position
         function toggleSidebarPosition() {
             const sidebar = document.getElementById('sidebar');
             const appSidebar = document.getElementById('appSidebar');
-            
+
             sidebar.classList.toggle('right');
             appSidebar.classList.toggle('right');
-            
+
             sidebarPosition = sidebar.classList.contains('right') ? 'right' : 'left';
         }
 
-        // App Sidebar Functions
-        let appFrames = {}; // Store loaded frames
-        
+        let appFrames = {};
+
         function initializeAppFrames() {
             const appSidebarContent = document.getElementById('appSidebarContent');
-            
-            // Define all apps that should be preloaded
+
             const apps = {
                 'youtube': { url: 'features/yt.html', title: 'Axiom Player' },
                 'ai': { url: 'features/ai.html', title: 'Axiom AI' },
                 'bookmarks': { url: 'bookmarks.html', title: 'Bookmarks' },
-                'history': { url: 'history.html', title: 'History' }
+                'plugins': { url: 'features/plugins.html', title: 'Plugins' }
             };
-            
-            // Create and load all app frames
+
             Object.keys(apps).forEach(appId => {
                 const app = apps[appId];
                 const frameDiv = document.createElement('div');
                 frameDiv.className = 'app-frame';
                 frameDiv.id = `app-frame-${appId}`;
-                
+
                 frameDiv.innerHTML = `
                     <iframe src="${app.url}" 
                             frameborder="0" 
@@ -913,13 +891,12 @@
                             style="width: 100%; height: 100%; border: none; display: block; border-radius: 0;">
                     </iframe>
                 `;
-                
+
                 appSidebarContent.appendChild(frameDiv);
                 appFrames[appId] = { element: frameDiv, ...app };
-                
-                // Debug logging
+
                 const iframe = frameDiv.querySelector('iframe');
-                iframe.onload = function() {
+                iframe.onload = function () {
                     console.log(`App frame loaded: ${appId} (${app.title})`);
                 };
             });
@@ -929,37 +906,31 @@
             const appSidebar = document.getElementById('appSidebar');
             const appSidebarTitle = document.getElementById('appSidebarTitle');
             const sidebarItems = document.querySelectorAll('.sidebar-item');
-            
-            // Remove active state from all sidebar items
+
             sidebarItems.forEach(item => item.classList.remove('active'));
-            
+
             if (currentApp === appId && appSidebar.classList.contains('open')) {
-                // Close if same app is clicked
+
                 closeAppSidebar();
                 return;
             }
-            
-            // Set active state for clicked item
+
             const clickedItem = document.querySelector(`[data-app="${appId}"]`);
             if (clickedItem) {
                 clickedItem.classList.add('active');
             }
-            
-            // Update sidebar title
+
             appSidebarTitle.textContent = title;
-            
-            // Hide all app frames
+
             Object.keys(appFrames).forEach(id => {
                 const frame = appFrames[id].element;
                 frame.classList.remove('active');
             });
-            
-            // Show the selected app frame
+
             if (appFrames[appId]) {
                 appFrames[appId].element.classList.add('active');
             }
-            
-            // Open sidebar
+
             appSidebar.classList.add('open');
             currentApp = appId;
         }
@@ -967,25 +938,20 @@
         function closeAppSidebar() {
             const appSidebar = document.getElementById('appSidebar');
             const sidebarItems = document.querySelectorAll('.sidebar-item');
-            
+
             appSidebar.classList.remove('open');
-            
-            // Remove active state from all sidebar items
+
             sidebarItems.forEach(item => item.classList.remove('active'));
-            
-            // Note: We don't hide the frames anymore - they stay loaded and running
-            // This allows music/videos to continue playing when sidebar is closed
-            
+
             currentApp = null;
         }
-function closeAppSidebar() {
+        function closeAppSidebar() {
             const appSidebar = document.getElementById('appSidebar');
             const appSidebarContent = document.getElementById('appSidebarContent');
             const sidebarItems = document.querySelectorAll('.sidebar-item');
-            
+
             appSidebar.classList.remove('open');
-            
-            // Remove') + '=([^&#]*)');
+
             const results = regex.exec(window.location.search);
             return results ? decodeURIComponent(results[1].replace(/\+/g, ' ')) : '';
         }
@@ -1019,55 +985,47 @@ function closeAppSidebar() {
 
             tab.onclick = function (e) {
                 if (e.target.classList.contains('close')) return;
-                
-                // Get currently active iframe
+
                 var currentActiveFrame = document.querySelector("#frames iframe.active");
-                
-                // Remove active class from all tabs
+
                 var tabs = document.getElementsByClassName("tab");
                 for (var i = 0; i < tabs.length; i++) {
                     tabs[i].classList.remove("active");
                 }
-                
-                // Add active class to clicked tab
+
                 tab.classList.add("active");
 
-                // Get the target frame
                 var targetFrame = document.getElementById(tab.id + "-frame");
-                
-                // If there's a currently active frame and it's different from target
+
                 if (currentActiveFrame && currentActiveFrame !== targetFrame) {
-                    // Fade out current frame
+
                     currentActiveFrame.classList.add("fadeout");
-                    
+
                     setTimeout(() => {
-                        // Hide current frame and remove active class
+
                         currentActiveFrame.style.display = "none";
                         currentActiveFrame.classList.remove("active", "fadeout");
-                        
-                        // Show and fade in new frame
+
                         targetFrame.style.display = "block";
                         targetFrame.classList.add("active");
-                        
-                        // Force reflow to ensure display change is applied
+
                         targetFrame.offsetHeight;
-                        
-                        // Add fade in class
+
                         targetFrame.classList.add("fadein");
-                        
+
                         setTimeout(() => {
                             targetFrame.classList.remove("fadein");
                         }, 400);
-                        
-                    }, 200); // Shorter delay for smoother transition
+
+                    }, 200);
                 } else {
-                    // No current frame or same frame - just show directly
+
                     var iframes = document.querySelectorAll("#frames iframe");
                     for (var i = 0; i < iframes.length; i++) {
                         iframes[i].style.display = "none";
                         iframes[i].classList.remove("active");
                     }
-                    
+
                     targetFrame.style.display = "block";
                     targetFrame.classList.add("active");
                 }
@@ -1093,12 +1051,10 @@ function closeAppSidebar() {
                 }
             };
 
-            // Insert before the create tab button
             const createTabBtn = document.getElementById("create_tab");
             document.getElementById("tabs").insertBefore(tab, createTabBtn);
             tab.click();
 
-            // Update tab title on iframe load
             frame.onload = function () {
                 var frameTitle = frame.contentDocument.title;
                 tab.innerHTML = `
@@ -1106,10 +1062,10 @@ function closeAppSidebar() {
                     <p class="close" onclick="removeTab('${tab.id}')">×</p>
                 `;
                 var last_title = frameTitle;
-                
+
                 setInterval(function () {
                     try {
-                      frameTitle = frame.contentDocument.title;
+                        frameTitle = frame.contentDocument.title;
                     }
                     catch {
                         return
@@ -1118,7 +1074,6 @@ function closeAppSidebar() {
                     frameURL = frameTitle.split("|G|")[1];
                     frameTitle = frameTitle.split("|G|")[0];
 
-                    // Cap the title length
                     const maxTitleLength = 25;
                     if (frameTitle.length > maxTitleLength) {
                         frameTitle = frameTitle.substring(0, maxTitleLength) + '...';
@@ -1137,7 +1092,7 @@ function closeAppSidebar() {
                         } else {
                             url1 = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + frameURL;
                         }
-                        
+
                         tab.innerHTML = `
                             <p style="display: flex; align-items: center;">
                                 <img style="width: 14px; height: 14px; border-radius: 3px; margin-right: 6px;" src="${url1}&size=32">
@@ -1154,6 +1109,7 @@ function closeAppSidebar() {
 
         function removeTab(id) {
             var tab = document.getElementById(id);
+            var position_in_tabs = Array.prototype.indexOf.call(tab.parentNode.children, tab);
             var frame = document.getElementById(id + "-frame");
             if (tab) {
                 tab.parentNode.removeChild(tab);
@@ -1161,53 +1117,40 @@ function closeAppSidebar() {
             if (frame) {
                 frame.parentNode.removeChild(frame);
             }
-            
-            // If no tabs remain, create a new one
+
             var remainingTabs = document.getElementsByClassName("tab");
             if (remainingTabs.length === 0) {
                 createTab("New Tab", "start.html");
             }
+            // click on the tab to the left of the removed tab
+            if (position_in_tabs > 0) {
+                remainingTabs[position_in_tabs - 1].click();
+            }
+
         }
 
-        // Create dynamic particles
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 6 + 's';
-            document.querySelector('.bg-animation').appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 6000);
-        }
 
-        // Create particles periodically
-        setInterval(createParticle, 2000);
 
-        // Miniplayer functionality
-        let miniplayerPosition = 'bottom-right'; // Default position
+        let miniplayerPosition = 'bottom-right';
         let miniplayerMonitorInterval;
 
         function initializeMiniPlayer() {
-            // Start monitoring sessionStorage immediately
+
             startMiniPlayerMonitoring();
-            
-            // Check sessionStorage on page load
+
             checkMiniPlayerStorage();
         }
 
         function startMiniPlayerMonitoring() {
-            // Check every 500ms for sessionStorage changes
+
             if (miniplayerMonitorInterval) {
                 clearInterval(miniplayerMonitorInterval);
             }
-            
+
             miniplayerMonitorInterval = setInterval(() => {
                 checkMiniPlayerStorage();
             }, 500);
-            
+
             console.log('Miniplayer monitoring started');
         }
 
@@ -1216,9 +1159,9 @@ function closeAppSidebar() {
             const miniplayer = document.getElementById('miniplayer');
             const miniplayerContent = document.getElementById('miniplayerContent');
             const miniplayerTitle = document.getElementById('miniplayerTitle');
-            
+
             if (miniplayerUrl && miniplayerUrl !== 'null' && miniplayerUrl !== '') {
-                // Show miniplayer
+
                 if (!miniplayer.classList.contains('show')) {
                     miniplayerContent.innerHTML = `<iframe src="${miniplayerUrl}" frameborder="0" allowfullscreen></iframe>`;
                     miniplayerTitle.textContent = 'Miniplayer';
@@ -1227,7 +1170,7 @@ function closeAppSidebar() {
                     console.log('Miniplayer shown with URL:', miniplayerUrl);
                 }
             } else {
-                // Hide miniplayer
+
                 if (miniplayer.classList.contains('show')) {
                     miniplayer.classList.remove('show');
                     miniplayerContent.innerHTML = '';
@@ -1239,15 +1182,12 @@ function closeAppSidebar() {
         function setMiniPlayerPosition(position) {
             const miniplayer = document.getElementById('miniplayer');
             const positionIndicator = document.getElementById('miniplayerPosition');
-            
-            // Remove all position classes
+
             miniplayer.classList.remove('top-left', 'top-right', 'bottom-left', 'bottom-right');
-            
-            // Add the new position class
+
             miniplayer.classList.add(position);
             miniplayerPosition = position;
-            
-            // Update position indicator
+
             const positionNames = {
                 'top-left': 'Top Left',
                 'top-right': 'Top Right',
@@ -1255,7 +1195,7 @@ function closeAppSidebar() {
                 'bottom-right': 'Bottom Right'
             };
             positionIndicator.textContent = positionNames[position];
-            
+
             console.log('Miniplayer moved to:', position);
         }
 
@@ -1273,16 +1213,14 @@ function closeAppSidebar() {
 
         document.addEventListener('DOMContentLoaded', function () {
             loadSidebarPosition();
-            
-            // Initialize app frames on page load
+
             initializeAppFrames();
-            
-            // Initialize miniplayer with continuous monitoring
+
             initializeMiniPlayer();
-            
+
             if (initialized === 0) {
                 var url = getURLParameter("url");
-                       
+
                 if (url) {
                     createTab("Home", "./launch_page.html?url=" + url);
                 } else {
@@ -1291,7 +1229,7 @@ function closeAppSidebar() {
                 initialized = 1;
             }
         });
-        
+
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
@@ -1303,164 +1241,160 @@ function closeAppSidebar() {
             }
         });
 
-// Panic image functionality with iframe support
-function initializePanicImage() {
-    if (localStorage.getItem("panic_image") != null) {
-        
-        // Handle keydown on main window
-        function handlePanicKey(event) {
-            if (event.key === '-') {
-                event.preventDefault();
-                event.stopPropagation();
-                togglePanicImage();
-            }
-        }
-        
-        function togglePanicImage() {
-            const existingImage = document.querySelector('#panic-image');
-            
-            if (!existingImage) {
-                var img = document.createElement('img');
-                img.src = localStorage.getItem("panic_image");
-                img.style.position = "fixed";
-                img.style.top = "0";
-                img.style.left = "0";
-                img.style.width = "100vw";
-                img.style.height = "100vh";
-                img.style.objectFit = "cover";
-                img.style.zIndex = "99999";
-                img.style.backgroundColor = "#000";
-                img.id = "panic-image";
-                document.body.appendChild(img);
-                
-                // Blur any focused element (including iframes)
-                if (document.activeElement) {
-                    document.activeElement.blur();
-                }
-                
-                // Focus the panic image to capture future key events
-                img.tabIndex = -1;
-                img.focus();
-            } else {
-                existingImage.remove();
-            }
-        }
-        
-        // Add event listeners to both document and window
-        document.addEventListener('keydown', handlePanicKey, true);
-        window.addEventListener('keydown', handlePanicKey, true);
-        
-        // Monitor for iframe focus and add listeners to them
-        function addIframeListeners() {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                try {
-                    // Only works for same-origin iframes
-                    if (iframe.contentDocument) {
-                        iframe.contentDocument.addEventListener('keydown', handlePanicKey, true);
-                        iframe.contentWindow.addEventListener('keydown', handlePanicKey, true);
+        function initializePanicImage() {
+            if (localStorage.getItem("panic_image") != null) {
+
+                function handlePanicKey(event) {
+                    if (event.key === '-') {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        togglePanicImage();
                     }
-                } catch (e) {
-                    // Cross-origin iframe - can't access content
-                    console.log('Cannot add panic key listener to cross-origin iframe');
                 }
-            });
-        }
-        
-        // Initial iframe listener setup
-        addIframeListeners();
-        
-        // Monitor for new iframes
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                mutation.addedNodes.forEach(function(node) {
-                    if (node.nodeType === 1) { // Element node
-                        if (node.tagName === 'IFRAME') {
-                            // New iframe added
-                            setTimeout(() => addIframeListeners(), 100);
-                        } else if (node.querySelector && node.querySelector('iframe')) {
-                            // Element containing iframes added
-                            setTimeout(() => addIframeListeners(), 100);
+
+                function togglePanicImage() {
+                    const existingImage = document.querySelector('#panic-image');
+
+                    if (!existingImage) {
+                        var img = document.createElement('img');
+                        img.src = localStorage.getItem("panic_image");
+                        img.style.position = "fixed";
+                        img.style.top = "0";
+                        img.style.left = "0";
+                        img.style.width = "100vw";
+                        img.style.height = "100vh";
+                        img.style.objectFit = "cover";
+                        img.style.zIndex = "99999";
+                        img.style.backgroundColor = "#000";
+                        img.id = "panic-image";
+                        document.body.appendChild(img);
+
+                        if (document.activeElement) {
+                            document.activeElement.blur();
                         }
+
+                        img.tabIndex = -1;
+                        img.focus();
+                    } else {
+                        existingImage.remove();
                     }
+                }
+
+                document.addEventListener('keydown', handlePanicKey, true);
+                window.addEventListener('keydown', handlePanicKey, true);
+
+                function addIframeListeners() {
+                    const iframes = document.querySelectorAll('iframe');
+                    iframes.forEach(iframe => {
+                        try {
+
+                            if (iframe.contentDocument) {
+                                iframe.contentDocument.addEventListener('keydown', handlePanicKey, true);
+                                iframe.contentWindow.addEventListener('keydown', handlePanicKey, true);
+                            }
+                        } catch (e) {
+
+                            console.log('Cannot add panic key listener to cross-origin iframe');
+                        }
+                    });
+                }
+
+                addIframeListeners();
+
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        mutation.addedNodes.forEach(function (node) {
+                            if (node.nodeType === 1) {
+                                if (node.tagName === 'IFRAME') {
+
+                                    setTimeout(() => addIframeListeners(), 100);
+                                } else if (node.querySelector && node.querySelector('iframe')) {
+
+                                    setTimeout(() => addIframeListeners(), 100);
+                                }
+                            }
+                        });
+                    });
                 });
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Alternative approach: Monitor window focus/blur
-        let lastFocusTime = Date.now();
-        
-        window.addEventListener('focus', function() {
-            lastFocusTime = Date.now();
-        });
-        
-        // Fallback: Check for key events on window even when not focused
-        setInterval(function() {
-            // If window hasn't been focused recently, user might be in iframe
-            if (Date.now() - lastFocusTime > 1000) {
-                // Listen for any activity that might indicate panic key
-                document.addEventListener('click', function() {
+
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+
+                let lastFocusTime = Date.now();
+
+                window.addEventListener('focus', function () {
                     lastFocusTime = Date.now();
-                }, {once: true});
+                });
+
+                setInterval(function () {
+
+                    if (Date.now() - lastFocusTime > 1000) {
+
+                        document.addEventListener('click', function () {
+                            lastFocusTime = Date.now();
+                        }, { once: true });
+                    }
+                }, 500);
             }
-        }, 500);
-    }
-}
+        }
 
-// Storage change handlers (same as before)
-window.addEventListener('storage', function(event) {
-    if (event.key === 'panic_image') {
+        window.addEventListener('storage', function (event) {
+            if (event.key === 'panic_image') {
+                initializePanicImage();
+            }
+        });
+
+        let originalSetItem = localStorage.setItem;
+        localStorage.setItem = function (key, value) {
+            originalSetItem.apply(this, arguments);
+            if (key === 'panic_image') {
+                const existingImage = document.querySelector('#panic-image');
+                if (existingImage) {
+                    existingImage.src = value;
+                }
+            }
+        };
+
         initializePanicImage();
-    }
-});
-
-let originalSetItem = localStorage.setItem;
-localStorage.setItem = function(key, value) {
-    originalSetItem.apply(this, arguments);
-    if (key === 'panic_image') {
-        const existingImage = document.querySelector('#panic-image');
-        if (existingImage) {
-            existingImage.src = value;
+        if (localStorage.getItem("saveTabs") == "true" || localStorage.getItem("saveTabs") == null && localStorage.getItem("tab_urls") != null) {
+            let tab_urls = JSON.parse(localStorage.getItem("tab_urls"));
+            for (let i = 0; i < tab_urls.length; i++) {
+                createTab(tab_urls[i].title, tab_urls[i].src);
+            }
         }
-    }
-};
-
-// Initialize on page load
-initializePanicImage();
-if (localStorage.getItem("saveTabs") == "true" || localStorage.getItem("saveTabs") == null && localStorage.getItem("tab_urls") != null) {
-        let tab_urls = JSON.parse(localStorage.getItem("tab_urls"));
-        for (let i = 0; i < tab_urls.length; i++) {
-            createTab(tab_urls[i].title, tab_urls[i].src);
+        else {
+            createTab('New Tab', './start.html')
         }
-}
-else {
-createTab('New Tab', './start.html')
-}
 
-setInterval(function(){
-    if (localStorage.getItem("saveTabs") == "true" || localStorage.getItem("saveTabs") == null) {
-        // get every iframe that's not a sidebar iframe
-        let iframes = document.querySelectorAll('iframe:not(.app-sidebar-content iframe)');
-        // loop through each iframe
-        tab_urls = [];
-        for (let i = 0; i < iframes.length; i++) {
-            // get the iframe's src
-            let src = iframes[i].contentDocument.location.href;
-            // get the iframe's title
-            let title = iframes[i].title;
-            
-            tab_urls.push({src: src, title: title});
-        }
-        // save the tab urls to local storage
-        localStorage.setItem('tab_urls', JSON.stringify(tab_urls));
-        
-    }
-},1000)
+        setInterval(function () {
+            if (localStorage.getItem("saveTabs") == "true" || localStorage.getItem("saveTabs") == null) {
+
+                let iframes = document.querySelectorAll('iframe:not(.app-sidebar-content iframe)');
+
+                tab_urls = [];
+                for (let i = 0; i < iframes.length; i++) {
+
+                    let src = iframes[i].contentDocument.location.href;
+
+                    let title = iframes[i].title;
+
+                    tab_urls.push({ src: src, title: title });
+                }
+
+                localStorage.setItem('tab_urls', JSON.stringify(tab_urls));
+
+            }
+        }, 1000)
+        // time analytic
+        setInterval(function () {
+            if (localStorage.getItem("lifetime_time") != null) {
+                localStorage.setItem("lifetime_time", parseInt(localStorage.getItem("lifetime_time")) + 1);
+            } else {
+                localStorage.setItem("lifetime_time", 1);
+            }
+        }, 60000);
     </script>
     <script src="global.js"></script>
     <script src="assets/js/plugin.js"></script>

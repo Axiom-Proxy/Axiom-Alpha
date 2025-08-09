@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Settings | Axiom </title>
-    <link rel="icon" href="assets/favicon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <style>
-        /* ✨ AXIOM SETTINGS - Tabbed Glassmorphic Design ✨ */
 
-        /* Import Fonts */
+<head>
+    <title>Settings | Axiom</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-        /* Root Variables - Axiom Theme Palette */
         :root {
             --color-primary: #667eea;
             --color-secondary: #764ba2;
@@ -35,7 +32,6 @@
             --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -52,7 +48,6 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
 
-        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
@@ -60,7 +55,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
@@ -73,7 +68,6 @@
             50% { opacity: 0.7; }
         }
 
-        /* Animated Particles */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -98,7 +92,6 @@
             50% { transform: translateY(-20px) rotate(180deg); }
         }
 
-        /* Stars Effect */
         .main {
             position: fixed;
             top: 50%;
@@ -108,7 +101,7 @@
             z-index: -50;
             background-color: #fff;
             border-radius: 50%;
-            box-shadow: 24vw 9vh 1px 0px #fff,12vw -24vh 0px 1px #fff,-45vw -22vh 0px 0px #fff,-37vw -40vh 0px 1px #fff,29vw 19vh 0px 1px #fff,4vw -8vh 0px 1px #fff,-5vw 21vh 1px 1px #fff,-27vw 26vh 1px 1px #fff,-47vw -3vh 1px 1px #fff,-28vw -30vh 0px 1px #fff,-43vw -27vh 0px 1px #fff,4vw 22vh 1px 1px #fff,36vw 23vh 0px 0px #fff,-21vw 24vh 1px 1px #fff,-16vw 2vh 1px 0px #fff,-16vw -6vh 0px 0px #fff,5vw 26vh 0px 0px #fff,-34vw 41vh 0px 0px #fff,1vw 42vh 1px 1px #fff,11vw -13vh 1px 1px #fff,48vw -8vh 1px 0px #fff,22vw -15vh 0px 0px #fff,45vw 49vh 0px 0px #fff,43vw -27vh 1px 1px #fff,20vw -2vh 0px 0px #fff,8vw 22vh 0px 1px #fff,39vw 48vh 1px 1px #fff,-21vw -11vh 0px 1px #fff,-40vw 45vh 0px 1px #fff;
+            box-shadow: 24vw 9vh 1px 0px #fff, 12vw -24vh 0px 1px #fff, -45vw -22vh 0px 0px #fff, -37vw -40vh 0px 1px #fff, 29vw 19vh 0px 1px #fff, 4vw -8vh 0px 1px #fff, -5vw 21vh 1px 1px #fff, -27vw 26vh 1px 1px #fff, -47vw -3vh 1px 1px #fff, -28vw -30vh 0px 1px #fff, -43vw -27vh 0px 1px #fff, 4vw 22vh 1px 1px #fff, 36vw 23vh 0px 0px #fff, -21vw 24vh 1px 1px #fff, -16vw 2vh 1px 0px #fff, -16vw -6vh 0px 0px #fff, 5vw 26vh 0px 0px #fff, -34vw 41vh 0px 0px #fff, 1vw 42vh 1px 1px #fff, 11vw -13vh 1px 1px #fff, 48vw -8vh 1px 0px #fff, 22vw -15vh 0px 0px #fff, 45vw 49vh 0px 0px #fff, 43vw -27vh 1px 1px #fff, 20vw -2vh 0px 0px #fff, 8vw 22vh 0px 1px #fff, 39vw 48vh 1px 1px #fff, -21vw -11vh 0px 1px #fff, -40vw 45vh 0px 1px #fff;
             animation: zoom 16s alternate infinite;
         }
 
@@ -117,7 +110,6 @@
             100% { transform: translate(-50%, -50%) scale(1.1); }
         }
 
-        /* Main Container */
         .settings-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -127,7 +119,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .settings-header {
             text-align: center;
             margin-bottom: calc(var(--margin-base) * 2);
@@ -149,7 +140,6 @@
             font-weight: 400;
         }
 
-        /* Main Settings Panel */
         .settings-panel {
             background: var(--color-surface);
             backdrop-filter: blur(var(--blur-strength));
@@ -163,7 +153,6 @@
             flex-direction: column;
         }
 
-        /* Tab Navigation */
         .tab-nav {
             display: flex;
             border-bottom: 1px solid var(--color-border);
@@ -219,7 +208,6 @@
             font-size: 1.2rem;
         }
 
-        /* Tab Content */
         .tab-content {
             flex: 1;
             padding: calc(var(--padding-base) * 2);
@@ -248,7 +236,6 @@
             background: var(--color-border-hover);
         }
 
-        /* Setting Items */
         .setting-item {
             display: flex;
             justify-content: space-between;
@@ -283,7 +270,6 @@
             line-height: 1.4;
         }
 
-        /* Toggle Switch */
         .toggle-switch {
             position: relative;
             width: 50px;
@@ -317,7 +303,6 @@
             background: var(--color-text-primary);
         }
 
-        /* Select Dropdown */
         .setting-select {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
@@ -341,7 +326,6 @@
             box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
         }
 
-        /* Search Engine Preview */
         .search-engine-preview {
             display: flex;
             align-items: center;
@@ -380,7 +364,6 @@
             font-family: monospace;
         }
 
-        /* Custom Search Engine Input */
         .custom-engine-inputs {
             display: flex;
             flex-direction: column;
@@ -404,7 +387,6 @@
             font-weight: 500;
         }
 
-        /* Input Field */
         .setting-input {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
@@ -436,7 +418,6 @@
             min-width: unset;
         }
 
-        /* Button */
         .setting-button {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
@@ -489,7 +470,6 @@
             font-size: 0.85rem;
         }
 
-        /* Section Headers */
         .section-header {
             font-size: 1.2rem;
             font-weight: 600;
@@ -504,7 +484,6 @@
             margin-top: 0;
         }
 
-        /* Success/Error Messages */
         .message {
             padding: var(--padding-base);
             border-radius: var(--border-radius-small);
@@ -532,43 +511,40 @@
             color: #ef4444;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .settings-container {
                 padding: var(--padding-base);
                 height: calc(100vh - 2 * var(--padding-base));
             }
-            
+
             .settings-header h1 {
                 font-size: 2rem;
             }
-            
+
             .tab-nav {
                 flex-wrap: wrap;
                 padding: var(--padding-base);
             }
-            
+
             .tab-button {
                 padding: var(--padding-base) calc(var(--padding-base) * 1.5);
                 font-size: 0.9rem;
             }
-            
+
             .setting-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: var(--margin-base);
             }
-            
+
             .setting-input {
                 min-width: 100%;
             }
         }
-
     </style>
 </head>
 
 <body>
-    <script src="global.js"></script>
     <!-- Animated Background -->
     <div class="bg-animation">
         <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -626,7 +602,6 @@
                         <option value="forest">Forest Night</option>
                         <option value="sunset">Sunset Dreams</option>
                         <option value="monochrome">Monochrome</option>
-                        
                         <option value="graduation">Graduation</option>
                         <option value="mbdtf">Dark Fantasy</option>
                         <option value="ye">Ye</option>
@@ -635,28 +610,26 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Panic Image</h3>
-                        <p>Choose a image to display when "-" is pressed</p>
+                        <p>Choose an image to display when "-" is pressed</p>
                     </div>
-                <input type="file" id="panic-image-input" accept="image/*">
+                    <input type="file" id="panic-image-input" accept="image/*" class="setting-input">
                 </div>
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Proxies</h3>
                         <p>Choose your preferred proxy</p>
                     </div>
-                    <select class="setting-select" data-setting="proxy" style="display: none;"> <!-- im too lazy to figure out why proxy_choice here and on launch_page.html arn't the same -->
+                    <select class="setting-select" data-setting="proxy">
                         <option value="ultraviolet">Ultraviolet</option>
-                        <!-- i'm sure nothing will go wrong with embedding astral into a iframe, i say as astral proceeds to fucking kill itself due to being embedded in an iframe -->
                         <option value="astral">Astral (INDEV)</option>
                     </select>
                 </div>
-
             </div>
 
             <!-- Search Tab -->
             <div class="tab-content" data-content="search">
                 <div id="search-messages"></div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Default Search Engine</h3>
@@ -687,26 +660,30 @@
                 <div class="custom-engine-inputs" id="custom-engine-inputs" style="display: none;">
                     <div class="input-group">
                         <label class="input-label">Engine Name</label>
-                        <input type="text" class="setting-input full-width" id="custom-engine-name" placeholder="My Custom Search Engine">
+                        <input type="text" class="setting-input full-width" id="custom-engine-name"
+                            placeholder="My Custom Search Engine">
                     </div>
                     <div class="input-group">
                         <label class="input-label">Search URL (use %s for search term)</label>
-                        <input type="text" class="setting-input full-width" id="custom-engine-url" placeholder="https://example.com/search?q=%s">
+                        <input type="text" class="setting-input full-width" id="custom-engine-url"
+                            placeholder="https://example.com/search?q=%s">
                     </div>
                     <div style="display: flex; gap: var(--spacing-unit);">
-                        <button class="setting-button primary small" onclick="saveCustomEngine()">Save Custom Engine</button>
+                        <button class="setting-button primary small" onclick="saveCustomEngine()">Save Custom
+                            Engine</button>
                         <button class="setting-button small" onclick="cancelCustomEngine()">Cancel</button>
                     </div>
                 </div>
 
                 <div class="section-header">Search Suggestions</div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Enable Search Suggestions</h3>
                         <p>Show search suggestions as you type</p>
                     </div>
-                    <div class="toggle-switch active" data-setting="searchSuggestions" onclick="toggleSetting(this)"></div>
+                    <div class="toggle-switch active" data-setting="searchSuggestions"
+                        onclick="toggleSetting(this)"></div>
                 </div>
 
                 <div class="setting-item">
@@ -723,14 +700,14 @@
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Clear Browsing Data</h3>
-                        <p>Remove history, cookies, and cached files</p>
+                        <p>Remove bookmarks, cookies, and cached files</p>
                     </div>
                     <button class="setting-button" onclick="clearBrowsingData()">Clear Data</button>
                 </div>
-                                <div class="setting-item">
+                <div class="setting-item">
                     <div class="setting-info">
                         <h3>Tab Saving</h3>
-                        <p>Toggle Axioms ability to save your tabs for later</p>
+                        <p>Toggle Axiom's ability to save your tabs for later</p>
                     </div>
                     <button class="setting-button" onclick="toggleSavingTabs()">Toggle</button>
                 </div>
@@ -744,12 +721,17 @@
                         <p>Axiom v0.0.1</p>
                     </div>
                 </div>
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Discord</h3>
+                        <p>Join the <a href="https://discord.gg/NJWVpKWA9V">Axiom Discord Server</a></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Search Engine Configuration
         const SEARCH_ENGINES = {
             brave: {
                 name: "Brave Search",
@@ -758,7 +740,7 @@
                 icon: "B"
             },
             duckduckgo: {
-                name: "DuckDuckGo", 
+                name: "DuckDuckGo",
                 url: "https://duckduckgo.com/?q=",
                 color: "#de5833",
                 icon: "D"
@@ -795,67 +777,30 @@
             }
         };
 
-        function toggleSavingTabs(){
-            if (getStorageBool("saveTabs")) {
-                setStorageBool("saveTabs", false);
-                showMessage('Tabs will no longer be saved', 'success');
-            } else {
-                setStorageBool("saveTabs", true);
-                showMessage('Tabs will now be saved', 'success');
-            }
-        }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const panicImageInput = document.getElementById('panic-image-input');
-    
-    if (panicImageInput) {
-        panicImageInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // Store the complete data URL
-                    localStorage.setItem('panic_image', e.target.result);
-                    console.log('Panic image saved successfully');
-                    
-                    // Optional: Show success message
-                    showMessage('Panic image uploaded successfully', 'success');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-});
-
         let currentSearchEngine = localStorage.getItem("searchEnginePreference") || "brave";
 
-        // Helper function to safely get localStorage boolean values
         function getStorageBool(key, defaultValue = false) {
             const value = localStorage.getItem(key);
             if (value === null) return defaultValue;
             return value === 'true' || value === '1';
         }
 
-        // Helper function to set localStorage boolean values
         function setStorageBool(key, value) {
             localStorage.setItem(key, value ? 'true' : 'false');
         }
 
-        // Show message function
         function showMessage(text, type = 'success') {
             const messagesContainer = document.getElementById('search-messages');
             const message = document.createElement('div');
             message.className = `message ${type}`;
             message.textContent = text;
-            
+
             messagesContainer.appendChild(message);
-            
-            // Trigger animation
+
             setTimeout(() => {
                 message.classList.add('show');
             }, 10);
-            
-            // Remove after 3 seconds
+
             setTimeout(() => {
                 message.classList.remove('show');
                 setTimeout(() => {
@@ -866,22 +811,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 3000);
         }
 
-        
-        // Monitor changes to the proxy selector
-        const proxySelect = document.getElementById('proxy-select');
-        if (proxySelect) {
-            proxySelect.addEventListener('change', function() {
-                localStorage.setItem('proxy_choice', this.value);
-            });
+        function toggleSavingTabs() {
+            if (getStorageBool("saveTabs")) {
+                setStorageBool("saveTabs", false);
+                showMessage('Tabs will no longer be saved', 'success');
+            } else {
+                setStorageBool("saveTabs", true);
+                showMessage('Tabs will now be saved', 'success');
+            }
         }
 
-        // load it
-        const proxyChoice = localStorage.getItem('proxy_choice');
-        if (proxyChoice) {
-            proxySelect.value = proxyChoice;
-        }
-
-        // Update search engine preview
         function updateSearchEnginePreview(engineKey) {
             const engine = SEARCH_ENGINES[engineKey];
             if (!engine) return;
@@ -898,7 +837,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Handle search engine selection change
         function handleSearchEngineChange() {
             const select = document.getElementById('search-engine-select');
             const customInputs = document.getElementById('custom-engine-inputs');
@@ -906,7 +844,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (selectedEngine === 'custom') {
                 customInputs.style.display = 'block';
-                // Load existing custom engine if available
+
                 const customEngine = JSON.parse(localStorage.getItem('customSearchEngine') || '{}');
                 if (customEngine.name && customEngine.url) {
                     document.getElementById('custom-engine-name').value = customEngine.name;
@@ -917,19 +855,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentSearchEngine = selectedEngine;
                 localStorage.setItem('searchEnginePreference', selectedEngine);
                 updateSearchEnginePreview(selectedEngine);
-                
-                // Trigger storage event for other windows/tabs
+
                 window.dispatchEvent(new StorageEvent('storage', {
                     key: 'searchEnginePreference',
                     newValue: selectedEngine,
                     oldValue: localStorage.getItem('searchEnginePreference')
                 }));
-                
+
                 showMessage(`Search engine changed to ${SEARCH_ENGINES[selectedEngine].name}`);
             }
         }
 
-        // Save custom search engine
         function saveCustomEngine() {
             const name = document.getElementById('custom-engine-name').value.trim();
             const url = document.getElementById('custom-engine-url').value.trim();
@@ -951,16 +887,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Save custom engine
             const customEngine = { name, url };
             localStorage.setItem('customSearchEngine', JSON.stringify(customEngine));
             localStorage.setItem('searchEnginePreference', 'custom');
-            
-            // Update preview
+
             const icon = document.getElementById('preview-icon');
             const nameEl = document.getElementById('preview-name');
             const urlEl = document.getElementById('preview-url');
-            
+
             if (icon && nameEl && urlEl) {
                 icon.textContent = name.charAt(0).toUpperCase();
                 icon.style.backgroundColor = '#667eea';
@@ -968,53 +902,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 urlEl.textContent = url;
             }
 
-            // Hide custom inputs
             document.getElementById('custom-engine-inputs').style.display = 'none';
-            
-            // Trigger storage event
+
             window.dispatchEvent(new StorageEvent('storage', {
                 key: 'searchEnginePreference',
                 newValue: 'custom',
                 oldValue: localStorage.getItem('searchEnginePreference')
             }));
-            
+
             showMessage(`Custom search engine "${name}" saved successfully`);
         }
 
-        // Cancel custom engine setup
         function cancelCustomEngine() {
             const select = document.getElementById('search-engine-select');
             const customInputs = document.getElementById('custom-engine-inputs');
-            
-            // Reset to previous selection
+
             select.value = currentSearchEngine;
             customInputs.style.display = 'none';
-            
-            // Clear inputs
+
             document.getElementById('custom-engine-name').value = '';
             document.getElementById('custom-engine-url').value = '';
         }
 
-        // Clear browsing data
         function clearBrowsingData() {
             if (confirm('Are you sure you want to clear all browsing data? This action cannot be undone.')) {
-                // Clear relevant localStorage items (keep settings)
                 const settingsToKeep = ['searchEnginePreference', 'customSearchEngine', 'theme', 'searchSuggestions', 'privateSearch'];
                 const allKeys = Object.keys(localStorage);
-                
+
                 allKeys.forEach(key => {
                     if (!settingsToKeep.includes(key)) {
                         localStorage.removeItem(key);
                     }
                 });
-                
+
                 showMessage('Browsing data cleared successfully');
             }
         }
 
-        // Initialize settings on page load
         function initializeSettings() {
-            // Load toggle settings
+            // Initialize toggle switches
             document.querySelectorAll('.toggle-switch').forEach(toggle => {
                 const setting = toggle.getAttribute('data-setting');
                 if (setting) {
@@ -1026,8 +952,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
-            
-            // Load input settings
+
+            // Initialize inputs
             document.querySelectorAll('.setting-input').forEach(input => {
                 const setting = input.getAttribute('data-setting');
                 if (setting) {
@@ -1037,8 +963,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
-            
-            // Load select settings
+
+            // Initialize selects
             document.querySelectorAll('.setting-select').forEach(select => {
                 const setting = select.getAttribute('data-setting');
                 if (setting) {
@@ -1049,19 +975,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Initialize search engine
+            // Initialize search engine preview
             const searchEngineSelect = document.getElementById('search-engine-select');
             if (searchEngineSelect) {
                 const savedEngine = localStorage.getItem('searchEnginePreference') || 'brave';
                 searchEngineSelect.value = savedEngine;
-                
+
                 if (savedEngine === 'custom') {
                     const customEngine = JSON.parse(localStorage.getItem('customSearchEngine') || '{}');
                     if (customEngine.name && customEngine.url) {
                         const icon = document.getElementById('preview-icon');
                         const name = document.getElementById('preview-name');
                         const url = document.getElementById('preview-url');
-                        
+
                         if (icon && name && url) {
                             icon.textContent = customEngine.name.charAt(0).toUpperCase();
                             icon.style.backgroundColor = '#667eea';
@@ -1075,22 +1001,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Fixed general toggle function
         function toggleSetting(element) {
             const isActive = !element.classList.contains('active');
             const setting = element.getAttribute('data-setting');
-            
+
             if (isActive) {
                 element.classList.add('active');
             } else {
                 element.classList.remove('active');
             }
-            
+
             if (setting) {
                 setStorageBool(setting, isActive);
-                
-                // Apply setting-specific logic
-                switch(setting) {
+
+                switch (setting) {
                     case 'searchSuggestions':
                         showMessage(`Search suggestions ${isActive ? 'enabled' : 'disabled'}`);
                         break;
@@ -1101,7 +1025,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Theme switching function
         function switchTheme(themeKey) {
             localStorage.setItem('theme', themeKey);
             if (window.themeManager && typeof window.themeManager.applyTheme === 'function') {
@@ -1110,18 +1033,17 @@ document.addEventListener('DOMContentLoaded', function() {
             showMessage(`Theme changed to ${themeKey}`);
         }
 
-        // Create dynamic particles
         function createParticle() {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
             particle.style.animationDelay = Math.random() * 6 + 's';
-            
+
             const bgAnimation = document.querySelector('.bg-animation');
             if (bgAnimation) {
                 bgAnimation.appendChild(particle);
-                
+
                 setTimeout(() => {
                     if (particle.parentNode) {
                         particle.remove();
@@ -1133,25 +1055,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create particles periodically
         setInterval(createParticle, 2000);
 
-        // Tab switching functionality
         function switchTab(tabName) {
             document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+
             const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
             const selectedContent = document.querySelector(`[data-content="${tabName}"]`);
-            
+
             if (selectedTab && selectedContent) {
                 selectedTab.classList.add('active');
                 selectedContent.classList.add('active');
             }
         }
 
-        // Event listeners setup
         function setupEventListeners() {
-            // Tab button click handlers
+            // Tab buttons
             document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const tabName = this.getAttribute('data-tab');
                     if (tabName) {
                         switchTab(tabName);
@@ -1159,25 +1079,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
 
-            // Search engine selection handler
+            // Search engine select
             const searchEngineSelect = document.getElementById('search-engine-select');
             if (searchEngineSelect) {
                 searchEngineSelect.addEventListener('change', handleSearchEngineChange);
             }
 
-            // Theme selection change handler
+            // Theme select
             const themeSelect = document.querySelector('[data-setting="theme"]');
             if (themeSelect) {
-                themeSelect.addEventListener('change', function() {
+                themeSelect.addEventListener('change', function () {
                     const selectedTheme = this.value;
                     switchTheme(selectedTheme);
                 });
             }
-            
-            // Save input changes with debouncing
+
+            // Panic image input
+            const panicImageInput = document.getElementById('panic-image-input');
+            if (panicImageInput) {
+                panicImageInput.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            localStorage.setItem('panic_image', e.target.result);
+                            console.log('Panic image saved successfully');
+                            showMessage('Panic image uploaded successfully', 'success');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // Auto-save inputs
             document.querySelectorAll('.setting-input').forEach(input => {
                 let timeout;
-                input.addEventListener('input', function() {
+                input.addEventListener('input', function () {
                     const setting = this.getAttribute('data-setting');
                     if (setting) {
                         clearTimeout(timeout);
@@ -1187,14 +1124,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             });
-            
-            // Save select changes immediately
+
+            // Auto-save selects
             document.querySelectorAll('.setting-select').forEach(select => {
-                select.addEventListener('change', function() {
+                select.addEventListener('change', function () {
                     const setting = this.getAttribute('data-setting');
                     if (setting && setting !== 'searchEnginePreference') {
                         localStorage.setItem(setting, this.value);
-                        
+
                         if (setting === 'theme') {
                             switchTheme(this.value);
                         }
@@ -1204,11 +1141,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeSettings();
             setupEventListeners();
-            
-            // Apply current theme if available
+
             const currentTheme = localStorage.getItem('theme') || 'axiom-dark';
             const themeSelect = document.querySelector('[data-setting="theme"]');
             if (themeSelect) {
@@ -1217,124 +1153,129 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Error handling for missing global.js
-        window.addEventListener('error', function(e) {
+        // Handle global.js loading errors gracefully
+        window.addEventListener('error', function (e) {
             if (e.filename && e.filename.includes('global.js')) {
                 console.warn('global.js not found - some theme features may not work');
             }
         });
-    </script>
-    <script>
+
+        // Theme management functions (for compatibility with external theme system)
         const defaultThemes = [
-        'axiom-dark', 'cyberpunk', 'ocean', 'forest', 
-        'sunset', 'monochrome', 'graduation', 'mbdtf', 'ye', "pipkin","baka"
-    ];
-function loadCustomThemes() {
-    const themeSelect = document.querySelector('select[data-setting="theme"]');
-    
-    if (!themeSelect || !window.themeManager) {
-        console.warn('Theme selector or theme manager not found');
-        return;
-    }
+            'axiom-dark', 'cyberpunk', 'ocean', 'forest',
+            'sunset', 'monochrome', 'graduation', 'mbdtf', 'ye', "pipkin", "baka"
+        ];
 
-    const allThemes = window.themeManager.getAvailableThemes();
-    const currentThemes = Array.from(themeSelect.options).map(option => option.value);
-    
+        function loadCustomThemes() {
+            const themeSelect = document.querySelector('select[data-setting="theme"]');
 
-
-    defaultThemes.forEach(themeKey => {
-        if (!currentThemes.includes(themeKey)) {
-            // avoid adding pipkin or baka
-            if (themeKey === "pipkin" || themeKey === "baka") {
-                return;
-            }
-            const themeData = window.themeManager.getThemeData(themeKey);
-            if (themeData) {
-                const option = document.createElement('option');
-                option.value = themeKey;
-                option.textContent = themeData.name;
-                themeSelect.appendChild(option);
-            }
-        }
-    });
-
-    allThemes.forEach(themeKey => {
-        if (currentThemes.includes(themeKey)) {
-            return;
-        }
-
-                    // avoid adding pipkin or baka
-            if (themeKey === "pipkin" || themeKey === "baka") {
+            if (!themeSelect || !window.themeManager) {
+                console.warn('Theme selector or theme manager not found');
                 return;
             }
 
-        const themeData = window.themeManager.getThemeData(themeKey);
-        if (themeData) {
-            const option = document.createElement('option');
-            option.value = themeKey;
-            option.textContent = themeData.name;
-            
-            if (!defaultThemes.includes(themeKey)) {
-                option.textContent += ' (Custom)';
-                option.style.fontStyle = 'italic';
+            const allThemes = window.themeManager.getAvailableThemes();
+            const currentThemes = Array.from(themeSelect.options).map(option => option.value);
+
+            // Add default themes that might be missing
+            defaultThemes.forEach(themeKey => {
+                if (!currentThemes.includes(themeKey)) {
+                    if (themeKey === "pipkin" || themeKey === "baka") {
+                        return;
+                    }
+                    const themeData = window.themeManager.getThemeData(themeKey);
+                    if (themeData) {
+                        const option = document.createElement('option');
+                        option.value = themeKey;
+                        option.textContent = themeData.name;
+                        themeSelect.appendChild(option);
+                    }
+                }
+            });
+
+            // Add custom themes
+            allThemes.forEach(themeKey => {
+                if (currentThemes.includes(themeKey)) {
+                    return;
+                }
+
+                if (themeKey === "pipkin" || themeKey === "baka") {
+                    return;
+                }
+
+                const themeData = window.themeManager.getThemeData(themeKey);
+                if (themeData) {
+                    const option = document.createElement('option');
+                    option.value = themeKey;
+                    option.textContent = themeData.name;
+
+                    if (!defaultThemes.includes(themeKey)) {
+                        option.textContent += ' (Custom)';
+                        option.style.fontStyle = 'italic';
+                    }
+
+                    themeSelect.appendChild(option);
+                }
+            });
+
+            const currentTheme = window.themeManager.getCurrentTheme();
+            if (currentTheme) {
+                themeSelect.value = currentTheme;
             }
-            
-            themeSelect.appendChild(option);
+
+            console.log(`Loaded ${allThemes.length} themes into selector`);
         }
-    });
 
-    const currentTheme = window.themeManager.getCurrentTheme();
-    if (currentTheme) {
-        themeSelect.value = currentTheme;
-    }
+        function refreshThemeSelector() {
+            const themeSelect = document.querySelector('select[data-setting="theme"]');
+            if (!themeSelect) return;
 
-    console.log(`Loaded ${allThemes.length} themes into selector`);
-}
+            const currentSelection = themeSelect.value;
 
-function refreshThemeSelector() {
-    const themeSelect = document.querySelector('select[data-setting="theme"]');
-    if (!themeSelect) return;
+            // Remove non-default themes
+            Array.from(themeSelect.options).forEach(option => {
+                if (!defaultThemes.includes(option.value)) {
+                    option.remove();
+                }
+            });
 
-    const currentSelection = themeSelect.value;
-    
-    Array.from(themeSelect.options).forEach(option => {
-        if (!defaultThemes.includes(option.value)) {
-            option.remove();
+            loadCustomThemes();
+
+            // Restore selection if still available
+            if (Array.from(themeSelect.options).some(option => option.value === currentSelection)) {
+                themeSelect.value = currentSelection;
+            }
         }
-    });
-    
-    loadCustomThemes();
-    
-    if (Array.from(themeSelect.options).some(option => option.value === currentSelection)) {
-        themeSelect.value = currentSelection;
-    }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (window.themeManager) {
-        loadCustomThemes();
-    } else {
-        setTimeout(loadCustomThemes, 100);
-    }
-});
+        // Load custom themes when available
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.themeManager) {
+                loadCustomThemes();
+            } else {
+                setTimeout(loadCustomThemes, 100);
+            }
+        });
 
-document.addEventListener('themeChanged', (event) => {
-    const themeSelect = document.querySelector('select[data-setting="theme"]');
-    if (themeSelect && event.detail.theme) {
-        themeSelect.value = event.detail.theme;
-    }
-});
+        // Listen for theme events
+        document.addEventListener('themeChanged', (event) => {
+            const themeSelect = document.querySelector('select[data-setting="theme"]');
+            if (themeSelect && event.detail.theme) {
+                themeSelect.value = event.detail.theme;
+            }
+        });
 
-document.addEventListener('themeAdded', () => {
-    refreshThemeSelector();
-});
+        document.addEventListener('themeAdded', () => {
+            refreshThemeSelector();
+        });
 
-document.addEventListener('themeRemoved', () => {
-    refreshThemeSelector();
-});
+        document.addEventListener('themeRemoved', () => {
+            refreshThemeSelector();
+        });
 
-window.loadCustomThemes = loadCustomThemes;
-window.refreshThemeSelector = refreshThemeSelector;
+        // Expose functions for external use
+        window.loadCustomThemes = loadCustomThemes;
+        window.refreshThemeSelector = refreshThemeSelector;
     </script>
 </body>
+
 </html>

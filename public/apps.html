@@ -1,708 +1,648 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="utf-8"/>
-      <title>Axiom | Apps</title>
-      <link href="https://fonts.googleapis.com" rel="preconnect"/>
-      <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 
-      
-      <link rel="icon" href="assets/favicon.png" type="image/png"/>
-      <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet"/>
-      <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-      <script src="https://code.jquery.com/ui/1.14.0-beta.2/jquery-ui.js" integrity="sha256-jP1AFhfuTBpw8WvRteYETbagFOoXaDO5DJIuc5JvzG4=" crossorigin="anonymous"></script>
-
-      <style>
-        /* ✨ ULTRA MODERN GLITCH APPS INTERFACE ✨ */
-
+<head>
+    <meta charset="utf-8" />
+    <title>Axiom | Apps</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.0-beta.2/jquery-ui.js"
+        integrity="sha256-jP1AFhfuTBpw8WvRteYETbagFOoXaDO5DJIuc5JvzG4=" crossorigin="anonymous"></script>
+    <style>
         :root {
-          /* Modern Color Palette */
-          --color-primary: #6366f1;
-          --color-secondary: #8b5cf6;
-          --color-accent: #06b6d4;
-          --color-success: #10b981;
-          --color-warning: #f59e0b;
-          --color-danger: #ef4444;
-          
-          /* Background & Surfaces */
-          --color-background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-          --color-surface: rgba(255, 255, 255, 0.08);
-          --color-surface-hover: rgba(255, 255, 255, 0.12);
-          --color-surface-active: rgba(255, 255, 255, 0.16);
-          
-          /* Text Colors */
-          --color-text-primary: #f8fafc;
-          --color-text-secondary: #cbd5e1;
-          --color-text-muted: #94a3b8;
-          
-          /* Glassmorphism Effects */
-          --glass-background: rgba(255, 255, 255, 0.1);
-          --glass-border: rgba(255, 255, 255, 0.2);
-          --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-          --glass-blur: blur(16px);
-          
-          /* Spacing & Dimensions */
-          --border-radius: 16px;
-          --border-radius-lg: 24px;
-          --spacing-xs: 4px;
-          --spacing-sm: 8px;
-          --spacing-md: 16px;
-          --spacing-lg: 24px;
-          --spacing-xl: 32px;
-          
-          /* Transitions */
-          --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-          --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --color-primary: #6366f1;
+            --color-secondary: #8b5cf6;
+            --color-accent: #06b6d4;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --color-surface: rgba(255, 255, 255, 0.08);
+            --color-surface-hover: rgba(255, 255, 255, 0.12);
+            --color-surface-active: rgba(255, 255, 255, 0.16);
+            --color-text-primary: #f8fafc;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --glass-background: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --glass-blur: blur(16px);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-          background: var(--color-background);
-          color: var(--color-text-primary);
-          font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          min-height: 100vh;
-          position: relative;
-          overflow-x: hidden;
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Animated Background */
         body::before {
-          content: '';
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: 
-            radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
-          z-index: -1;
-          animation: backgroundShift 20s ease-in-out infinite;
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
         }
 
         @keyframes backgroundShift {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
         }
 
-        /* Main Container */
         .main {
-          padding: var(--spacing-xl);
-          max-width: 1400px;
-          margin: 0 auto;
-          position: relative;
-          z-index: 1;
+            padding: var(--spacing-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Header Section */
         .header {
-          text-align: center;
-          margin-bottom: var(--spacing-xl);
-          animation: slideUp 0.8s ease-out;
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            animation: slideUp 0.8s ease-out;
         }
 
         @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .page-title {
-          font-size: clamp(32px, 6vw, 48px);
-          font-weight: 300;
-          margin-bottom: var(--spacing-lg);
-          background: linear-gradient(45deg, #fff, #e0e7ff);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          letter-spacing: -1px;
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 300;
+            margin-bottom: var(--spacing-lg);
+            background: linear-gradient(45deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
         }
 
         .page-subtitle {
-          font-size: 18px;
-          color: var(--color-text-secondary);
-          font-weight: 300;
-          margin-bottom: var(--spacing-xl);
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            font-weight: 300;
+            margin-bottom: var(--spacing-xl);
         }
 
-        /* Filter Container */
         .filter-container {
-          background: var(--glass-background);
-          backdrop-filter: var(--glass-blur);
-          border: 1px solid var(--glass-border);
-          border-radius: var(--border-radius-lg);
-          padding: var(--spacing-lg);
-          margin-bottom: var(--spacing-xl);
-          box-shadow: var(--glass-shadow);
-          display: flex;
-          flex-direction: column;
-          gap: var(--spacing-md);
-          align-items: center;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
-          margin-bottom: var(--spacing-xl);
+            background: var(--glass-background);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            align-items: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: var(--spacing-xl);
         }
 
-        /* Search Input */
         #search {
-          background: var(--glass-background);
-          border: 2px solid var(--glass-border);
-          border-radius: var(--border-radius);
-          color: var(--color-text-primary);
-          font-size: 16px;
-          padding: var(--spacing-md) var(--spacing-lg);
-          width: 100%;
-          max-width: 400px;
-          outline: none;
-          backdrop-filter: var(--glass-blur);
-          transition: all var(--transition-normal);
-          font-weight: 400;
+            background: var(--glass-background);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            font-size: 16px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+            backdrop-filter: var(--glass-blur);
+            transition: all var(--transition-normal);
+            font-weight: 400;
         }
 
         #search::placeholder {
-          color: var(--color-text-muted);
+            color: var(--color-text-muted);
         }
 
         #search:focus {
-          border-color: var(--color-primary);
-          background: var(--color-surface-hover);
-          box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-          transform: scale(1.02);
+            border-color: var(--color-primary);
+            background: var(--color-surface-hover);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            transform: scale(1.02);
         }
 
-        /* Category Select */
         #categorySelect {
-          background: var(--glass-background);
-          border: 2px solid var(--glass-border);
-          border-radius: var(--border-radius);
-          color: var(--color-text-primary);
-          font-size: 14px;
-          padding: var(--spacing-sm) var(--spacing-md);
-          outline: none;
-          cursor: pointer;
-          backdrop-filter: var(--glass-blur);
-          transition: all var(--transition-normal);
-          appearance: none;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-          background-position: right 8px center;
-          background-repeat: no-repeat;
-          background-size: 16px;
-          padding-right: 40px;
+            background: var(--glass-background);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text-primary);
+            font-size: 14px;
+            padding: var(--spacing-sm) var(--spacing-md);
+            outline: none;
+            cursor: pointer;
+            backdrop-filter: var(--glass-blur);
+            transition: all var(--transition-normal);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 8px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
         }
 
         #categorySelect:focus {
-          border-color: var(--color-primary);
-          background-color: var(--color-surface-hover);
-          box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            border-color: var(--color-primary);
+            background-color: var(--color-surface-hover);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         #categorySelect option {
-          background: #1e293b;
-          color: var(--color-text-primary);
-          padding: var(--spacing-sm);
+            background: #1e293b;
+            color: var(--color-text-primary);
+            padding: var(--spacing-sm);
         }
 
-        /* Apps Grid */
-        #apps, #apps2   {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-          gap: var(--spacing-lg);
-          margin-bottom: var(--spacing-xl);
-          animation: fadeInUp 0.6s ease-out 0.2s both;
+        #apps,
+        #apps2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            margin-left: calc(var(--spacing-lg) / 2);
+            margin-right: calc(var(--spacing-lg) / 2);
+            gap: var(--spacing-lg); /* it may seem like having a margin-left and right and then having a gap is counter-intuitive but it stops the apps from touching the edges of the page */
+            margin-bottom: var(--spacing-xl);
+            animation: fadeInUp 0.6s ease-out 0.2s both;
         }
 
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* App Cards */
         .app {
-          background: var(--glass-background);
-          border: 1px solid var(--glass-border);
-          border-radius: var(--border-radius);
-          padding: var(--spacing-lg);
-          transition: all var(--transition-normal);
-          backdrop-filter: var(--glass-blur);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-          position: relative;
-          overflow: hidden;
+            background: var(--glass-background);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            transition: all var(--transition-normal);
+            backdrop-filter: var(--glass-blur);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .app::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-          transition: left var(--transition-slow);
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left var(--transition-slow);
         }
 
         .app:hover::before {
-          left: 100%;
+            left: 100%;
         }
 
         .app:hover {
-          transform: translateY(-8px) scale(1.05);
-          background: var(--color-surface-hover);
-          border-color: var(--color-primary);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px) scale(1.05);
+            background: var(--color-surface-hover);
+            border-color: var(--color-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .app a {
-          text-decoration: none;
-          color: inherit;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          height: 100%;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%;
         }
 
-        /* App Icons */
         .app-icon {
-          width: 64px;
-          height: 64px;
-          border-radius: var(--border-radius);
-          margin-bottom: var(--spacing-md);
-          object-fit: cover;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-          transition: all var(--transition-normal);
+            width: 64px;
+            height: 64px;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-md);
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all var(--transition-normal);
         }
 
         .app:hover .app-icon {
-          transform: scale(1.1);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
 
-        /* App Names */
         .app-name {
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--color-text-primary);
-          line-height: 1.4;
-          margin-top: auto;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            line-height: 1.4;
+            margin-top: auto;
         }
 
-        /* Custom Apps Section */
         #custom_apps {
-          margin-top: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
         }
 
         .custom-section-title {
-          font-size: 24px;
-          font-weight: 600;
-          color: var(--color-text-primary);
-          text-align: center;
-          margin-bottom: var(--spacing-lg);
-          background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         #custom_apps #custom {
-          display: inline-block;
-          margin: var(--spacing-sm);
+            display: inline-block;
+            margin: var(--spacing-sm);
         }
 
         #custom_apps .app {
-          width: 160px;
-          margin: var(--spacing-sm);
+            width: 160px;
+            margin: var(--spacing-sm);
         }
 
-        /* Loading State */
         .loading {
-          text-align: center;
-          padding: var(--spacing-xl);
-          color: var(--color-text-muted);
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-text-muted);
         }
 
         .loading::after {
-          content: '';
-          display: inline-block;
-          width: 20px;
-          height: 20px;
-          border: 2px solid var(--color-text-muted);
-          border-radius: 50%;
-          border-top-color: var(--color-primary);
-          animation: spin 1s ease-in-out infinite;
-          margin-left: var(--spacing-sm);
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-text-muted);
+            border-radius: 50%;
+            border-top-color: var(--color-primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: var(--spacing-sm);
         }
 
         @keyframes spin {
-          to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        /* Empty State */
         .empty-state {
-          text-align: center;
-          padding: var(--spacing-xl);
-          color: var(--color-text-muted);
-          background: var(--glass-background);
-          border: 1px solid var(--glass-border);
-          border-radius: var(--border-radius);
-          backdrop-filter: var(--glass-blur);
-          margin: var(--spacing-lg);
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-text-muted);
+            background: var(--glass-background);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            backdrop-filter: var(--glass-blur);
+            margin: var(--spacing-lg);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-          .main {
-            padding: var(--spacing-lg);
-          }
-          
-          #apps {
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: var(--spacing-md);
-          }
-          
-          .filter-container {
-            padding: var(--spacing-md);
-          }
-          
-          .page-title {
-            font-size: 32px;
-          }
+            .main {
+                padding: var(--spacing-lg);
+            }
+
+            #apps {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: var(--spacing-md);
+            }
+
+            .filter-container {
+                padding: var(--spacing-md);
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
         }
 
         @media (max-width: 480px) {
-          #apps {
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: var(--spacing-sm);
-          }
-          
-          .app {
-            padding: var(--spacing-md);
-          }
-          
-          .app-icon {
-            width: 48px;
-            height: 48px;
-          }
+            #apps {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: var(--spacing-sm);
+            }
+
+            .app {
+                padding: var(--spacing-md);
+            }
+
+            .app-icon {
+                width: 48px;
+                height: 48px;
+            }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-          width: 12px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb {
-          background: var(--color-primary);
-          border-radius: 6px;
+            background: var(--color-primary);
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: var(--color-secondary);
+            background: var(--color-secondary);
         }
-      </style>
-
-
-
-      <script>
-let allGames = [];
+    </style>
+    <script>
+        let allGames = [];
         let filteredGames = [];
-
         function filterAndRender() {
-          const searchInput = document.getElementById("search").value.toLowerCase();
-          const categorySelect = document.getElementById("categorySelect");
-          const selectedCategory = categorySelect ? categorySelect.value : "all";
-          const appsContainer = document.getElementById('apps');
-
-          filteredGames = allGames.filter(game => {
-            const matchesCategory = selectedCategory === "all" || (game.categories && game.categories.includes(selectedCategory));
-            const matchesSearch = game.name.toLowerCase().includes(searchInput);
-            return matchesCategory && matchesSearch;
-          });
-
-          // Sort filtered games by category name alphabetically (optional, or by name)
-          filteredGames.sort((a, b) => {
-            const catA = a.categories && a.categories.length > 0 ? a.categories[0] : "";
-            const catB = b.categories && b.categories.length > 0 ? b.categories[0] : "";
-            if (catA < catB) return -1;
-            if (catA > catB) return 1;
-            return a.name.localeCompare(b.name);
-          });
-
-          appsContainer.innerHTML = '';
-          
-          if (filteredGames.length === 0) {
-            appsContainer.innerHTML = '<div class="empty-state">No apps found matching your criteria.</div>';
-            return;
-          }
-
-          filteredGames.forEach(game => {
-            const appDiv = document.createElement('div');
-            appDiv.className = 'app';
-
-            const link = document.createElement('a');
-            link.href = "launch_page.html?url=" + game.link;
-            if (game.blank === "true") {
-              link.target = '_blank';
-            }
-            link.title = game.name;
-
-            const img = document.createElement('img');
-            img.src = game.image;
-            img.alt = game.name;
-            img.className = 'app-icon';
-
-            // if it has the local category, skip it
-            if (game.categories && game.categories.includes('local')) {
-              return;
-            }
-
-            const nameDiv = document.createElement('div');
-            nameDiv.textContent = game.name;
-            nameDiv.className = 'app-name';
-
-            link.appendChild(img);
-            link.appendChild(nameDiv);
-            appDiv.appendChild(link);
-            appsContainer.appendChild(appDiv);
-          });
-        }
-
-        function populateCategorySelect(categories) {
-          const select = document.createElement('select');
-          select.id = 'categorySelect';
-          select.onchange = filterAndRender;
-
-          const allOption = document.createElement('option');
-          allOption.value = 'all';
-          allOption.textContent = 'All Categories';
-          select.appendChild(allOption);
-
-          categories.forEach(cat => {
-            const option = document.createElement('option');
-            option.value = cat;
-            // skip if option is the local option
-            if (cat.toLowerCase() === 'local' || cat.toLowerCase == "sports") {
-              return;
-            }
-            // if the option has a , at the end
-            if (cat.endsWith(',')) {
-              cat = cat.slice(0, -1);
-            }
-            option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
-            select.appendChild(option);
-          });
-
-          const container = document.getElementById('categoryFilterContainer');
-          if (container) {
-            container.appendChild(select);
-          }
-        }
-
-        function renderRandomApps() {
-          const apps2Container = document.getElementById('apps2');
-          if (!apps2Container) return;
-
-          // Filter out local games first
-          const availableGames = allGames.filter(game => {
-            return !(game.categories && game.categories.includes('local'));
-          });
-
-          if (availableGames.length === 0) {
-            apps2Container.innerHTML = '<div class="empty-state">No apps available.</div>';
-            return;
-          }
-
-          // Shuffle and get 5 random games
-          const shuffled = [...availableGames].sort(() => 0.5 - Math.random());
-          const randomGames = shuffled.slice(0, Math.min(7, shuffled.length));
-
-          apps2Container.innerHTML = '';
-
-          randomGames.forEach(game => {
-            const appDiv = document.createElement('div');
-            appDiv.className = 'app';
-
-            const link = document.createElement('a');
-            link.href = "launch_page.html?url=" + game.link;
-            if (game.blank === "true") {
-              link.target = '_blank';
-            }
-            link.title = game.name;
-
-            const img = document.createElement('img');
-            img.src = game.image;
-            img.alt = game.name;
-            img.className = 'app-icon';
-
-            const nameDiv = document.createElement('div');
-            nameDiv.textContent = game.name;
-            nameDiv.className = 'app-name';
-
-            link.appendChild(img);
-            link.appendChild(nameDiv);
-            appDiv.appendChild(link);
-            apps2Container.appendChild(appDiv);
-          });
-        }
-
-        async function load_games(){
-          var apps = document.querySelectorAll('#custom');
-          for (var i = 0; i < apps.length; i++) {
-            apps[i].remove();
-          }
-          local = localStorage;
-          for (var i = 0; i < localStorage.length; i++) {
-            var key = localStorage.key(i);
-            if (key.startsWith("CUSTOM_")) {
-              name = key.replace("CUSTOM_", "");
-              url = localStorage.getItem(key);
-              let base = "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=";
-              let img = base + url + "&size=64"; // Big image
-              if (url.includes(".onion")){
-                img = "assets/images/tor.png";
-              }
-              
-              // Create modern custom app element
-              let customAppHtml = `
-                <div class="app">
-                  <a href="./launch.html?games=true&url=${url}" title="${name}">
-                    <img src="${img}" alt="${name}" class="app-icon"/>
-                    <div class="app-name">${name}</div>
-                  </a>
-                </div>
-              `;
-              let div = document.createElement("div");
-              div.id = "custom";
-              div.innerHTML = customAppHtml;
-              document.getElementById("custom_apps").appendChild(div);
-            }
-          }
-        }
-
-        async function loadGamesFromJson() {
-          const appsContainer = document.getElementById('apps');
-          appsContainer.innerHTML = '<div class="loading">Loading apps...</div>';
-          
-          try {
-            const response = await fetch('games.json');
-            if (!response.ok) {
-              console.error('Failed to fetch games.json:', response.statusText);
-              appsContainer.innerHTML = '<div class="empty-state">Failed to load apps. Please try again later.</div>';
-              return;
-            }
-            allGames = await response.json();
-
-            // Extract unique categories
-            const categoriesSet = new Set();
-            allGames.forEach(game => {
-              if (game.categories && game.categories.length > 0) {
-                game.categories.forEach(cat => categoriesSet.add(cat));
-              }
+            const searchInput = document.getElementById("search").value.toLowerCase();
+            const categorySelect = document.getElementById("categorySelect");
+            const selectedCategory = categorySelect ? categorySelect.value : "all";
+            const appsContainer = document.getElementById('apps');
+            filteredGames = allGames.filter(game => {
+                const matchesCategory = selectedCategory === "all" || (game.categories && game.categories.includes(selectedCategory));
+                const matchesSearch = game.name.toLowerCase().includes(searchInput);
+                return matchesCategory && matchesSearch;
             });
-            const categories = Array.from(categoriesSet).filter(c => c !== "all").sort();
-            categories.unshift("all"); // Ensure "all" is first
 
-            // Populate category dropdown
-            populateCategorySelect(categories);
+            filteredGames.sort((a, b) => {
+                const catA = a.categories && a.categories.length > 0 ? a.categories[0] : "";
+                const catB = b.categories && b.categories.length > 0 ? b.categories[0] : "";
+                if (catA < catB) return -1;
+                if (catA > catB) return 1;
+                return a.name.localeCompare(b.name);
+            });
+            appsContainer.innerHTML = '';
+            if (filteredGames.length === 0) {
+                appsContainer.innerHTML = '<div class="empty-state">No apps found matching your criteria.</div>';
+                return;
+            }
+            filteredGames.forEach(game => {
+                const appDiv = document.createElement('div');
+                appDiv.className = 'app';
+                const link = document.createElement('a');
+                link.href = "launch_page.html?url=" + btoa(game.link);
+                if (game.blank === "true") {
+                    link.target = '_blank';
+                }
+                link.title = game.name;
+                const img = document.createElement('img');
+                img.src = game.image;
+                img.alt = game.name;
+                img.className = 'app-icon';
 
-            // Initial render
-            filterAndRender();
-            
-            // Render random apps to #apps2
-            renderRandomApps();
-          } catch (error) {
-            console.error('Error loading games:', error);
-            appsContainer.innerHTML = '<div class="empty-state">Failed to load apps. Please check your connection.</div>';
-          }
+                if (game.categories && game.categories.includes('local')) {
+                    return;
+                }
+                const nameDiv = document.createElement('div');
+                nameDiv.textContent = game.name;
+                nameDiv.className = 'app-name';
+                link.appendChild(img);
+                link.appendChild(nameDiv);
+                appDiv.appendChild(link);
+                appsContainer.appendChild(appDiv);
+            });
         }
+        function populateCategorySelect(categories) {
+            const select = document.createElement('select');
+            select.id = 'categorySelect';
+            select.onchange = filterAndRender;
+            const allOption = document.createElement('option');
+            allOption.value = 'all';
+            allOption.textContent = 'All Categories';
+            select.appendChild(allOption);
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
 
+                if (cat.toLowerCase() === 'local' || cat.toLowerCase == "sports") {
+                    return;
+                }
+
+                if (cat.endsWith(',')) {
+                    cat = cat.slice(0, -1);
+                }
+                option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                select.appendChild(option);
+            });
+            const container = document.getElementById('categoryFilterContainer');
+            if (container) {
+                container.appendChild(select);
+            }
+        }
+        function renderRandomApps() {
+            const apps2Container = document.getElementById('apps2');
+            if (!apps2Container) return;
+
+            const availableGames = allGames.filter(game => {
+                return !(game.categories && game.categories.includes('local'));
+            });
+            if (availableGames.length === 0) {
+                apps2Container.innerHTML = '<div class="empty-state">No apps available.</div>';
+                return;
+            }
+
+            const shuffled = [...availableGames].sort(() => 0.5 - Math.random());
+            const randomGames = shuffled.slice(0, Math.min(7, shuffled.length));
+            apps2Container.innerHTML = '';
+            randomGames.forEach(game => {
+                const appDiv = document.createElement('div');
+                appDiv.className = 'app';
+                const link = document.createElement('a');
+                try {
+                    link.href = "launch_page.html?url=" + atob(game.link);
+                } catch (e) {
+                    link.href = "launch_page.html?url=" + encodeURIComponent(game.link);
+                }
+                if (game.blank === "true") {
+                    link.target = '_blank';
+                }
+                link.title = game.name;
+                const img = document.createElement('img');
+                img.src = game.image;
+                img.alt = game.name;
+                img.className = 'app-icon';
+                const nameDiv = document.createElement('div');
+                nameDiv.textContent = game.name;
+                nameDiv.className = 'app-name';
+                link.appendChild(img);
+                link.appendChild(nameDiv);
+                appDiv.appendChild(link);
+                apps2Container.appendChild(appDiv);
+            });
+        }
+        async function load_games() {
+            var apps = document.querySelectorAll('#custom');
+            for (var i = 0; i < apps.length; i++) {
+                apps[i].remove();
+            }
+            local = localStorage;
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                if (key.startsWith("CUSTOM_")) {
+                    name = key.replace("CUSTOM_", "");
+                    url = localStorage.getItem(key);
+                    let base = "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=";
+                    let img = base + url + "&size=64";
+                    if (url.includes(".onion")) {
+                        img = "assets/images/tor.png";
+                    }
+
+                    let customAppHtml = `
+<div class="app">
+<a href="./launch.html?games=true&url=${btoa(url)}" title="${name}">
+<img src="${img}" alt="${name}" class="app-icon"/>
+<div class="app-name">${name}</div>
+</a>
+</div>
+`; // at least a btoa is better than raw dogging it
+                    let div = document.createElement("div");
+                    div.id = "custom";
+                    div.innerHTML = customAppHtml;
+                    document.getElementById("custom_apps").appendChild(div);
+                }
+            }
+        }
+        async function loadGamesFromJson() {
+            const appsContainer = document.getElementById('apps');
+            appsContainer.innerHTML = '<div class="loading">Loading apps...</div>';
+            try {
+                const response = await fetch('games.json');
+                if (!response.ok) {
+                    console.error('Failed to fetch games.json:', response.statusText);
+                    appsContainer.innerHTML = '<div class="empty-state">Failed to load apps. Please try again later.</div>';
+                    return;
+                }
+                allGames = await response.json();
+
+                const categoriesSet = new Set();
+                allGames.forEach(game => {
+                    if (game.categories && game.categories.length > 0) {
+                        game.categories.forEach(cat => categoriesSet.add(cat));
+                    }
+                });
+                const categories = Array.from(categoriesSet).filter(c => c !== "all").sort();
+                categories.unshift("all");
+
+                populateCategorySelect(categories);
+
+                filterAndRender();
+
+                renderRandomApps();
+            } catch (error) {
+                console.error('Error loading games:', error);
+                appsContainer.innerHTML = '<div class="empty-state">Failed to load apps. Please check your connection.</div>';
+            }
+        }
         window.addEventListener('DOMContentLoaded', () => {
-          load_games();
-          loadGamesFromJson();
-          document.getElementById('search').addEventListener('input', filterAndRender);
+            load_games();
+            loadGamesFromJson();
+            document.getElementById('search').addEventListener('input', filterAndRender);
         });
-      </script>
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-278K4F012J');
+    </script>
+</head>
 
-      <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K4F012J"></script>
-      <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-
-         gtag('config', 'G-278K4F012J');
-      </script>
-   </head>
-   <body>
-
-      <div class="main">
-         <div class="header">
+<body>
+    <div class="main">
+        <div class="header">
             <h1 class="page-title">Axiom Apps</h1>
             <p class="page-subtitle">Discover and launch your favorite applications</p>
             <br>
-            <p class="page-subtitle">Bored? Try these 7 games!</p>
-         </div>
-
-         <div class="filter-container" style="display: none;">
+            <p class="page-subtitle">Bored? Try these games!</p>
+        </div>
+        <div class="filter-container" style="display: none;">
             <input type="text" id="search" placeholder="Search for apps...">
             <div id="categoryFilterContainer"></div>
-         </div>
-
-                             <style>
-.main1 {
-    position: fixed;
-    top: 50%;
-    z-index: -50;
-    left: 50%;
-    height: 1px;
-    width: 1px;
-    background-color: #fff;
-    border-radius: 50%;
-    box-shadow: -42vw -4vh 0px 0px #fff,25vw -41vh 0px 0px #fff,-20vw 49vh 0px 1px #fff,5vw 40vh 1px 1px #fff,29vw 19vh 1px 0px #fff,-44vw -13vh 0px 0px #fff,46vw 41vh 0px 1px #fff,-3vw -45vh 0px 1px #fff,47vw 35vh 1px 0px #fff,12vw -8vh 1px 0px #fff,-34vw 48vh 1px 1px #fff,32vw 26vh 1px 1px #fff,32vw -41vh 1px 1px #fff,0vw 37vh 1px 1px #fff,34vw -26vh 1px 0px #fff,-14vw -49vh 1px 0px #fff,-12vw 45vh 0px 1px #fff,-44vw -33vh 0px 1px #fff,-13vw 41vh 0px 0px #fff,-36vw -11vh 0px 1px #fff,-23vw -24vh 1px 0px #fff,-38vw -27vh 0px 1px #fff,16vw -19vh 0px 0px #fff,28vw 33vh 1px 0px #fff,-49vw -4vh 0px 0px #fff,16vw 32vh 0px 1px #fff,36vw -18vh 1px 0px #fff,-25vw -30vh 1px 0px #fff,-23vw 24vh 0px 1px #fff,-2vw -35vh 1px 1px #fff,-25vw 9vh 0px 0px #fff,-15vw -34vh 0px 0px #fff,-8vw -19vh 1px 0px #fff,-20vw -20vh 1px 1px #fff,42vw 50vh 0px 1px #fff,-32vw 10vh 1px 0px #fff,-23vw -17vh 0px 0px #fff,44vw 15vh 1px 0px #fff,-40vw 33vh 1px 1px #fff,-43vw 8vh 0px 0px #fff,-48vw -15vh 1px 1px #fff,-24vw 17vh 0px 0px #fff,-31vw 50vh 1px 0px #fff,36vw -38vh 0px 1px #fff,-7vw 48vh 0px 0px #fff,15vw -32vh 0px 0px #fff,29vw -41vh 0px 0px #fff,2vw 37vh 1px 0px #fff,7vw -40vh 1px 1px #fff,15vw 18vh 0px 0px #fff,25vw -13vh 1px 1px #fff,-46vw -12vh 1px 1px #fff,-18vw 22vh 0px 0px #fff,23vw -9vh 1px 0px #fff,50vw 12vh 0px 1px #fff,45vw 2vh 0px 0px #fff,14vw -48vh 1px 0px #fff,23vw 43vh 0px 1px #fff,-40vw 16vh 1px 1px #fff,20vw -31vh 0px 1px #fff,-17vw 44vh 1px 1px #fff,18vw -45vh 0px 0px #fff,33vw -6vh 0px 0px #fff,0vw 7vh 0px 1px #fff,-10vw -18vh 0px 1px #fff,-19vw 5vh 1px 0px #fff,1vw 42vh 0px 0px #fff,22vw 48vh 0px 1px #fff,39vw -8vh 1px 1px #fff,-6vw -42vh 1px 0px #fff,-47vw 34vh 0px 0px #fff,-46vw 19vh 0px 1px #fff,-12vw -32vh 0px 0px #fff,-45vw -38vh 0px 1px #fff,-28vw 18vh 1px 0px #fff,-38vw -46vh 1px 1px #fff,49vw -6vh 1px 1px #fff,-28vw 18vh 1px 1px #fff,10vw -24vh 0px 1px #fff,-5vw -11vh 1px 1px #fff,33vw -8vh 1px 0px #fff,-16vw 17vh 0px 0px #fff,18vw 27vh 0px 1px #fff,-8vw -10vh 1px 1px #fff;
-  
-  /* stars were too big with the layers above but left the code in case no one cares  -- as in, if noone's just that  one other loner who actually cares    */
-  
-  box-shadow: 24vw 9vh 1px 0px #fff,12vw -24vh 0px 1px #fff,-45vw -22vh 0px 0px #fff,-37vw -40vh 0px 1px #fff,29vw 19vh 0px 1px #fff,4vw -8vh 0px 1px #fff,-5vw 21vh 1px 1px #fff,-27vw 26vh 1px 1px #fff,-47vw -3vh 1px 1px #fff,-28vw -30vh 0px 1px #fff,-43vw -27vh 0px 1px #fff,4vw 22vh 1px 1px #fff,36vw 23vh 0px 0px #fff,-21vw 24vh 1px 1px #fff,-16vw 2vh 1px 0px #fff,-16vw -6vh 0px 0px #fff,5vw 26vh 0px 0px #fff,-34vw 41vh 0px 0px #fff,1vw 42vh 1px 1px #fff,11vw -13vh 1px 1px #fff,48vw -8vh 1px 0px #fff,22vw -15vh 0px 0px #fff,45vw 49vh 0px 0px #fff,43vw -27vh 1px 1px #fff,20vw -2vh 0px 0px #fff,8vw 22vh 0px 1px #fff,39vw 48vh 1px 1px #fff,-21vw -11vh 0px 1px #fff,-40vw 45vh 0px 1px #fff,11vw -30vh 1px 0px #fff,26vw 30vh 1px 0px #fff,45vw -29vh 0px 1px #fff,-2vw 18vh 0px 0px #fff,-29vw -45vh 1px 0px #fff,-7vw -27vh 1px 1px #fff,42vw 24vh 0px 0px #fff,45vw -48vh 1px 0px #fff,-36vw -18vh 0px 0px #fff,-44vw 13vh 0px 1px #fff,36vw 16vh 0px 1px #fff,40vw 24vh 0px 0px #fff,18vw 11vh 0px 0px #fff,-15vw -23vh 1px 0px #fff,-24vw 48vh 0px 1px #fff,27vw -45vh 1px 0px #fff,-2vw -24vh 0px 1px #fff,-15vw -28vh 0px 0px #fff,-43vw 13vh 1px 0px #fff,7vw 27vh 1px 0px #fff,47vw 5vh 0px 0px #fff,-45vw 15vh 1px 1px #fff,-5vw -28vh 0px 1px #fff,38vw 25vh 1px 1px #fff,-39vw -1vh 1px 0px #fff,5vw 0vh 1px 0px #fff,49vw 13vh 0px 0px #fff,48vw 10vh 0px 1px #fff,19vw -28vh 0px 0px #fff,4vw 7vh 0px 0px #fff,21vw 21vh 1px 1px #fff,-15vw -15vh 0px 1px #fff,-6vw -42vh 1px 0px #fff,-15vw 48vh 1px 1px #fff,-23vw 25vh 1px 1px #fff,-48vw 25vh 0px 1px #fff,-31vw -19vh 0px 1px #fff,4vw 37vh 1px 1px #fff,-43vw 28vh 0px 0px #fff,3vw -25vh 0px 1px #fff,-39vw 14vh 0px 1px #fff,-40vw 31vh 0px 1px #fff,35vw -36vh 1px 1px #fff,16vw 49vh 0px 0px #fff,6vw 39vh 0px 0px #fff,3vw -35vh 0px 1px #fff,-44vw -2vh 1px 0px #fff,-6vw 21vh 1px 0px #fff,48vw 9vh 1px 1px #fff,-43vw 30vh 1px 1px #fff,29vw -12vh 1px 1px #fff,-48vw 13vh 1px 0px #fff,-42vw 32vh 1px 1px #fff,34vw 15vh 1px 1px #fff,29vw -37vh 1px 1px #fff,28vw 2vh 0px 0px #fff;
-  animation: zoom 16s alternate infinite; 
-}
-    </style>
-
+        </div>
+        <style>
+            .main1 {
+                position: fixed;
+                top: 50%;
+                z-index: -50;
+                left: 50%;
+                height: 1px;
+                width: 1px;
+                background-color: #fff;
+                border-radius: 50%;
+                box-shadow: -42vw -4vh 0px 0px #fff, 25vw -41vh 0px 0px #fff, -20vw 49vh 0px 1px #fff, 5vw 40vh 1px 1px #fff, 29vw 19vh 1px 0px #fff, -44vw -13vh 0px 0px #fff, 46vw 41vh 0px 1px #fff, -3vw -45vh 0px 1px #fff, 47vw 35vh 1px 0px #fff, 12vw -8vh 1px 0px #fff, -34vw 48vh 1px 1px #fff, 32vw 26vh 1px 1px #fff, 32vw -41vh 1px 1px #fff, 0vw 37vh 1px 1px #fff, 34vw -26vh 1px 0px #fff, -14vw -49vh 1px 0px #fff, -12vw 45vh 0px 1px #fff, -44vw -33vh 0px 1px #fff, -13vw 41vh 0px 0px #fff, -36vw -11vh 0px 1px #fff, -23vw -24vh 1px 0px #fff, -38vw -27vh 0px 1px #fff, 16vw -19vh 0px 0px #fff, 28vw 33vh 1px 0px #fff, -49vw -4vh 0px 0px #fff, 16vw 32vh 0px 1px #fff, 36vw -18vh 1px 0px #fff, -25vw -30vh 1px 0px #fff, -23vw 24vh 0px 1px #fff, -2vw -35vh 1px 1px #fff, -25vw 9vh 0px 0px #fff, -15vw -34vh 0px 0px #fff, -8vw -19vh 1px 0px #fff, -20vw -20vh 1px 1px #fff, 42vw 50vh 0px 1px #fff, -32vw 10vh 1px 0px #fff, -23vw -17vh 0px 0px #fff, 44vw 15vh 1px 0px #fff, -40vw 33vh 1px 1px #fff, -43vw 8vh 0px 0px #fff, -48vw -15vh 1px 1px #fff, -24vw 17vh 0px 0px #fff, -31vw 50vh 1px 0px #fff, 36vw -38vh 0px 1px #fff, -7vw 48vh 0px 0px #fff, 15vw -32vh 0px 0px #fff, 29vw -41vh 0px 0px #fff, 2vw 37vh 1px 0px #fff, 7vw -40vh 1px 1px #fff, 15vw 18vh 0px 0px #fff, 25vw -13vh 1px 1px #fff, -46vw -12vh 1px 1px #fff, -18vw 22vh 0px 0px #fff, 23vw -9vh 1px 0px #fff, 50vw 12vh 0px 1px #fff, 45vw 2vh 0px 0px #fff, 14vw -48vh 1px 0px #fff, 23vw 43vh 0px 1px #fff, -40vw 16vh 1px 1px #fff, 20vw -31vh 0px 1px #fff, -17vw 44vh 1px 1px #fff, 18vw -45vh 0px 0px #fff, 33vw -6vh 0px 0px #fff, 0vw 7vh 0px 1px #fff, -10vw -18vh 0px 1px #fff, -19vw 5vh 1px 0px #fff, 1vw 42vh 0px 0px #fff, 22vw 48vh 0px 1px #fff, 39vw -8vh 1px 1px #fff, -6vw -42vh 1px 0px #fff, -47vw 34vh 0px 0px #fff, -46vw 19vh 0px 1px #fff, -12vw -32vh 0px 0px #fff, -45vw -38vh 0px 1px #fff, -28vw 18vh 1px 0px #fff, -38vw -46vh 1px 1px #fff, 49vw -6vh 1px 1px #fff, -28vw 18vh 1px 1px #fff, 10vw -24vh 0px 1px #fff, -5vw -11vh 1px 1px #fff, 33vw -8vh 1px 0px #fff, -16vw 17vh 0px 0px #fff, 18vw 27vh 0px 1px #fff, -8vw -10vh 1px 1px #fff;
+                box-shadow: 24vw 9vh 1px 0px #fff, 12vw -24vh 0px 1px #fff, -45vw -22vh 0px 0px #fff, -37vw -40vh 0px 1px #fff, 29vw 19vh 0px 1px #fff, 4vw -8vh 0px 1px #fff, -5vw 21vh 1px 1px #fff, -27vw 26vh 1px 1px #fff, -47vw -3vh 1px 1px #fff, -28vw -30vh 0px 1px #fff, -43vw -27vh 0px 1px #fff, 4vw 22vh 1px 1px #fff, 36vw 23vh 0px 0px #fff, -21vw 24vh 1px 1px #fff, -16vw 2vh 1px 0px #fff, -16vw -6vh 0px 0px #fff, 5vw 26vh 0px 0px #fff, -34vw 41vh 0px 0px #fff, 1vw 42vh 1px 1px #fff, 11vw -13vh 1px 1px #fff, 48vw -8vh 1px 0px #fff, 22vw -15vh 0px 0px #fff, 45vw 49vh 0px 0px #fff, 43vw -27vh 1px 1px #fff, 20vw -2vh 0px 0px #fff, 8vw 22vh 0px 1px #fff, 39vw 48vh 1px 1px #fff, -21vw -11vh 0px 1px #fff, -40vw 45vh 0px 1px #fff, 11vw -30vh 1px 0px #fff, 26vw 30vh 1px 0px #fff, 45vw -29vh 0px 1px #fff, -2vw 18vh 0px 0px #fff, -29vw -45vh 1px 0px #fff, -7vw -27vh 1px 1px #fff, 42vw 24vh 0px 0px #fff, 45vw -48vh 1px 0px #fff, -36vw -18vh 0px 0px #fff, -44vw 13vh 0px 1px #fff, 36vw 16vh 0px 1px #fff, 40vw 24vh 0px 0px #fff, 18vw 11vh 0px 0px #fff, -15vw -23vh 1px 0px #fff, -24vw 48vh 0px 1px #fff, 27vw -45vh 1px 0px #fff, -2vw -24vh 0px 1px #fff, -15vw -28vh 0px 0px #fff, -43vw 13vh 1px 0px #fff, 7vw 27vh 1px 0px #fff, 47vw 5vh 0px 0px #fff, -45vw 15vh 1px 1px #fff, -5vw -28vh 0px 1px #fff, 38vw 25vh 1px 1px #fff, -39vw -1vh 1px 0px #fff, 5vw 0vh 1px 0px #fff, 49vw 13vh 0px 0px #fff, 48vw 10vh 0px 1px #fff, 19vw -28vh 0px 0px #fff, 4vw 7vh 0px 0px #fff, 21vw 21vh 1px 1px #fff, -15vw -15vh 0px 1px #fff, -6vw -42vh 1px 0px #fff, -15vw 48vh 1px 1px #fff, -23vw 25vh 1px 1px #fff, -48vw 25vh 0px 1px #fff, -31vw -19vh 0px 1px #fff, 4vw 37vh 1px 1px #fff, -43vw 28vh 0px 0px #fff, 3vw -25vh 0px 1px #fff, -39vw 14vh 0px 1px #fff, -40vw 31vh 0px 1px #fff, 35vw -36vh 1px 1px #fff, 16vw 49vh 0px 0px #fff, 6vw 39vh 0px 0px #fff, 3vw -35vh 0px 1px #fff, -44vw -2vh 1px 0px #fff, -6vw 21vh 1px 0px #fff, 48vw 9vh 1px 1px #fff, -43vw 30vh 1px 1px #fff, 29vw -12vh 1px 1px #fff, -48vw 13vh 1px 0px #fff, -42vw 32vh 1px 1px #fff, 34vw 15vh 1px 1px #fff, 29vw -37vh 1px 1px #fff, 28vw 2vh 0px 0px #fff;
+                animation: zoom 16s alternate infinite;
+            }
+        </style>
+        <div class="main1"></div>
+        <div id="apps2"></div>
+    </div>
     <div class="main1"></div>
+    <div id="apps"></div>
+    </div>
+    <script src="global.js"></script>
+</body>
 
-         <div id="apps2"></div>
-
-      </div>
-    <div class="main1"></div>
-
-         <div id="apps"></div>
-
-      </div>
-
-      <script src="global.js"></script>
-
-   </body>
 </html>
