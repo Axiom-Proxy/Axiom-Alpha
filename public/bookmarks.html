@@ -753,7 +753,7 @@
       emptyState.style.display = 'none';
 
       grid.innerHTML = bookmarks.map(bookmark => `
-        <div class="bookmark-card" data-id="${bookmark.id}" onclick="openBookmark('${bookmark.url}')">
+        <div class="bookmark-card" data-id="${bookmark.id}" >
           <div class="bookmark-header">
             <div class="bookmark-favicon">
               <img src="${getFavicon(bookmark.url)}" alt="Favicon">
@@ -855,9 +855,6 @@
       }
     }
 
-    function openBookmark(url) {
-      window.location = "launch_page.html?url=" + encodeURIComponent(url);
-    }
 
     function filterBookmarks() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();

@@ -1,7 +1,5 @@
 {
-  "name": "Glitch",
+  "name": "Axiom",
   "description": "Axiom",
-  "repository": "https://github.com/titaniumnetwork-dev/Ultraviolet-App",
-  "logo": "https://raw.githubusercontent.com/titaniumnetwork-dev/Ultraviolet-Static/main/public/uv.png",
   "keywords": ["Axiom", "ultraviolet"]
 }

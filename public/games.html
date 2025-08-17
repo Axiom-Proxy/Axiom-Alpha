@@ -574,7 +574,7 @@
             const appsContainer = document.getElementById('apps');
             appsContainer.innerHTML = '<div class="loading">Loading apps...</div>';
             try {
-                const response = await fetch('games.json');
+                const response = await fetch('old_games.json');
                 if (!response.ok) {
                     console.error('Failed to fetch games.json:', response.statusText);
                     appsContainer.innerHTML = '<div class="empty-state">Failed to load apps. Please try again later.</div>';
@@ -650,11 +650,6 @@
     <div class="main1"></div>
     <div id="apps"></div>
     </div>
-    <center>
-    <button onclick="window.location='games.html'" style="width: 30%; cursor:pointer ;height: 50px; background-color: transparent; border: none; color: rgb(255, 255, 255); font-size: 20px; border-radius: 15px; pad: 20px;">
-        Load all games (Some may not work)
-    </button>
-    </center>
     <script src="global.js"></script>
 </body>
 

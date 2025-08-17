@@ -769,13 +769,35 @@
             // Load stats
             document.getElementById("lifetimevisit").textContent = localStorage.getItem("lifetime_visit") || 0;
             document.getElementById("lifetimetime").textContent = localStorage.getItem("lifetime_time") || 0;
-            
-            try {
+
+            info = JSON.parse(sessionStorage.getItem("info"))
+            if (info) {
+                const lastDone = new Date(info["last-done"]);
+                const now = new Date();
+                const minutesDifference = Math.floor((now - lastDone) / (1000 * 60));
+                
+                if (minutesDifference >= 30) {
+                        try {
                 const activeUsers = await fetch("/register-active/").then(res => res.text());
                 document.getElementById("active-users").textContent = activeUsers;
             } catch (err) {
                 document.getElementById("active-users").textContent = "N/A";
             }
+                        sessionStorage.setItem("info", JSON.stringify({ "last-done": new Date().toISOString() }));
+                }
+            }
+            else {
+                    try {
+                const activeUsers = await fetch("/register-active/").then(res => res.text());
+                document.getElementById("active-users").textContent = activeUsers;
+            } catch (err) {
+                document.getElementById("active-users").textContent = "N/A";
+            }
+            // set new time
+            sessionStorage.setItem("info", JSON.stringify({ "last-done": new Date().toISOString() }));
+            }
+            
+        
         });
     </script>
     <script src="global.js"></script>
