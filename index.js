@@ -8,12 +8,6 @@ const { createBareServer } = require('@tomphttp/bare-server-node');
    const bare = createBareServer('/bare/');
    const fastify = Fastify();
 
-       config = require('./config.json'),
-    proxy = new (require('./astral_proxy/index'))(config.prefix, {
-      localAddress: config.localAddresses ? config.localAddresses : false,
-      blacklist: config.blockedHostnames ? config.blockedHostnames : false
-    })
-
    const proxyServer = httpProxy.createProxyServer();
    
    console.log("Fetching proxies...");
